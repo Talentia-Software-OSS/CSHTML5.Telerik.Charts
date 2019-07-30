@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4317F70F-FB7A-4E5B-BD6D-BB4438785224}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Telerik.Windows.Controls</RootNamespace>
+    <AssemblyName>Telerik.Windows.Controls.Chart</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
+    <CSharpXamlForHtml5OutputType>Library</CSharpXamlForHtml5OutputType>
+    <IsCshtml5>true</IsCshtml5>
+    <Cshtml5OutputType>Library</Cshtml5OutputType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Charting\AxisLabelFitMode.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Charting\AxisSmartLabelsMode.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Charting\IChartElementPresenter.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\AreaSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Axis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CartesianAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CartesianChartGrid.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CartesianSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CategoricalAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CategoricalSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CategoricalSeriesBase.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\CategoricalStrokedSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\ChartBehavior.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\ChartBehaviorCollection.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\ChartElementPresenter.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\ChartSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\ChartTrackBallBehavior.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\DataPointBinding.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\DateTimeCategoricalAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\GridLineRenderMode.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\GridLineVisibility.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\LinearAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\LineAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\LineSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\NumericalAxis.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\PointTemplateSeries.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\PresenterBase.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\PresenterCollection_1.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\RadChartBase.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\TrackBallSnapMode.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.Primitives\RadControlBase.cs" />
+    <Compile Include="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls\RadCartesianChart.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSHTML5.Extensions.Common\CSHTML5.Extensions.Common.csproj">
+      <Project>{9703A43C-2D55-425C-9843-A991C353A0BA}</Project>
+      <Name>CSHTML5.Extensions.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CSHTML5.Migration.Wrappers.KendoUI.Charts\CSHTML5.Migration.Wrappers.KendoUI.Charts.csproj">
+      <Project>{567daddb-6854-43c1-b062-a68c2f46a30d}</Project>
+      <Name>CSHTML5.Migration.Wrappers.KendoUI.Charts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Themes\generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Bridge, Version=17.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSHTML5.Migration.2.0.0-alpha40-055\lib\net40\Bridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CSHTML5.Migration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSHTML5.Migration.2.0.0-alpha40-055\lib\net40\CSHTML5.Migration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CSHTML5.Stubs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSHTML5.Migration.2.0.0-alpha40-055\lib\net40\CSHTML5.Stubs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bridge.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="..\packages\CSHTML5.Migration.2.0.0-alpha40-055\build\CSHTML5.Migration.targets" Condition="Exists('..\packages\CSHTML5.Migration.2.0.0-alpha40-055\build\CSHTML5.Migration.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\CSHTML5.Migration.2.0.0-alpha40-055\build\CSHTML5.Migration.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CSHTML5.Migration.2.0.0-alpha40-055\build\CSHTML5.Migration.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

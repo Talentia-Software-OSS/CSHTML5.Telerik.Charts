@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikChartsExampleSilverlight", "TelerikChartsExample\TelerikChartsExampleSilverlight.csproj", "{D7AE7944-F846-4F3E-B1B6-AE8C1B524C61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSHTML5.Extensions.TelerikUI.Data", "CSHTML5.Extensions.TelerikUI.Data\CSHTML5.Extensions.TelerikUI.Data.csproj", "{AEE86299-A14E-426C-B506-09CAC05D1C7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSHTML5.Extensions.TelerikUI.Controls.Chart", "CSHTML5.Extensions.TelerikUI.Controls.Chart\CSHTML5.Extensions.TelerikUI.Controls.Chart.csproj", "{4317F70F-FB7A-4E5B-BD6D-BB4438785224}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSHTML5.TelerikChartExample", "CSHTML5.TelerikChartExample\CSHTML5.TelerikChartExample.csproj", "{509A94FA-FC90-4382-AA4D-8B4A1414EF0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSHTML5.Migration.Wrappers.KendoUI.Charts", "CSHTML5.Migration.Wrappers.KendoUI.Charts\CSHTML5.Migration.Wrappers.KendoUI.Charts.csproj", "{567DADDB-6854-43C1-B062-A68C2F46A30D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSHTML5.Extensions.Common", "CSHTML5.Extensions.Common\CSHTML5.Extensions.Common.csproj", "{9703A43C-2D55-425C-9843-A991C353A0BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7AE7944-F846-4F3E-B1B6-AE8C1B524C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AE7944-F846-4F3E-B1B6-AE8C1B524C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AE7944-F846-4F3E-B1B6-AE8C1B524C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AE7944-F846-4F3E-B1B6-AE8C1B524C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEE86299-A14E-426C-B506-09CAC05D1C7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEE86299-A14E-426C-B506-09CAC05D1C7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEE86299-A14E-426C-B506-09CAC05D1C7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEE86299-A14E-426C-B506-09CAC05D1C7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4317F70F-FB7A-4E5B-BD6D-BB4438785224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4317F70F-FB7A-4E5B-BD6D-BB4438785224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4317F70F-FB7A-4E5B-BD6D-BB4438785224}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4317F70F-FB7A-4E5B-BD6D-BB4438785224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509A94FA-FC90-4382-AA4D-8B4A1414EF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509A94FA-FC90-4382-AA4D-8B4A1414EF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509A94FA-FC90-4382-AA4D-8B4A1414EF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509A94FA-FC90-4382-AA4D-8B4A1414EF0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{567DADDB-6854-43C1-B062-A68C2F46A30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{567DADDB-6854-43C1-B062-A68C2F46A30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{567DADDB-6854-43C1-B062-A68C2F46A30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{567DADDB-6854-43C1-B062-A68C2F46A30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9703A43C-2D55-425C-9843-A991C353A0BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9703A43C-2D55-425C-9843-A991C353A0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9703A43C-2D55-425C-9843-A991C353A0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9703A43C-2D55-425C-9843-A991C353A0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F98DAFA-6B9A-4B5D-8C76-7E51F9648BA3}
+	EndGlobalSection
+EndGlobal
