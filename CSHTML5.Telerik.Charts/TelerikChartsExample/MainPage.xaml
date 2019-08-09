@@ -8,7 +8,7 @@
         mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
     <StackPanel Orientation="Vertical">
         <!-- Reference Graph definition -->
-        <telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
+        <telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0">
             <telerik:RadCartesianChart.Grid>
                 <telerik:CartesianChartGrid MajorYLineDashArray="5, 2" MajorLinesVisibility="Y" MajorYLinesRenderMode="All" >
                     <telerik:CartesianChartGrid.MajorYLineStyle>
@@ -69,6 +69,6 @@
                 </telerik:AreaSeries.TrackBallInfoTemplate>
             </telerik:AreaSeries>
         </telerik:RadCartesianChart>
-        <Button x:Name="ApplyNonGraphicSelectionMethod" Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="ApplyNonGraphicSelectionMethod_Click" HorizontalAlignment="Left"/>
+        <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
     </StackPanel>
 </UserControl>

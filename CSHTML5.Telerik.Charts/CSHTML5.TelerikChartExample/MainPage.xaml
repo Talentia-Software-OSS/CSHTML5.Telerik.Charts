@@ -69,6 +69,6 @@
                 </telerik:AreaSeries.TrackBallInfoTemplate>
             </telerik:AreaSeries>
         </telerik:RadCartesianChart>
-        <Button x:Name="ApplyNonGraphicSelectionMethod" Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="ApplyNonGraphicSelectionMethod_Click" HorizontalAlignment="Left"/>
+        <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
     </StackPanel>
 </Page>
