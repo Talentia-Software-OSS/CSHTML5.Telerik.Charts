@@ -49,7 +49,6 @@ namespace CSHTML5.TelerikChartExample
         {
             this.VerticalAlignment = System.Windows.VerticalAlignment.Top;
             this.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            this.Margin = new Thickness(560, 20, 0, 0);
             InitializeComponent();
             Loaded += SetReferencePeriod_Loaded;
         }
