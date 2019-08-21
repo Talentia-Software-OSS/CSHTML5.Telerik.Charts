@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CSHTML5;
+using CSHTML5.Internal;
 using CSHTML5.Migration.Wrappers.KendoUI.Charts;
 using CSHTML5.Wrappers.KendoUI.Common;
 using TypeScriptDefinitionsSupport;
@@ -59,12 +60,21 @@ namespace kendo_ui_chart.kendo.dataviz.ui
             }
             else
             {
-                this.Html = @"Before you can use the Kendo Grid Control, you must add to your project the corresponding libraries.
+                this.Html = @"Before you can use the Kendo Chart Control, you must add to your project the corresponding libraries.
 To do so, please follow the tutorial at: http://www.cshtml5.com";
-                MessageBox.Show(@"Before you can use the Kendo Grid Control, you must add to your project the corresponding libraries.
+                MessageBox.Show(@"Before you can use the Kendo Chart Control, you must add to your project the corresponding libraries.
 To do so, please follow the tutorial at: http://www.cshtml5.com"); //todo: put the address of the tutorial.
                 base.AbortLoading();
             }
+        }
+
+        private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
+        public void Refresh()
+        {
+            _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
+            {
+                redraw();
+            });
         }
     }
 }

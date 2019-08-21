@@ -40,6 +40,11 @@ namespace Telerik.Windows.Controls.ChartView
         public AreaSeries()
         {
         }
+
+        public override string GetChartType()
+        {
+            return "area";
+        }
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//

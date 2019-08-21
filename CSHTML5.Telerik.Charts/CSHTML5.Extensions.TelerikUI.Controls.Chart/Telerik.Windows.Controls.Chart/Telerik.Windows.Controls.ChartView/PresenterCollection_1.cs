@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace Telerik.Windows.Controls.ChartView
 {
-    public class PresenterCollection<T> : Collection<T>
+    public class PresenterCollection<T> : ObservableCollection<T>
     {
         //-------------------------------------//
         //------------- METHODS ---------------//

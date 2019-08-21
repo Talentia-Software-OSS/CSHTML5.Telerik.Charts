@@ -24,7 +24,10 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------- FIELDS ---------------//
         //-------------------------------------//
         public static readonly DependencyProperty TrackBallInfoTemplateProperty = DependencyProperty.Register("TrackBallInfoTemplateProperty", typeof(DataTemplate), typeof(ChartSeries), null);
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSourceProperty", typeof(IEnumerable), typeof(ChartSeries), null);
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSourceProperty", typeof(IEnumerable), typeof(ChartSeries), new PropertyMetadata(null, OnItemsSource_Changed));
+
+        
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -42,6 +45,12 @@ namespace Telerik.Windows.Controls.ChartView
             get { return (IEnumerable)this.GetValue(ChartSeries.ItemsSourceProperty); }
             set { this.SetValue(ChartSeries.ItemsSourceProperty, (object)value); }
         }
+
+        /// <summary>
+        /// Contains the Chart that will display this series.
+        /// </summary>
+        public RadCartesianChart ParentChart { get; set; } //todo: change this to RadChartBase once the _kendoChart thingy and the Refresh method will be moved there
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -51,6 +60,16 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         protected ChartSeries()
         {
+        }
+
+        public virtual string GetChartType()
+        {
+            return "line";
+        }
+
+        private static void OnItemsSource_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((ChartSeries)d).ParentChart.Refresh();
         }
         //-------------------------------------//
         //-------------------------------------//
