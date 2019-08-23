@@ -241,11 +241,11 @@ namespace Telerik.Windows.Controls
             valueAxis.Add(valueAxisItem);
             chartO.valueAxis = valueAxis;
 
-            if(Behaviors != null)
+            if (Behaviors != null)
             {
-                foreach(var behavior in Behaviors)
+                foreach (var behavior in Behaviors)
                 {
-                    if(behavior is ChartTrackBallBehavior)
+                    if (behavior is ChartTrackBallBehavior)
                     {
                         ChartTrackBallBehavior behaviorAsCTBB = (ChartTrackBallBehavior)behavior;
                         if (behaviorAsCTBB.ShowIntersectionPoints)
@@ -259,10 +259,10 @@ namespace Telerik.Windows.Controls
                             chartO.tooltip = new ChartTooltip(); //todo: move this to somewhere more adapted?
                             //Interop.ExecuteJavaScript("$0.visible = true", chartO.tooltip.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.crosshair.visible = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
                             Interop.ExecuteJavaScript("$0.shared = true", chartO.tooltip.UnderlyingJSInstance); //todo: find out how to do chartO.tooltip.shared = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
-//                            chartO.tooltip.sharedTemplate = @"<div>#: category #</div>
-//# for (var i = 0; i < points.length; i++) { #
-//    <div>#: points[i].series.name# : #: points[i].value #</div>
-  //# } #";
+                                                                                                                //                            chartO.tooltip.sharedTemplate = @"<div>#: category #</div>
+                                                                                                                //# for (var i = 0; i < points.length; i++) { #
+                                                                                                                //    <div>#: points[i].series.name# : #: points[i].value #</div>
+                                                                                                                //# } #";
                         }
                     }
                 }
@@ -330,13 +330,22 @@ namespace Telerik.Windows.Controls
         }
 
         private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
-        public void Refresh()
+        public async void Refresh()
         {
-            _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
+            if (await _kendoChart.JSInstanceLoaded)
             {
-                SetKendoChartSeries();
-                _kendoChart.Refresh();
-            });
+                _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
+                {
+                    SetKendoChartSeries();
+                    _kendoChart.Refresh();
+                });
+            }
+            else
+            {
+                // Not loaded (for example if the .JS libraries are not present).
+
+                throw new Exception("JS libraries not loaded");
+            }
         }
 
         //-------------------------------------//
