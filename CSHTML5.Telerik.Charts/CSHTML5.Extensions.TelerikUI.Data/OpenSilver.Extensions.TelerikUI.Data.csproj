@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Telerik.Windows</RootNamespace>
+    <AssemblyName>Telerik.Windows.Data</AssemblyName>
+    <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
+    <CSharpXamlForHtml5OutputType>Library</CSharpXamlForHtml5OutputType>
+    <IsCshtml5>true</IsCshtml5>
+    <Cshtml5OutputType>Library</Cshtml5OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+	<PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
+  </ItemGroup>
+</Project>

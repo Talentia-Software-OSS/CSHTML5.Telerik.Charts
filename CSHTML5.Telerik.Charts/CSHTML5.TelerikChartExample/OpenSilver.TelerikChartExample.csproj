@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CSHTML5.TelerikChartExample</RootNamespace>
+    <AssemblyName>CSHTML5.TelerikChartExample</AssemblyName>
+    <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
+    <CSharpXamlForHtml5OutputType>Application</CSharpXamlForHtml5OutputType>
+    <IsCshtml5>true</IsCshtml5>
+    <Cshtml5OutputType>Application</Cshtml5OutputType>
+    <StartAction>Program</StartAction>
+    <StartProgram></StartProgram>
+    <StartArguments>"CSHTML5.TelerikChartExample.dll"</StartArguments>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSHTML5.Extensions.TelerikUI.Controls.Chart\OpenSilver.Extensions.TelerikUI.Controls.Chart.csproj" />
+    <ProjectReference Include="..\CSHTML5.Extensions.TelerikUI.Data\OpenSilver.Extensions.TelerikUI.Data.csproj" />
+    <ProjectReference Include="..\CSHTML5.Migration.Wrappers.KendoUI.Charts\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+	<PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
+  </ItemGroup>
+</Project>

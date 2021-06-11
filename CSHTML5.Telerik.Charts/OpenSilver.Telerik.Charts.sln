@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSilver.Extensions.Common", "CSHTML5.Extensions.Common\OpenSilver.Extensions.Common.csproj", "{079F70A3-AAD3-4484-B3A6-EA7B1A278489}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSilver.Extensions.TelerikUI.Controls.Chart", "CSHTML5.Extensions.TelerikUI.Controls.Chart\OpenSilver.Extensions.TelerikUI.Controls.Chart.csproj", "{AA1749B6-9F7B-4C88-993A-BB2B33910B6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSilver.Migration.Wrappers.KendoUI.Charts", "CSHTML5.Migration.Wrappers.KendoUI.Charts\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj", "{8C0D1819-B0B5-4F0F-AD73-E6A6182ECFA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSilver.Extensions.TelerikUI.Data", "CSHTML5.Extensions.TelerikUI.Data\OpenSilver.Extensions.TelerikUI.Data.csproj", "{EF733FEC-A28B-4657-AF0E-CCCFD82F6E10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenSilver.TelerikChartExample", "CSHTML5.TelerikChartExample\OpenSilver.TelerikChartExample.csproj", "{A5D0E1F6-0043-4A00-A077-0AACE640E790}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChartApplication.Simulator", "TestChartApplication\TestChartApplication.Simulator\TestChartApplication.Simulator.csproj", "{486C20EF-8E1F-43F7-A16E-DB3150342B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestChartApplication.Browser", "TestChartApplication\TestChartApplication.Browser\TestChartApplication.Browser.csproj", "{2876E01B-1FB4-4090-A44B-A5659FDAEDDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{079F70A3-AAD3-4484-B3A6-EA7B1A278489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079F70A3-AAD3-4484-B3A6-EA7B1A278489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079F70A3-AAD3-4484-B3A6-EA7B1A278489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079F70A3-AAD3-4484-B3A6-EA7B1A278489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1749B6-9F7B-4C88-993A-BB2B33910B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1749B6-9F7B-4C88-993A-BB2B33910B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1749B6-9F7B-4C88-993A-BB2B33910B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1749B6-9F7B-4C88-993A-BB2B33910B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0D1819-B0B5-4F0F-AD73-E6A6182ECFA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0D1819-B0B5-4F0F-AD73-E6A6182ECFA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0D1819-B0B5-4F0F-AD73-E6A6182ECFA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0D1819-B0B5-4F0F-AD73-E6A6182ECFA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF733FEC-A28B-4657-AF0E-CCCFD82F6E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF733FEC-A28B-4657-AF0E-CCCFD82F6E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF733FEC-A28B-4657-AF0E-CCCFD82F6E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF733FEC-A28B-4657-AF0E-CCCFD82F6E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D0E1F6-0043-4A00-A077-0AACE640E790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D0E1F6-0043-4A00-A077-0AACE640E790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D0E1F6-0043-4A00-A077-0AACE640E790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D0E1F6-0043-4A00-A077-0AACE640E790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{486C20EF-8E1F-43F7-A16E-DB3150342B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{486C20EF-8E1F-43F7-A16E-DB3150342B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{486C20EF-8E1F-43F7-A16E-DB3150342B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{486C20EF-8E1F-43F7-A16E-DB3150342B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2876E01B-1FB4-4090-A44B-A5659FDAEDDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2876E01B-1FB4-4090-A44B-A5659FDAEDDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2876E01B-1FB4-4090-A44B-A5659FDAEDDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2876E01B-1FB4-4090-A44B-A5659FDAEDDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F98DAFA-6B9A-4B5D-8C76-7E51F9648BA3}
+	EndGlobalSection
+EndGlobal

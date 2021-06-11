@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Telerik.Windows.Controls</RootNamespace>
+    <AssemblyName>Telerik.Windows.Controls.Chart</AssemblyName>
+    <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
+    <CSharpXamlForHtml5OutputType>Library</CSharpXamlForHtml5OutputType>
+    <IsCshtml5>true</IsCshtml5>
+    <Cshtml5OutputType>Library</Cshtml5OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSHTML5.Extensions.Common\OpenSilver.Extensions.Common.csproj" />
+    <ProjectReference Include="..\CSHTML5.Migration.Wrappers.KendoUI.Charts\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Themes\generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
+  </ItemGroup>
+</Project>

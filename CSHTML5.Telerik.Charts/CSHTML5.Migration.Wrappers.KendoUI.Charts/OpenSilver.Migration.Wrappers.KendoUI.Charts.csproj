@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CSHTML5.Migration.Wrappers.KendoUI.Charts</RootNamespace>
+    <AssemblyName>CSHTML5.Migration.Wrappers.KendoUI.Charts</AssemblyName>
+    <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
+    <CSharpXamlForHtml5OutputType>Library</CSharpXamlForHtml5OutputType>
+    <IsCshtml5>true</IsCshtml5>
+    <Cshtml5OutputType>Library</Cshtml5OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CSHARP_XAML_FOR_HTML5;CSHTML5;SLMIGRATION;MIGRATION;BRIDGE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="kendo-ui-chart.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSHTML5.Extensions.Common\OpenSilver.Extensions.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\jquery.min.js" />
+    <Content Include="styles\fonts\glyphs\WebComponentsIcons.ttf" />
+    <Content Include="styles\fonts\glyphs\WebComponentsIcons.woff" />
+    <Content Include="styles\images\kendoui.ttf" />
+    <Content Include="styles\images\kendoui.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\kendo.all.min.js" />
+    <Content Include="styles\kendo.common-material.min.css" />
+    <Content Include="styles\kendo.material.min.css" />
+    <Content Include="styles\kendo.material.mobile.min.css" />
+    <Content Include="styles\kendo.rtl.min.css" />
+    <Content Include="styles\Material\loading-image.gif" />
+    <Content Include="styles\Material\sprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
+  </ItemGroup>
+</Project>
