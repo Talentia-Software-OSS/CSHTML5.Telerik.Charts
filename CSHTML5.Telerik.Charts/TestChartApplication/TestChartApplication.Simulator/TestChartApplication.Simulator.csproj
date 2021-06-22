@@ -7,8 +7,8 @@
 		<RootNamespace>TestChartApplication.Simulator</RootNamespace>
 		<AssemblyName>TestChartApplication.Simulator</AssemblyName>
 		<StartProgram>$(NuGetPackageRoot)\opensilver.workinprogress\1.0.0-alpha-018\tools\simulator\CSharpXamlForHtml5.Simulator.exe</StartProgram>
-		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">"C:\dev\CSHTML5.Telerik.Charts\CSHTML5.Telerik.Charts\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
-		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">"..\..\..\..\Silverlight.Client\bin\Release\netstandard2.0\AS.Cpm.Silverlight.Client.dll"</StartArguments>
+		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">"..\..\..\..\..\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
+		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">"..\..\..\..\..\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
 	</PropertyGroup>
 
 	<ItemGroup>

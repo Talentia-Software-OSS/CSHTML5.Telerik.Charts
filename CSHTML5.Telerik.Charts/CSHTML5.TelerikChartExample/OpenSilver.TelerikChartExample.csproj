@@ -22,6 +22,12 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="bridge.json" />
+    <None Remove="packages.config" />
+    <None Remove="Views\RadCartesianChart.xaml" />
+    <None Remove="Views\RadPieChart.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -38,6 +44,12 @@
   <ItemGroup>
     <Content Include="MainPage.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\RadCartesianChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\RadPieChart.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
   </ItemGroup>

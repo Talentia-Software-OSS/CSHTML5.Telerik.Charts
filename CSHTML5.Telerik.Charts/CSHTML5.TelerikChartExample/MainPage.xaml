@@ -3,75 +3,30 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-        xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+        xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+        xmlns:uriMapper="clr-namespace:System.Windows.Navigation;assembly=System.Windows.Controls.Navigation"
         mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
-    <StackPanel Orientation="Vertical">
-        <!-- Reference Graph definition -->
-        <!--<telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-            <telerik:RadCartesianChart.Grid>
-                <telerik:CartesianChartGrid MajorYLineDashArray="5, 2" MajorLinesVisibility="Y" MajorYLinesRenderMode="All" >
-                    <telerik:CartesianChartGrid.MajorYLineStyle>
-                        <Style TargetType="Line">
-                            <Setter Property="Stroke" Value="LightGray"/>
-                        </Style>
-                    </telerik:CartesianChartGrid.MajorYLineStyle>
-                </telerik:CartesianChartGrid>
-            </telerik:RadCartesianChart.Grid>
-            <telerik:RadCartesianChart.Behaviors>
-                <telerik:ChartTrackBallBehavior  
-                         ShowIntersectionPoints="True" 
-                         ShowTrackInfo="True" 
-                         SnapMode="ClosestPoint"/>
-            </telerik:RadCartesianChart.Behaviors>
-            <telerik:RadCartesianChart.HorizontalAxis>
-                <telerik:DateTimeCategoricalAxis x:Name="XAxis" FontFamily="Calibri" FontSize="10" LabelFitMode="Rotate" SmartLabelsMode="SmartStep" LabelFormat="M/d/yyyy" LineStroke="LightGray" MajorTickInterval="10">
-                    <telerik:DateTimeCategoricalAxis.MajorTickStyle>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Fill" Value="LightGray" />
-                            <Setter Property="MaxHeight" Value="4"/>
-                            <Setter Property="MaxWidth" Value="1"/>
-                            <Setter Property="VerticalAlignment" Value="Bottom"/>
-                        </Style>
-                    </telerik:DateTimeCategoricalAxis.MajorTickStyle>
-                </telerik:DateTimeCategoricalAxis>
-            </telerik:RadCartesianChart.HorizontalAxis>
-            <telerik:RadCartesianChart.VerticalAxis>
-                <telerik:LinearAxis x:Name="YAxis" FontFamily="Calibri" FontSize="10" LineStroke="LightGray">
-                    <telerik:LinearAxis.MajorTickStyle>
-                        <Style TargetType="Rectangle">
-                            <Setter Property="Fill" Value="LightGray" />
-                            <Setter Property="MaxHeight" Value="1"/>
-                            <Setter Property="MaxWidth" Value="4"/>
-                            <Setter Property="HorizontalAlignment" Value="Right"/>
-                        </Style>
-                    </telerik:LinearAxis.MajorTickStyle>
-                </telerik:LinearAxis>
-            </telerik:RadCartesianChart.VerticalAxis>
-            <telerik:LineSeries Stroke="OrangeRed" ZIndex="1" Background="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue">
-                <telerik:LineSeries.TrackBallInfoTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" Width="90">
-                            <TextBlock Foreground="OrangeRed" Text="{Binding DataPoint.Category, StringFormat=Date: \{0:d\} }" FontFamily="Calibri" FontSize="12" />
-                            <TextBlock Foreground="OrangeRed" Text="{Binding DataPoint.Value, StringFormat=Close: \{0:0.00\} }"  FontFamily="Calibri" FontSize="12"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </telerik:LineSeries.TrackBallInfoTemplate>
-            </telerik:LineSeries>
-            <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
-                <telerik:AreaSeries.TrackBallInfoTemplate>
-                    <DataTemplate/>
-                </telerik:AreaSeries.TrackBallInfoTemplate>
-            </telerik:AreaSeries>
-            <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
-                <telerik:AreaSeries.TrackBallInfoTemplate>
-                    <DataTemplate/>
-                </telerik:AreaSeries.TrackBallInfoTemplate>
-            </telerik:AreaSeries>
-        </telerik:RadCartesianChart>-->
-        <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
-        <Button Content="Apply Pie CHart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
-        <telerik:RadPieChart Name="ExamplePieChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-        </telerik:RadPieChart>
-    </StackPanel>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="150"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <ListBox x:Name="MenuListBox" Grid.Column="0"
+             SelectionChanged="MenuListBox_SelectionChanged">
+      <ListBoxItem>RadCartesianChart</ListBoxItem>
+      <ListBoxItem>RadPieChart</ListBoxItem>
+    </ListBox>
+    <navigation:Frame Padding="5,5,5,5" x:Name="Frame"
+                                      VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                      JournalOwnership="OwnsJournal" Grid.Column="1">
+        <navigation:Frame.UriMapper>
+          <uriMapper:UriMapper>
+            <uriMapper:UriMapping Uri="/{pageName}" MappedUri="/Views/{pageName}.xaml"/>
+          </uriMapper:UriMapper>
+        </navigation:Frame.UriMapper>
+      </navigation:Frame>
+  </Grid>
 </Page>

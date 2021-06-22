@@ -20,17 +20,10 @@ namespace Telerik.Windows.Controls
 {
     public class RadPieChart : RadChartBase
     {
-        #region Non-Generated methods
-
-        protected kendo_ui_chart.kendo.dataviz.ui.Chart _kendoChart;
-
-        public override void OnApplyTemplate()
+        public RadPieChart()
         {
-            base.OnApplyTemplate();
-            _kendoChart = this.GetTemplateChild("KendoChart") as kendo_ui_chart.kendo.dataviz.ui.Chart;
+            this.DefaultStyleKey = typeof(RadPieChart);
         }
-
-        #endregion
 
         private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
         public async void Refresh()
@@ -56,7 +49,7 @@ namespace Telerik.Windows.Controls
             // create chart options
             ChartOptions chartO = new ChartOptions();
             //chartO.seriesDefaults = Interop.ExecuteJavaScript("{ labels: { visible: true, background: 'transparent', template: '#= category #: \n #= value#%' } }");
-            chartO.tooltip = (ChartTooltip) Interop.ExecuteJavaScript("{ visible: true, format: '{0}%'}");
+            chartO.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
 
             // create series
             var series = new JSArray<ChartSeriesItem>();
@@ -100,11 +93,6 @@ namespace Telerik.Windows.Controls
             Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, "color", color.ToString());
 
             return jsObject;
-        }
-
-        public RadPieChart()
-        {
-            this.DefaultStyleKey = typeof(RadPieChart);
         }
     }
 }

@@ -351,19 +351,5 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
-
-
-        #region Non-Generated methods
-
-        protected kendo_ui_chart.kendo.dataviz.ui.Chart _kendoChart;
-
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            _kendoChart = this.GetTemplateChild("KendoChart") as kendo_ui_chart.kendo.dataviz.ui.Chart;
-        }
-
-        #endregion
-
     }
 }
