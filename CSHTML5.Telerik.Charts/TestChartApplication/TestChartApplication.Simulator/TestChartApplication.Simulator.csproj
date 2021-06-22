@@ -1,44 +1,23 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{486C20EF-8E1F-43F7-A16E-DB3150342B83}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>TestChartApplication.Simulator</RootNamespace>
-    <AssemblyName>TestChartApplication.Simulator</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <StartAction>URL</StartAction>
-    <StartURL>http://www.opensilver.net/permalinks/simulator_not_found.aspx</StartURL>
-    <StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">"..\..\..\TestChartApplication\bin\Debug\netstandard2.0\TestChartApplication.dll"</StartArguments>
-    <StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">"..\..\..\TestChartApplication\bin\Release\netstandard2.0\TestChartApplication.dll"</StartArguments>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;OPENSILVER</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;OPENSILVER</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<EnableDefaultItems>false</EnableDefaultItems>
+		<StartAction>Program</StartAction>
+		<RootNamespace>TestChartApplication.Simulator</RootNamespace>
+		<AssemblyName>TestChartApplication.Simulator</AssemblyName>
+		<StartProgram>$(NuGetPackageRoot)\opensilver.workinprogress\1.0.0-alpha-018\tools\simulator\CSharpXamlForHtml5.Simulator.exe</StartProgram>
+		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">"C:\dev\CSHTML5.Telerik.Charts\CSHTML5.Telerik.Charts\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
+		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">"..\..\..\..\Silverlight.Client\bin\Release\netstandard2.0\AS.Cpm.Silverlight.Client.dll"</StartArguments>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Properties\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\CSHTML5.TelerikChartExample\OpenSilver.TelerikChartExample.csproj" />
+	</ItemGroup>
+
+
 </Project>

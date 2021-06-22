@@ -8,7 +8,7 @@
         mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
     <StackPanel Orientation="Vertical">
         <!-- Reference Graph definition -->
-        <telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
+        <!--<telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
             <telerik:RadCartesianChart.Grid>
                 <telerik:CartesianChartGrid MajorYLineDashArray="5, 2" MajorLinesVisibility="Y" MajorYLinesRenderMode="All" >
                     <telerik:CartesianChartGrid.MajorYLineStyle>
@@ -68,42 +68,10 @@
                     <DataTemplate/>
                 </telerik:AreaSeries.TrackBallInfoTemplate>
             </telerik:AreaSeries>
-        </telerik:RadCartesianChart>
+        </telerik:RadCartesianChart>-->
         <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
-        <telerik:RadPieChart Name="CycleDiligenceNumberByAuditStatePieChart">
-            <!--<telerik:RadPieChart.Behaviors>
-                <telerik:ChartTooltipBehavior Placement="Top" VerticalOffset="20" BetweenShowDelay="0" InitialShowDelay="0"/>
-            </telerik:RadPieChart.Behaviors>-->
-            <!--<telerik:RadPieChart.TooltipTemplate>
-                <DataTemplate>
-                    <Border Background="{StaticResource VeryLightGreyColorBrush}" BorderBrush="{StaticResource LighterGreyColorBrush}" BorderThickness="1" Padding="5" CornerRadius="5">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding DataItem.Label}"/>
-                            <TextBlock Text="{Binding DataItem.Value, StringFormat=' ({0:N0}%)'}"/>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </telerik:RadPieChart.TooltipTemplate>-->
-            <telerik:PieSeries ItemsSource="{Binding DiligencesNumber}" SliceStyleSelector="{StaticResource selector}">
-                <!--localEntities:ChartAnimationUtilities.PieAnimation="RadiusFactor,SweepAngle,StartAngle">-->
-                <telerik:PieSeries.ValueBinding>
-                    <telerik:PropertyNameDataPointBinding PropertyName="Value"/>
-                </telerik:PieSeries.ValueBinding>
-                <telerik:PieSeries.LabelDefinitions>
-                    <telerik:ChartSeriesLabelDefinition Margin="5,0,0,0">
-                        <telerik:ChartSeriesLabelDefinition.Template>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding DataItem.Label}" FontWeight="Bold" Foreground="White" Visibility="{Binding DataItem.Value, Converter={StaticResource PieChartValueToVisibilityConverter}}"/>
-                                    <StackPanel Orientation="Horizontal" Visibility="{Binding DataItem.Value, Converter={StaticResource PieChartValueToVisibilityConverter}}">
-                                        <TextBlock Text="{Binding DataItem.Value, StringFormat=' ({0:N0})'}" Visibility="{Binding DataItem.ShowDetail, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource TextBlockDetailStyle}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </telerik:ChartSeriesLabelDefinition.Template>
-                    </telerik:ChartSeriesLabelDefinition>
-                </telerik:PieSeries.LabelDefinitions>
-            </telerik:PieSeries>
+        <Button Content="Apply Pie CHart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
+        <telerik:RadPieChart Name="ExamplePieChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
         </telerik:RadPieChart>
     </StackPanel>
 </Page>

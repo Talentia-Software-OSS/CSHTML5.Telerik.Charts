@@ -27,10 +27,8 @@ namespace Telerik.Windows.Controls.ChartView
         public static readonly DependencyProperty TrackBallInfoTemplateProperty = DependencyProperty.Register("TrackBallInfoTemplateProperty", typeof(DataTemplate), typeof(ChartSeries), null);
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSourceProperty", typeof(IEnumerable), typeof(ChartSeries), new PropertyMetadata(null, OnItemsSource_Changed));
         
-        private ObservableCollection<ChartSeriesLabelDefinition> labelDefinitions;
-        public ObservableCollection<ChartSeriesLabelDefinition> LabelDefinitions => labelDefinitions;
-
-
+        //private ObservableCollection<ChartSeriesLabelDefinition> labelDefinitions;
+        //public ObservableCollection<ChartSeriesLabelDefinition> LabelDefinitions => labelDefinitions;
 
         //-------------------------------------//
         //-------------------------------------//

@@ -33,7 +33,7 @@ namespace CSHTML5.TelerikChartExample
 
         private void SetReferencePeriod_Loaded(object sender, RoutedEventArgs e)
         {
-            ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
+            //ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
             MaxScale = 300;
             MaxY = MaxScale + 10.0;
             displayGraph();
@@ -44,16 +44,22 @@ namespace CSHTML5.TelerikChartExample
             displayGraph();
         }
 
+        private void Button_Click_PieChart(object sender, RoutedEventArgs e)
+        {
+            // set piechart data on refresh
+            ExamplePieChart.Refresh();
+        }
+
         private void displayGraph()
         {
             centerAvgGraph.Clear();
             centerAvgGraph = GenerateRandomSerie(10, new DateTime(2000, 1, 1));
-            XAxis.MajorTickInterval = 2;
+            //XAxis.MajorTickInterval = 2;
             MaxY = MaxScale + 10.0;
-            YAxis.Maximum = MaxY;
-            ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
-            ReferenceGraph.Series[1].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 1, 1));
-            ReferenceGraph.Series[2].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 6, 1));
+            //YAxis.Maximum = MaxY;
+            //ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
+            //ReferenceGraph.Series[1].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 1, 1));
+            //ReferenceGraph.Series[2].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 6, 1));
         }
 
         private RadObservableCollection<DTPoint> GenerateRandomSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)
