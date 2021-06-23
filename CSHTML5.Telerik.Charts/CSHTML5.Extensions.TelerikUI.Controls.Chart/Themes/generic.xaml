@@ -15,5 +15,17 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style TargetType="telerik:RadPieChart">
+        <Setter Property="Template">
+          <Setter.Value>
+          <ControlTemplate TargetType="telerik:RadPieChart">
+              <Border>
+                <kendo:Chart x:Name="KendoChart"/>
+              </Border>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
 </ResourceDictionary>

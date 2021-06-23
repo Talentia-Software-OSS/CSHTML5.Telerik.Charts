@@ -19,6 +19,19 @@ namespace Telerik.Windows.Controls.ChartView
     [ContentProperty("Series")]
     public abstract class RadChartBase : PresenterBase, IChartElementPresenter
     {
+
+        #region Non-Generated methods
+
+        protected kendo_ui_chart.kendo.dataviz.ui.Chart _kendoChart;
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _kendoChart = this.GetTemplateChild("KendoChart") as kendo_ui_chart.kendo.dataviz.ui.Chart;
+        }
+
+        #endregion
+
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//

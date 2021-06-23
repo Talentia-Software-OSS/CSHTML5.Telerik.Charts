@@ -19,6 +19,10 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="bridge.json" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
 	<PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
   </ItemGroup>
 </Project>

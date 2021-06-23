@@ -19,6 +19,10 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="bridge.json" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Include="kendo-ui-chart.d.ts" />
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,10 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="bridge.json" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\CSHTML5.Extensions.Common\OpenSilver.Extensions.Common.csproj" />
     <ProjectReference Include="..\CSHTML5.Migration.Wrappers.KendoUI.Charts\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj" />
   </ItemGroup>
