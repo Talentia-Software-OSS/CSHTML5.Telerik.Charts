@@ -23,7 +23,7 @@ namespace Telerik.Windows.Controls
 
         //private GetPropertyValueDelegate getter;
 
-        ////private Type getterInstanceType;
+        //////private Type getterInstanceType;
 
         //public string PropertyName
         //{

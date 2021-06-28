@@ -58,12 +58,12 @@
             </DataTemplate>
           </telerik:LineSeries.TrackBallInfoTemplate>
         </telerik:LineSeries>
-        <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
           <telerik:AreaSeries.TrackBallInfoTemplate>
             <DataTemplate/>
           </telerik:AreaSeries.TrackBallInfoTemplate>
         </telerik:AreaSeries>
-        <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
           <telerik:AreaSeries.TrackBallInfoTemplate>
             <DataTemplate/>
           </telerik:AreaSeries.TrackBallInfoTemplate>

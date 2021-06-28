@@ -51,7 +51,7 @@ namespace Telerik.Windows.Controls.ChartView
         /// <summary>
         /// Contains the Chart that will display this series.
         /// </summary>
-        public RadCartesianChart ParentChart { get; set; } //todo: change this to RadChartBase once the _kendoChart thingy and the Refresh method will be moved there
+        public RadChartBase ParentChart { get; set; }
 
         //-------------------------------------//
         //-------------------------------------//

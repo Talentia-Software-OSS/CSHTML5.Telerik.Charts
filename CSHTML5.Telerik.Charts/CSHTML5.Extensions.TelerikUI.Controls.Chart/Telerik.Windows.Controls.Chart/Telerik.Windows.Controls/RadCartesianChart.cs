@@ -88,7 +88,7 @@ namespace Telerik.Windows.Controls
             }
         }
 
-        void SetKendoChartSeries()
+        protected override void SetKendoChartSeries()
         {
             //todo: refactor this method into smaller methods. Also, we should probably put the similar code for the two axes in the same places (instead of dealing with one axis, then the other).
 
@@ -327,25 +327,6 @@ namespace Telerik.Windows.Controls
                 }
             }
             return null;
-        }
-
-        private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
-        public async void Refresh()
-        {
-            if (await _kendoChart.JSInstanceLoaded)
-            {
-                _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
-                {
-                    SetKendoChartSeries();
-                    _kendoChart.Refresh();
-                });
-            }
-            else
-            {
-                // Not loaded (for example if the .JS libraries are not present).
-
-                throw new Exception("JS libraries not loaded");
-            }
         }
 
         //-------------------------------------//

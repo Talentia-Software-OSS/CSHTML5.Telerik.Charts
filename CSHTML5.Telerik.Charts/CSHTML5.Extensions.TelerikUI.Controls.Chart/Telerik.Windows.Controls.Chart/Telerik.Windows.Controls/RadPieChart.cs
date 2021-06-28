@@ -1,7 +1,9 @@
 ﻿using CSHTML5;
 using CSHTML5.Internal;
+using CSHTML5.Wrappers.KendoUI.Common;
 using kendo_ui_chart.kendo.dataviz.ui;
 using System;
+using System.Collections.Generic;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
 //using Telerik.Windows.Controls.Primitives;
@@ -23,76 +25,103 @@ namespace Telerik.Windows.Controls
         public RadPieChart()
         {
             this.DefaultStyleKey = typeof(RadPieChart);
+            _series = new PresenterCollection<PieSeries>();
+            _series.CollectionChanged += Series_CollectionChanged;
         }
 
-        private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
-        public async void Refresh()
+        private PresenterCollection<PieSeries> _series;
+        public PresenterCollection<PieSeries> Series
         {
-            if (await _kendoChart.JSInstanceLoaded)
+            get { return _series; }
+        }
+
+        private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:
+            if (e.OldItems != null)
             {
-                _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
+                foreach (object pieSeriesAsObject in e.OldItems)
                 {
-                    SetKendoChartSeries();
-                    _kendoChart.Refresh();
-                });
+                    ((PieSeries)pieSeriesAsObject).ParentChart = null;
+                }
             }
-            else
+            if (e.NewItems != null)
             {
-                // Not loaded (for example if the .JS libraries are not present).
-
-                throw new Exception("JS libraries not loaded");
+                foreach (object pieSeriesAsObject in e.NewItems)
+                {
+                    ((PieSeries)pieSeriesAsObject).ParentChart = this;
+                }
             }
         }
 
-        void SetKendoChartSeries()
+        protected override void SetKendoChartSeries()
         {
-            // create chart options
             ChartOptions chartO = new ChartOptions();
-            //chartO.seriesDefaults = Interop.ExecuteJavaScript("{ labels: { visible: true, background: 'transparent', template: '#= category #: \n #= value#%' } }");
             chartO.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
 
-            // create series
             var series = new JSArray<ChartSeriesItem>();
+            foreach (PieSeries pieSeries in _series)
+            {
+                if (pieSeries.ItemsSource != null)
+                {
+                    // create seriesItem
+                    ChartSeriesItem seriesItem = new ChartSeriesItem();
 
-            // create seriesItem
-            ChartSeriesItem seriesItem = new ChartSeriesItem();
-            
-            // set series details
-            seriesItem.type = "pie";
-            seriesItem.startAngle = 150;
-            seriesItem.data = GetSeriesData();
+                    // set series details
+                    seriesItem.type = pieSeries.GetChartType();
+                    seriesItem.startAngle = pieSeries.StartAngle;
 
-            // add serie to series array
-            series.Add(seriesItem);
+                    string categoryField = pieSeries.CategoryBinding?.PropertyPath ?? "Category";
+                    string valueField = pieSeries.ValueBinding?.PropertyPath ?? "Value";
+                    
+                    string colorField = pieSeries.ColorBinding?.PropertyPath ?? "Color";
+
+                    seriesItem.categoryField = categoryField;
+                    seriesItem.field = valueField;
+
+                    var propNames = new List<string>() { categoryField, valueField, colorField };
+                    var mappedPropNames = new List<string>() { categoryField, valueField };
+                    var res = PrepareSeriesData(pieSeries.ItemsSource, propNames, mappedPropNames);
+                    seriesItem.data = res;
+
+                    series.Add(seriesItem);
+                }
+            }
 
             // add chart to kendo
             chartO.series = series;
             _kendoChart.setOptions(chartO);
         }
 
-        private JSObject GetSeriesData()
+        private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<string> propertiesToPutInResult, List<string> mappedPropertiesToPutInResult)
         {
             object preparedSeriesData = Interop.ExecuteJavaScript("[]");
 
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("Asia", 53.8, "#9de219"));
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("Europe", 16.1, "#90cc38"));
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("Latin America", 11.3, "#068c35"));
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("Africa", 9.6, "#006634"));
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("Middle East", 5.2, "#004d38"));
-            Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, CreateNewPieSeriesObject("North America", 3.6, "#033939"));
+            foreach (var cSharpItem in seriesData)
+            {
+                var jsObject = Interop.ExecuteJavaScript("new Object()");
+                foreach (string propertyName in propertiesToPutInResult)
+                {
+                    object propertyValue = Utils.GetNestedPropertyValue(cSharpItem, propertyName);
 
+                    if (propertyValue is DateTime) {
+                        Interop.ExecuteJavaScript(@"$0[$1] = new Date($2)", jsObject, propertyName, propertyValue.ToString()); //We'll simply do this for now, it might need some formatting to be sure Date() will understand the date.
+                    } else if (mappedPropertiesToPutInResult.Contains(propertyName)) {
+                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName, propertyValue.ToString());
+                    } else {
+                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName.ToLower(), propertyValue.ToString());
+                    }
+                }
+                Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
+            }
             return new JSObject(preparedSeriesData);
         }
 
-        private object CreateNewPieSeriesObject(string categroy, double value, string color)
-        {
-            var jsObject = Interop.ExecuteJavaScript("new Object()");
-
-            Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, "category", categroy.ToString());
-            Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, "value", value);
-            Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, "color", color.ToString());
-
-            return jsObject;
-        }
+        //class PieDataProperties
+        //{
+        //    string propName;
+        //    string fieldName;
+        //    Boolean isMapped = false;
+        //}
     }
 }
