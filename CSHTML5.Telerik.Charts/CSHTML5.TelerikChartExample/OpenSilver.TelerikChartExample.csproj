@@ -26,6 +26,7 @@
     <None Remove="packages.config" />
     <None Remove="Views\RadCartesianChart.xaml" />
     <None Remove="Views\RadPieChart.xaml" />
+    <None Remove="Views\RadPolarChart.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="App.xaml.cs">
@@ -52,6 +53,9 @@
     <Content Include="Views\RadPieChart.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
+    <Content Include="Views\RadPolarChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>  
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CSHTML5.Extensions.TelerikUI.Controls.Chart\OpenSilver.Extensions.TelerikUI.Controls.Chart.csproj" />

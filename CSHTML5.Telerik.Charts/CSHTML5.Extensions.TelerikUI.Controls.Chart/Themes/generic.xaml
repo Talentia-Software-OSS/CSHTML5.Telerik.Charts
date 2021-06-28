@@ -28,4 +28,16 @@
         </Setter>
       </Style>
 
+    <Style TargetType="telerik:RadPolarChart">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="telerik:RadPolarChart">
+                    <Border>
+                        <kendo:Chart x:Name="KendoChart"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
