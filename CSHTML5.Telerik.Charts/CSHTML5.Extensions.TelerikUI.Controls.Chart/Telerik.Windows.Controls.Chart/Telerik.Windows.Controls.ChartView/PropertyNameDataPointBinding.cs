@@ -19,37 +19,37 @@ namespace Telerik.Windows.Controls
         //}
 
 
-        //private string propertyName;
+        private string propertyName;
 
-        //private GetPropertyValueDelegate getter;
+        private GetPropertyValueDelegate getter;
 
         //////private Type getterInstanceType;
 
-        //public string PropertyName
-        //{
-        //    get
-        //    {
-        //        return propertyName;
-        //    }
-        //    set
-        //    {
-        //        if (string.IsNullOrEmpty(value))
-        //        {
-        //            throw new ArgumentException("value");
-        //        }
-        //        if (!(propertyName == value))
-        //        {
-        //            getter = null;
-        //            propertyName = value;
-        //            OnPropertyChanged("PropertyName");
-        //        }
-        //    }
-        //}
+        public string PropertyName
+        {
+            get
+            {
+                return propertyName;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("value");
+                }
+                if (!(propertyName == value))
+                {
+                    getter = null;
+                    propertyName = value;
+                    OnPropertyChanged("PropertyName");
+                }
+            }
+        }
 
-        //private void OnPropertyChanged(string v)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private void OnPropertyChanged(string v)
+        {
+            throw new NotImplementedException();
+        }
 
         //      public PropertyNameDataPointBinding()
         //{

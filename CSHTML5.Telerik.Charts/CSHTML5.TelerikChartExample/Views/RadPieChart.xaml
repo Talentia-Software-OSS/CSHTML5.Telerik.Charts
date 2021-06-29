@@ -8,10 +8,24 @@
     <Grid>
     <StackPanel Orientation="Vertical">
         <telerik:RadPieChart Name="ExamplePieChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-            <telerik:PieSeries ItemsSource="{Binding}" ValueBinding="Value" CategoryBinding="Category">
+                <telerik:PieSeries ItemsSource="{Binding Items}" ValueBinding="Value" CategoryBinding="Label" ColorBinding="Color">
+            <!--<telerik:PieSeries.LabelDefinitions>
+                <telerik:ChartSeriesLabelDefinition Margin="5,0,0,0">
+                    <telerik:ChartSeriesLabelDefinition.Template>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DataItem.Label}" FontWeight="Bold" Foreground="White" Visibility="{Binding DataItem.Value, Converter={StaticResource PieChartValueToVisibilityConverter}}"/>
+                                <StackPanel Orientation="Horizontal" Visibility="{Binding DataItem.Value, Converter={StaticResource PieChartValueToVisibilityConverter}}">
+                                    <TextBlock Text="{Binding DataItem.Value, StringFormat=' ({0:N0}%)'}" Visibility="{Binding DataItem.ShowDetail, Converter={StaticResource BooleanToVisibilityConverter}}" Style="{StaticResource TextBlockDetailStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:ChartSeriesLabelDefinition.Template>
+                </telerik:ChartSeriesLabelDefinition>
+            </telerik:PieSeries.LabelDefinitions>-->
         </telerik:PieSeries>
       </telerik:RadPieChart>
-      <Button Content="Apply Pie CHart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
+      <Button Content="Apply Pie Chart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
     </StackPanel>
   </Grid>
 </Page>
