@@ -22,6 +22,13 @@ namespace Telerik.Windows.Controls
 {
     public class RadPieChart : RadChartBase
     {
+        class DataPropertyMapping
+        {
+            public string PropName;
+            public string FieldName;
+            public Boolean IsMapped = false;
+        }
+
         public RadPieChart()
         {
             this.DefaultStyleKey = typeof(RadPieChart);
@@ -71,17 +78,18 @@ namespace Telerik.Windows.Controls
                     seriesItem.type = pieSeries.GetChartType();
                     seriesItem.startAngle = pieSeries.StartAngle;
 
-                    string categoryField = pieSeries.CategoryBinding?.PropertyPath ?? "Category";
-                    string valueField = pieSeries.ValueBinding?.PropertyPath ?? "Value";
-                    
-                    string colorField = pieSeries.ColorBinding?.PropertyPath ?? "Color";
+                    // mapped fields
+                    DataPropertyMapping categoryMapping = new DataPropertyMapping() { FieldName = pieSeries.CategoryBinding?.PropertyPath ?? "Category" };
+                    seriesItem.categoryField = categoryMapping.FieldName;
 
-                    seriesItem.categoryField = categoryField;
-                    seriesItem.field = valueField;
+                    DataPropertyMapping valueMapping = new DataPropertyMapping() { FieldName = pieSeries.ValueBinding?.PropertyPath ?? "Value" };
+                    seriesItem.field = valueMapping.FieldName;
 
-                    var propNames = new List<string>() { categoryField, valueField, colorField };
-                    var mappedPropNames = new List<string>() { categoryField, valueField };
-                    var res = PrepareSeriesData(pieSeries.ItemsSource, propNames, mappedPropNames);
+                    // unmapped detail fields
+                    DataPropertyMapping colorMapping = new DataPropertyMapping() { PropName = pieSeries.ColorBinding?.PropertyPath ?? "Color", FieldName = "color" };
+
+                    var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping, colorMapping };
+                    var res = PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
                     series.Add(seriesItem);
@@ -93,35 +101,27 @@ namespace Telerik.Windows.Controls
             _kendoChart.setOptions(chartO);
         }
 
-        private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<string> propertiesToPutInResult, List<string> mappedPropertiesToPutInResult)
+        private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<DataPropertyMapping> propertiesToPutInResult)
         {
             object preparedSeriesData = Interop.ExecuteJavaScript("[]");
 
             foreach (var cSharpItem in seriesData)
             {
                 var jsObject = Interop.ExecuteJavaScript("new Object()");
-                foreach (string propertyName in propertiesToPutInResult)
+                foreach (DataPropertyMapping property in propertiesToPutInResult)
                 {
-                    object propertyValue = Utils.GetNestedPropertyValue(cSharpItem, propertyName);
+                    string propertyName = property.FieldName;
+                    object propertyValue = String.IsNullOrEmpty(property.PropName) ? Utils.GetNestedPropertyValue(cSharpItem, propertyName) : Utils.GetNestedPropertyValue(cSharpItem, property.PropName);
 
                     if (propertyValue is DateTime) {
                         Interop.ExecuteJavaScript(@"$0[$1] = new Date($2)", jsObject, propertyName, propertyValue.ToString()); //We'll simply do this for now, it might need some formatting to be sure Date() will understand the date.
-                    } else if (mappedPropertiesToPutInResult.Contains(propertyName)) {
+                    } else if (propertyValue != null) {
                         Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName, propertyValue.ToString());
-                    } else {
-                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName.ToLower(), propertyValue.ToString());
                     }
                 }
                 Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
             }
             return new JSObject(preparedSeriesData);
         }
-
-        //class PieDataProperties
-        //{
-        //    string propName;
-        //    string fieldName;
-        //    Boolean isMapped = false;
-        //}
     }
 }

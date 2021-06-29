@@ -32,21 +32,21 @@ namespace Telerik.Windows.Controls.ChartView
 
         public double StartAngle = PieSeries.Angle150;
 
-        ////-------------------------------------//
-        ////-------------- FIELDS ---------------//
-        ////-------------------------------------//
-        //public static readonly DependencyProperty ColorBindingProperty = DependencyProperty.Register("ColorBindingProperty", typeof(DataPointBinding), typeof(PieSeries), null);
-        ////-------------------------------------//
-        ////-------------------------------------//
-        ////-------------------------------------//
+        //-------------------------------------//
+        //-------------- FIELDS ---------------//
+        //-------------------------------------//
+        public static readonly DependencyProperty ColorBindingProperty = DependencyProperty.Register("ColorBindingProperty", typeof(DataPointBinding), typeof(PieSeries), null);
+        //-------------------------------------//
+        //-------------------------------------//
+        //-------------------------------------//
 
-        ////-------------------------------------//
-        ////------------ PROPERTIES -------------//
-        ////-------------------------------------//
-        //public DataPointBinding ColorBinding
-        //{
-        //    get { return (DataPointBinding)this.GetValue(PieSeries.ColorBindingProperty); }
-        //    set { this.SetValue(PieSeries.ColorBindingProperty, (object)value); }
-        //}
+        //-------------------------------------//
+        //------------ PROPERTIES -------------//
+        //-------------------------------------//
+        public DataPointBinding ColorBinding
+        {
+            get { return (DataPointBinding)this.GetValue(PieSeries.ColorBindingProperty); }
+            set { this.SetValue(PieSeries.ColorBindingProperty, (object)value); }
+        }
     }
 }
