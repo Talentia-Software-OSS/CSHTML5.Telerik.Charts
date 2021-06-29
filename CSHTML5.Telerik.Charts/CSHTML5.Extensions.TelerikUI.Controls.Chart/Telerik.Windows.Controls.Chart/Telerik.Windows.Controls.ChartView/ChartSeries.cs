@@ -9,6 +9,7 @@ using System;
 using System.Windows.Markup;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -69,10 +70,39 @@ namespace Telerik.Windows.Controls.ChartView
             return "line";
         }
 
+        IEnumerable _dataSource;
+        public IEnumerable DataSource
+        {
+            get
+            {
+                return _dataSource;
+            }
+            set
+            {
+                _dataSource = value;
+                INotifyCollectionChanged notifyingDataSource = _dataSource as INotifyCollectionChanged;
+                if (notifyingDataSource != null)
+                {
+                    notifyingDataSource.CollectionChanged += new NotifyCollectionChangedEventHandler(NotifyingDataSource_CollectionChanged);
+                }
+            }
+        }
+
         private static void OnItemsSource_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((ChartSeries)d).ParentChart.Refresh();
+            var chartSeries = d as ChartSeries;
+            if (d != null)
+            {
+                chartSeries.DataSource = (IEnumerable)e.NewValue;
+                chartSeries.ParentChart.Refresh();
+            }
         }
+
+        private void NotifyingDataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            ParentChart.Refresh();
+        }
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
