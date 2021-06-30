@@ -1,34 +1,14 @@
-﻿using CSHTML5;
-using CSHTML5.Internal;
-using CSHTML5.Wrappers.KendoUI.Common;
+﻿using JSConversionHelpers;
 using kendo_ui_chart.kendo.dataviz.ui;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
-//using Telerik.Windows.Controls.Primitives;
-//using System.Windows.Controls;
-//using System.Windows;
-//using System;
-//using kendo_ui_chart.kendo.dataviz.ui;
-//using TypeScriptDefinitionsSupport;
-//using CSHTML5;
-//using CSHTML5.Wrappers.KendoUI.Common;
-//using System.Collections.Generic;
-//using System.Windows.Media;
-//using CSHTML5.Internal;
 
 namespace Telerik.Windows.Controls
 {
     public class RadPieChart : RadChartBase
     {
-        class DataPropertyMapping
-        {
-            public string PropName;
-            public string FieldName;
-            public Boolean IsMapped = false;
-        }
+        
 
         public RadPieChart()
         {
@@ -80,17 +60,17 @@ namespace Telerik.Windows.Controls
                     seriesItem.startAngle = pieSeries.StartAngle;
 
                     // mapped fields
-                    DataPropertyMapping categoryMapping = new DataPropertyMapping() { FieldName = pieSeries.CategoryBinding?.PropertyPath ?? "Category" };
+                    DataPropertyMapping categoryMapping = new DataPropertyMapping(pieSeries.CategoryBinding?.PropertyPath ?? "Category");
                     seriesItem.categoryField = categoryMapping.FieldName;
 
-                    DataPropertyMapping valueMapping = new DataPropertyMapping() { FieldName = pieSeries.ValueBinding?.PropertyPath ?? "Value" };
+                    DataPropertyMapping valueMapping = new DataPropertyMapping(pieSeries.ValueBinding?.PropertyPath ?? "Value");
                     seriesItem.field = valueMapping.FieldName;
 
                     // unmapped detail fields
-                    DataPropertyMapping colorMapping = new DataPropertyMapping() { PropName = pieSeries.ColorBinding?.PropertyPath ?? "Color", FieldName = "color" };
+                    DataPropertyMapping colorMapping = new DataPropertyMapping(pieSeries.ColorBinding?.PropertyPath ?? "Color", "color");
 
                     var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping, colorMapping };
-                    var res = PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
+                    var res = JSConverters.PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
                     series.Add(seriesItem);
@@ -100,35 +80,6 @@ namespace Telerik.Windows.Controls
             // add chart to kendo
             chartO.series = series;
             _kendoChart.setOptions(chartO);
-        }
-
-        private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<DataPropertyMapping> propertiesToPutInResult)
-        {
-            object preparedSeriesData = Interop.ExecuteJavaScript("[]");
-
-            StringBuilder sb = new StringBuilder("");
-            foreach (var cSharpItem in seriesData)
-            {
-                sb.Append("$0.push({");
-                
-                foreach (DataPropertyMapping property in propertiesToPutInResult)
-                {
-                    string propertyName = property.FieldName;
-                    object propertyValue = String.IsNullOrEmpty(property.PropName) ? Utils.GetNestedPropertyValue(cSharpItem, propertyName) : Utils.GetNestedPropertyValue(cSharpItem, property.PropName);
-
-                    if (propertyValue != null)
-                    {
-                        string propValue = String.Format((propertyValue is DateTime) ? "new Date({0})" : "'{0}'", propertyValue.ToString());
-                        
-                        sb.AppendFormat("'{0}': {1},", propertyName, propValue.ToString());
-                    }
-                }
-
-                sb.Append("});");
-            }
-            Interop.ExecuteJavaScript(sb.ToString(), preparedSeriesData);
-
-            return new JSObject(preparedSeriesData);
         }
     }
 }
