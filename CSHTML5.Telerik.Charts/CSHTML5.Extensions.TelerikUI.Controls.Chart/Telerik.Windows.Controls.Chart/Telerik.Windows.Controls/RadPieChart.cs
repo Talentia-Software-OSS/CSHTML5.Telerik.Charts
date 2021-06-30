@@ -4,6 +4,7 @@ using CSHTML5.Wrappers.KendoUI.Common;
 using kendo_ui_chart.kendo.dataviz.ui;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
 //using Telerik.Windows.Controls.Primitives;
@@ -103,24 +104,33 @@ namespace Telerik.Windows.Controls
 
         private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<DataPropertyMapping> propertiesToPutInResult)
         {
+            //StringBuilder sb = new StringBuilder("[]");
             object preparedSeriesData = Interop.ExecuteJavaScript("[]");
 
             foreach (var cSharpItem in seriesData)
             {
                 var jsObject = Interop.ExecuteJavaScript("new Object()");
+                
+                StringBuilder sb = new StringBuilder("");
                 foreach (DataPropertyMapping property in propertiesToPutInResult)
                 {
                     string propertyName = property.FieldName;
                     object propertyValue = String.IsNullOrEmpty(property.PropName) ? Utils.GetNestedPropertyValue(cSharpItem, propertyName) : Utils.GetNestedPropertyValue(cSharpItem, property.PropName);
 
-                    if (propertyValue is DateTime) {
-                        Interop.ExecuteJavaScript(@"$0[$1] = new Date($2)", jsObject, propertyName, propertyValue.ToString()); //We'll simply do this for now, it might need some formatting to be sure Date() will understand the date.
-                    } else if (propertyValue != null) {
-                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName, propertyValue.ToString());
+                    if (propertyValue is DateTime)
+                    {
+                        sb.AppendFormat("$0['{0}'] = new Date({1});", propertyName, propertyValue.ToString());
+                    }
+                    else if (propertyValue != null)
+                    {
+                        sb.AppendFormat("$0['{0}'] = '{1}';", propertyName, propertyValue.ToString());
                     }
                 }
+                Interop.ExecuteJavaScript(sb.ToString(), jsObject);
+
                 Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
             }
+
             return new JSObject(preparedSeriesData);
         }
     }
