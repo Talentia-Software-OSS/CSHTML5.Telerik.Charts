@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -16,26 +14,17 @@ using Telerik.Windows.Data;
 
 namespace CSHTML5.TelerikChartExample.Views
 {
+    public class PieSerieObj
+    {
+        public string Category { get; set; }
+        public double Value { get; set; }
+        public string Color { get; set; }
+    }
+
     public partial class RadPieChart : Page
     {
-        private PlannedTimeByCycleChartViewModel _plannedTimeByCycleChartViewModel = new PlannedTimeByCycleChartViewModel();
-        public RadPieChart()
-        {
-            InitializeComponent();
-            
-            this.DataContext = _plannedTimeByCycleChartViewModel;
-        }
-        
-        private void Button_Click_PieChart(object sender, RoutedEventArgs e)
-        {
-            //ExamplePieChart.Series[0].ItemsSource = ChartBindedSerie;
-            // set piechart data on refresh
-            //_plannedTimeByCycleChartViewModel.HoursByCycle = PlannedTimeByCycleChartViewModel.GetSerie();
-            this.DataContext = _plannedTimeByCycleChartViewModel;
-            ExamplePieChart.Refresh();
-        }
 
-    }
+        private ChartViewModel _chartViewModel;
 
     // TODO: remove chart info
     public class ChartInfo
@@ -51,10 +40,9 @@ namespace CSHTML5.TelerikChartExample.Views
         event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            this.InitializeComponent();
+            var items = GetSerie();
+            _chartViewModel = new ChartViewModel(this, items);
         }
         #endregion
 
@@ -89,19 +77,16 @@ namespace CSHTML5.TelerikChartExample.Views
         /// <value>The process contexts.</value>
         public RadObservableCollection<ChartInfo> Items
         {
-            get
-            {
-                return _items;
-            }
-            set
-            {
-                _items = value;
-                OnPropertyChanged("Items");
-                OnCollectionChanged();
-            }
+             // set piechart data on refresh
+            ExamplePieChart.Refresh();
         }
 
-        private void OnCollectionChanged()
+        private void AddItems_Click(object sender, RoutedEventArgs e)
+        {            
+            _chartViewModel.Items.Add(new PieSerieObj() { Category = "North africa", Value = 13.6, Color = "#033939" });
+        }
+
+        private static RadObservableCollection<PieSerieObj> GetSerie()
         {
             NotifyCollectionChangedEventHandler handler = this.CollectionChanged;
             if (handler != null)
@@ -148,6 +133,52 @@ namespace CSHTML5.TelerikChartExample.Views
             serie.Add(new ChartInfo() { Label = "North America", Value = 3.6, Color = "#033939" });
 
             return serie;
+        }
+
+
+    }
+
+    public class ChartViewModel : NotifierBase
+    {
+        public ChartViewModel(RadPieChart page, RadObservableCollection<PieSerieObj> items)
+        {
+            page.DataContext = this;
+            //page.ExamplePieChart.DataContext = this;
+            page.ExamplePieChart.Series[0].DataContext = this;
+            this.Items = items;
+        }
+
+        RadObservableCollection<PieSerieObj> _items = new RadObservableCollection<PieSerieObj>();
+        public RadObservableCollection<PieSerieObj> Items
+        {
+            get { return _items; }
+            set { _items = value; OnPropertyChanged("Items"); }
+        }
+    }
+
+    public class NotifierBase : INotifyPropertyChanged
+    {
+        /// <summary>
+        /// Fires the property changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        public void OnPropertyChanged(string propertyName)
+        {
+            // work on a local (threadsafe between the if and the call)
+            PropertyChangedEventHandler handler = _propertyChangedHandler;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        PropertyChangedEventHandler _propertyChangedHandler;
+
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
+        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        {
+            add { _propertyChangedHandler += value; }
+            remove { _propertyChangedHandler -= value; }
         }
     }
 
