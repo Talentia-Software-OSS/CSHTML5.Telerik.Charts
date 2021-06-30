@@ -106,28 +106,25 @@ namespace Telerik.Windows.Controls
         {
             object preparedSeriesData = Interop.ExecuteJavaScript("[]");
 
-            int index = 0;
             StringBuilder sb = new StringBuilder("");
             foreach (var cSharpItem in seriesData)
             {
-                sb.AppendFormat("$0[{0}] = new Object();", index);
+                sb.Append("$0.push({");
                 
                 foreach (DataPropertyMapping property in propertiesToPutInResult)
                 {
                     string propertyName = property.FieldName;
                     object propertyValue = String.IsNullOrEmpty(property.PropName) ? Utils.GetNestedPropertyValue(cSharpItem, propertyName) : Utils.GetNestedPropertyValue(cSharpItem, property.PropName);
 
-                    if (propertyValue is DateTime)
+                    if (propertyValue != null)
                     {
-                        sb.AppendFormat("$0[{0}]['{1}'] = new Date({2});", index,  propertyName, propertyValue.ToString());
-                    }
-                    else if (propertyValue != null)
-                    {
-                        sb.AppendFormat("$0[{0}]['{1}'] = '{2}';", index, propertyName, propertyValue.ToString());
+                        string propValue = String.Format((propertyValue is DateTime) ? "new Date({0})" : "'{0}'", propertyValue.ToString());
+                        
+                        sb.AppendFormat("'{0}': {1},", propertyName, propValue.ToString());
                     }
                 }
 
-                index++;
+                sb.Append("});");
             }
             Interop.ExecuteJavaScript(sb.ToString(), preparedSeriesData);
 
