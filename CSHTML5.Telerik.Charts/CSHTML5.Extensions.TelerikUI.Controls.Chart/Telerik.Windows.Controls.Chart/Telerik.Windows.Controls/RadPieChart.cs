@@ -104,14 +104,14 @@ namespace Telerik.Windows.Controls
 
         private JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<DataPropertyMapping> propertiesToPutInResult)
         {
-            //StringBuilder sb = new StringBuilder("[]");
             object preparedSeriesData = Interop.ExecuteJavaScript("[]");
 
+            int index = 0;
+            StringBuilder sb = new StringBuilder("");
             foreach (var cSharpItem in seriesData)
             {
-                var jsObject = Interop.ExecuteJavaScript("new Object()");
+                sb.AppendFormat("$0[{0}] = new Object();", index);
                 
-                StringBuilder sb = new StringBuilder("");
                 foreach (DataPropertyMapping property in propertiesToPutInResult)
                 {
                     string propertyName = property.FieldName;
@@ -119,17 +119,17 @@ namespace Telerik.Windows.Controls
 
                     if (propertyValue is DateTime)
                     {
-                        sb.AppendFormat("$0['{0}'] = new Date({1});", propertyName, propertyValue.ToString());
+                        sb.AppendFormat("$0[{0}]['{1}'] = new Date({2});", index,  propertyName, propertyValue.ToString());
                     }
                     else if (propertyValue != null)
                     {
-                        sb.AppendFormat("$0['{0}'] = '{1}';", propertyName, propertyValue.ToString());
+                        sb.AppendFormat("$0[{0}]['{1}'] = '{2}';", index, propertyName, propertyValue.ToString());
                     }
                 }
-                Interop.ExecuteJavaScript(sb.ToString(), jsObject);
 
-                Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
+                index++;
             }
+            Interop.ExecuteJavaScript(sb.ToString(), preparedSeriesData);
 
             return new JSObject(preparedSeriesData);
         }
