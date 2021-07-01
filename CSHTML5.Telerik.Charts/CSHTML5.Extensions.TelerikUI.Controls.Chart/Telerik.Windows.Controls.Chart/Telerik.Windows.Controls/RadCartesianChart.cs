@@ -13,6 +13,7 @@ using CSHTML5.Wrappers.KendoUI.Common;
 using System.Collections.Generic;
 using System.Windows.Media;
 using CSHTML5.Internal;
+using JSConversionHelpers;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -123,8 +124,12 @@ namespace Telerik.Windows.Controls
                     if (cartesianSeries is CategoricalStrokedSeries)
                     {
                         var cartesianSeriesAsCategoricalSeries = cartesianSeries as CategoricalStrokedSeries;
-                        string categoryField = cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath; //I'll just assume this has to have a value because I can't find a default value or anything like that in the telerik things I found on the internet.
-                        string valueField = cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath; // same as above.
+
+                        DataPropertyMapping categoryMapping = new DataPropertyMapping(cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath ?? "Category");
+                        seriesItem.categoryField = categoryMapping.FieldName;
+
+                        DataPropertyMapping valueMapping = new DataPropertyMapping(cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath ?? "Value");
+                        seriesItem.field = valueMapping.FieldName;
 
                         SetSeriesItemColor(seriesItem, cartesianSeriesAsCategoricalSeries.Stroke);
                         if (cartesianSeries is AreaSeries)
@@ -132,13 +137,10 @@ namespace Telerik.Windows.Controls
                             SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
                         }
 
-                        var propNames = new List<string>() { categoryField, valueField };
-
-                        var res = PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
-
-                        seriesItem.categoryField = categoryField;
-                        seriesItem.field = valueField;
+                        var propNames = new List<DataPropertyMapping>() { categoryMapping, valueMapping };
+                        var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
                         seriesItem.data = res;
+
                         seriesItem.missingValues = "gap";
                     }
                     else
