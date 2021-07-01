@@ -14,7 +14,7 @@ using Telerik.Windows.Data;
 
 namespace CSHTML5.TelerikChartExample.Views
 {
-    public class PieSerieObj
+    public class SerieObject
     {
         public string Category { get; set; }
         public double Value { get; set; }
@@ -41,19 +41,19 @@ namespace CSHTML5.TelerikChartExample.Views
 
         private void AddItems_Click(object sender, RoutedEventArgs e)
         {
-            _chartViewModel.Items.Add(new PieSerieObj() { Category = "North africa", Value = 13.6, Color = "#033939" });
+            _chartViewModel.Items.Add(new SerieObject() { Category = "North africa", Value = 13.6, Color = "#033939" });
         }
 
-        private static RadObservableCollection<PieSerieObj> GetSerie()
+        private static RadObservableCollection<SerieObject> GetSerie()
         {
-            RadObservableCollection<PieSerieObj> serie = new RadObservableCollection<PieSerieObj>();
+            RadObservableCollection<SerieObject> serie = new RadObservableCollection<SerieObject>();
 
-            serie.Add(new PieSerieObj() { Category = "Asia", Value = 53.8, Color = "#9de219" });
-            serie.Add(new PieSerieObj() { Category = "Europe", Value = 16.1, Color = "#90cc38" });
-            serie.Add(new PieSerieObj() { Category = "Latin America", Value = 11.3, Color = "#068c35" });
-            serie.Add(new PieSerieObj() { Category = "Africa", Value = 9.6, Color = "#006634" });
-            serie.Add(new PieSerieObj() { Category = "Middle East", Value = 5.2, Color = "#004d38" });
-            serie.Add(new PieSerieObj() { Category = "North America", Value = 3.6, Color = "#033939" });
+            serie.Add(new SerieObject() { Category = "Asia", Value = 53.8, Color = "#9de219" });
+            serie.Add(new SerieObject() { Category = "Europe", Value = 16.1, Color = "#90cc38" });
+            serie.Add(new SerieObject() { Category = "Latin America", Value = 11.3, Color = "#068c35" });
+            serie.Add(new SerieObject() { Category = "Africa", Value = 9.6, Color = "#006634" });
+            serie.Add(new SerieObject() { Category = "Middle East", Value = 5.2, Color = "#004d38" });
+            serie.Add(new SerieObject() { Category = "North America", Value = 3.6, Color = "#033939" });
 
             return serie;
         }
@@ -63,7 +63,7 @@ namespace CSHTML5.TelerikChartExample.Views
 
     public class ChartViewModel : NotifierBase
     {
-        public ChartViewModel(RadPieChart page, RadObservableCollection<PieSerieObj> items)
+        public ChartViewModel(RadPieChart page, RadObservableCollection<SerieObject> items)
         {
             page.DataContext = this;
             //page.ExamplePieChart.DataContext = this;
@@ -71,8 +71,8 @@ namespace CSHTML5.TelerikChartExample.Views
             this.Items = items;
         }
 
-        RadObservableCollection<PieSerieObj> _items = new RadObservableCollection<PieSerieObj>();
-        public RadObservableCollection<PieSerieObj> Items
+        RadObservableCollection<SerieObject> _items = new RadObservableCollection<SerieObject>();
+        public RadObservableCollection<SerieObject> Items
         {
             get { return _items; }
             set { _items = value; OnPropertyChanged("Items"); }

@@ -8,8 +8,6 @@ namespace Telerik.Windows.Controls
 {
     public class RadPieChart : RadChartBase
     {
-        
-
         public RadPieChart()
         {
             this.DefaultStyleKey = typeof(RadPieChart);
