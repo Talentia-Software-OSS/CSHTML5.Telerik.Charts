@@ -67,7 +67,9 @@ namespace Telerik.Windows.Controls
                     seriesItem.field = valueMapping.FieldName;
 
                     // unmapped detail fields
-                    DataPropertyMapping colorMapping = new DataPropertyMapping(pieSeries.ColorBinding?.PropertyPath ?? "Color", "color");
+                    //DataPropertyMapping colorMapping = new DataPropertyMapping(pieSeries.ColorBinding?.PropertyPath ?? "Color", "color"); // mapping Color to color
+                    DataPropertyMapping colorMapping = new DataPropertyMapping(pieSeries.ColorBinding?.PropertyPath ?? "Color");    // setting field to Color
+                    seriesItem.colorField = colorMapping.FieldName;
 
                     var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping, colorMapping };
                     var res = JSConverters.PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
