@@ -33,7 +33,7 @@ namespace Telerik.Windows.Controls
             }
         }
 
-        void SetKendoChartSeries()
+        protected override void SetKendoChartSeries()
         {
             // create chart options
             ChartOptions chartO = new ChartOptions();
@@ -75,6 +75,5 @@ namespace Telerik.Windows.Controls
 
             return new JSObject(preparedSeriesData);
         }
-
     }
 }
