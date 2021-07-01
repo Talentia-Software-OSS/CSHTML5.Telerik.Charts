@@ -5,33 +5,48 @@ using System.Windows;
 
 namespace Telerik.Windows.Controls.ChartView
 {
-    public class PieSeries : ChartSeries
+    public class PieSeries : CategoricalSeries
     {
-        //public static readonly DependencyProperty ValueBindingProperty = DependencyProperty.Register("ValueBindingProperty", typeof(DataTemplate), typeof(ChartSeries), null);
+        internal const int Angle45 = 45;
 
-        //public DataTemplate ValueBinding
-        //{
-        //    get { return (DataTemplate)this.GetValue(ChartSeries.TrackBallInfoTemplateProperty); }
-        //    set { this.SetValue(ChartSeries.TrackBallInfoTemplateProperty, (object)value); }
-        //}
+        internal const int Angle75 = 75;
 
-        public static readonly DependencyProperty ValueBindingProperty = DependencyProperty.Register("ValueBinding", typeof(DataPointBinding), typeof(PieSeries), (PropertyMetadata)new PropertyMetadata((object)null, (PropertyChangedCallback)OnValueBindingChanged));
+        internal const int Angle105 = 105;
 
-        public DataPointBinding ValueBinding
+        internal const int Angle135 = 135;
+
+        internal const int Angle150 = 150;
+
+        internal const int Angle255 = 255;
+
+        internal const int Angle225 = 225;
+
+        internal const int Angle285 = 285;
+
+        internal const int Angle315 = 315;
+
+        public override string GetChartType()
         {
-            get
-            {
-                return GetValue(ValueBindingProperty) as DataPointBinding;
-            }
-            set
-            {
-                SetValue(ValueBindingProperty, value);
-            }
+            return "pie";
         }
 
-        private static void OnValueBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public double StartAngle = PieSeries.Angle150;
+
+        //-------------------------------------//
+        //-------------- FIELDS ---------------//
+        //-------------------------------------//
+        public static readonly DependencyProperty ColorBindingProperty = DependencyProperty.Register("ColorBindingProperty", typeof(DataPointBinding), typeof(PieSeries), null);
+        //-------------------------------------//
+        //-------------------------------------//
+        //-------------------------------------//
+
+        //-------------------------------------//
+        //------------ PROPERTIES -------------//
+        //-------------------------------------//
+        public DataPointBinding ColorBinding
         {
-            throw new NotImplementedException();
+            get { return (DataPointBinding)this.GetValue(PieSeries.ColorBindingProperty); }
+            set { this.SetValue(PieSeries.ColorBindingProperty, (object)value); }
         }
     }
 }
