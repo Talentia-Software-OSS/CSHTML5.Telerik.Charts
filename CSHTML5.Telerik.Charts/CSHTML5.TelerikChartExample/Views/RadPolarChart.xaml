@@ -8,13 +8,13 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <telerik:RadPolarChart Name="ExamplePolarChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-                <telerik:RadarLineSeries ItemsSource="{Binding }" CategoryBinding="X"
+                <telerik:RadarLineSeries ItemsSource="{Binding Path=Items}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="OrangeRed" ShowLabels="True">
                 </telerik:RadarLineSeries>
-                <telerik:RadarLineSeries ItemsSource="{Binding }" CategoryBinding="X"
+                <telerik:RadarLineSeries ItemsSource="{Binding Path=Items}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Green" ShowLabels="True">
                 </telerik:RadarLineSeries>
-                <telerik:RadarLineSeries ItemsSource="{Binding }" CategoryBinding="X"
+                <telerik:RadarLineSeries ItemsSource="{Binding Path=Items}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Blue" ShowLabels="True">
                 </telerik:RadarLineSeries>
             </telerik:RadPolarChart>

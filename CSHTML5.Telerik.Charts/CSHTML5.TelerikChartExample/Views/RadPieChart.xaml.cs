@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Navigation;
 using Telerik.Windows.Data;
 
 namespace CSHTML5.TelerikChartExample.Views
 {
-    public class SerieObject
-    {
-        public string Category { get; set; }
-        public double Value { get; set; }
-        public string Color { get; set; }
-    }
-
     public partial class RadPieChart : Page
     {
+        private class SerieObject
+        {
+            public string Category { get; set; }
+            public double Value { get; set; }
+            public string Color { get; set; }
+        }
 
-        private ChartViewModel _chartViewModel;
+        private ChartViewModel<RadPieChart, SerieObject> _chartViewModel;
 
         public RadPieChart()
         {
             this.InitializeComponent();
+            // create ViewModel
             var items = GetSerie();
-            _chartViewModel = new ChartViewModel(this, items);
+            _chartViewModel = new ChartViewModel<RadPieChart, SerieObject>(this, items);
+            // set DataContext for series
+            ExamplePieChart.Series[0].DataContext = _chartViewModel;
         }
 
         private void Button_Click_PieChart(object sender, RoutedEventArgs e)
@@ -57,52 +49,5 @@ namespace CSHTML5.TelerikChartExample.Views
 
             return serie;
         }
-
-
     }
-
-    public class ChartViewModel : NotifierBase
-    {
-        public ChartViewModel(RadPieChart page, RadObservableCollection<SerieObject> items)
-        {
-            page.DataContext = this;
-            //page.ExamplePieChart.DataContext = this;
-            page.ExamplePieChart.Series[0].DataContext = this;
-            this.Items = items;
-        }
-
-        RadObservableCollection<SerieObject> _items = new RadObservableCollection<SerieObject>();
-        public RadObservableCollection<SerieObject> Items
-        {
-            get { return _items; }
-            set { _items = value; OnPropertyChanged("Items"); }
-        }
-    }
-
-    public class NotifierBase : INotifyPropertyChanged
-    {
-        /// <summary>
-        /// Fires the property changed.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        public void OnPropertyChanged(string propertyName)
-        {
-            // work on a local (threadsafe between the if and the call)
-            PropertyChangedEventHandler handler = _propertyChangedHandler;
-            if (handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        PropertyChangedEventHandler _propertyChangedHandler;
-
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
-        {
-            add { _propertyChangedHandler += value; }
-            remove { _propertyChangedHandler -= value; }
-        }
-    }
-
 }

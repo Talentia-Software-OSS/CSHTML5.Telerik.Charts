@@ -44,8 +44,6 @@ namespace Telerik.Windows.Controls
                     var res = JSConverters.PrepareSeriesData(radarLineSerie.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
-                    //seriesItem.data = GetSeriesData();
-
                     // add serie to series array
                     series.Add(seriesItem);
                 }
