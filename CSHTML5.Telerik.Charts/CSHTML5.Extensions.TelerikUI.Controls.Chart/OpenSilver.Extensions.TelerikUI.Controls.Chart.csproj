@@ -36,7 +36,7 @@
 	  <PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\RadarLineSeries.cs">
+    <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Series\RadarLineSeries.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

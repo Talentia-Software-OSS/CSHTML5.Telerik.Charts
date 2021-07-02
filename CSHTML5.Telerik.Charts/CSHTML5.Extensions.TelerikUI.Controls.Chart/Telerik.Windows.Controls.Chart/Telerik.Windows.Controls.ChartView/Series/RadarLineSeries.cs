@@ -23,5 +23,16 @@ namespace Telerik.Windows.Controls.ChartView
             get { return (DataPointBinding)this.GetValue(RadarLineSeries.ShowLabelsProperty); }
             set { this.SetValue(RadarLineSeries.ShowLabelsProperty, (object)value); }
         }
+
+        public override string GetChartType()
+        {
+            return "polarLine";
+        }
+
+        
+        internal string GetChartStyle()
+        {
+            return "smooth";
+        }
     }
 }

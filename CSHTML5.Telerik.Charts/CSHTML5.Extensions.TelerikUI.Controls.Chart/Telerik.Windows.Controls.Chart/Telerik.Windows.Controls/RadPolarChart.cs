@@ -30,8 +30,8 @@ namespace Telerik.Windows.Controls
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
 
                     // set series details
-                    seriesItem.type = "polarLine";
-                    seriesItem.style = "smooth";
+                    seriesItem.type = radarLineSerie.GetChartType();
+                    seriesItem.style = radarLineSerie.GetChartStyle();
 
                     // mapped fields
                     DataPropertyMapping categoryMapping = new DataPropertyMapping(radarLineSerie.CategoryBinding?.PropertyPath ?? "Category");
