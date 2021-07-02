@@ -2,8 +2,6 @@
 //-------------- USINGS ---------------//
 //-------------------------------------//
 using Telerik.Charting;
-using Telerik.Windows.Controls.Primitives;
-using System.Windows.Controls;
 using System.Windows;
 using System;
 using System.Windows.Markup;

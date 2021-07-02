@@ -1,7 +1,4 @@
-﻿using System;
-using Telerik.Windows.Controls.ChartView;
-using CSHTML5;
-using CSHTML5.Internal;
+﻿using Telerik.Windows.Controls.ChartView;
 using kendo_ui_chart.kendo.dataviz.ui;
 using TypeScriptDefinitionsSupport;
 using JSConversionHelpers;
@@ -9,38 +6,11 @@ using System.Collections.Generic;
 
 namespace Telerik.Windows.Controls
 {
-    public class RadPolarChart: RadChartBase
+    public class RadPolarChart: RadChartSeriesBase<RadarLineSeries>
     {
-        public RadPolarChart()
+        public RadPolarChart(): base()
         {
             this.DefaultStyleKey = typeof(RadPolarChart);
-            _series = new PresenterCollection<RadarLineSeries>();
-            _series.CollectionChanged += Series_CollectionChanged;
-        }
-
-        private PresenterCollection<RadarLineSeries> _series;
-        public PresenterCollection<RadarLineSeries> Series
-        {
-            get { return _series; }
-        }
-
-        private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:
-            if (e.OldItems != null)
-            {
-                foreach (object radarLineSerieAsObject in e.OldItems)
-                {
-                    ((RadarLineSeries)radarLineSerieAsObject).ParentChart = null;
-                }
-            }
-            if (e.NewItems != null)
-            {
-                foreach (object radarLineSerieAsObject in e.NewItems)
-                {
-                    ((RadarLineSeries)radarLineSerieAsObject).ParentChart = this;
-                }
-            }
         }
 
         protected override void SetKendoChartSeries()

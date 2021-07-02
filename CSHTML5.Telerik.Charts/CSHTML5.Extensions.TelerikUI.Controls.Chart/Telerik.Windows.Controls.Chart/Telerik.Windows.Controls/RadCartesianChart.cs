@@ -2,8 +2,6 @@
 //-------------- USINGS ---------------//
 //-------------------------------------//
 using Telerik.Windows.Controls.ChartView;
-using Telerik.Windows.Controls.Primitives;
-using System.Windows.Controls;
 using System.Windows;
 using System;
 using kendo_ui_chart.kendo.dataviz.ui;
@@ -12,19 +10,17 @@ using CSHTML5;
 using CSHTML5.Wrappers.KendoUI.Common;
 using System.Collections.Generic;
 using System.Windows.Media;
-using CSHTML5.Internal;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
 
 namespace Telerik.Windows.Controls
 {
-    public class RadCartesianChart : RadChartBase
+    public class RadCartesianChart : RadChartSeriesBase<CartesianSeries>
     {
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
-        private PresenterCollection<CartesianSeries> _series;
         private CartesianChartGrid _grid;
         public static readonly DependencyProperty HorizontalAxisProperty = DependencyProperty.Register("HorizontalAxisProperty", typeof(CartesianAxis), typeof(RadCartesianChart), null);
         public static readonly DependencyProperty VerticalAxisProperty = DependencyProperty.Register("VerticalAxisProperty", typeof(CartesianAxis), typeof(RadCartesianChart), null);
@@ -35,10 +31,6 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //------------ PROPERTIES -------------//
         //-------------------------------------//
-        public PresenterCollection<CartesianSeries> Series
-        {
-            get { return _series; }
-        }
         public CartesianChartGrid Grid
         {
             get { return _grid; }
@@ -61,31 +53,10 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //------------- METHODS ---------------//
         //-------------------------------------//
-        public RadCartesianChart()
+        public RadCartesianChart(): base()
         {
             this.DefaultStyleKey = typeof(RadCartesianChart);
-            _series = new PresenterCollection<CartesianSeries>();
-            _series.CollectionChanged += Series_CollectionChanged;
             _grid = null;
-        }
-
-        private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:
-            if (e.OldItems != null)
-            {
-                foreach (object cartesianSeriesAsObject in e.OldItems)
-                {
-                    ((CartesianSeries)cartesianSeriesAsObject).ParentChart = null;
-                }
-            }
-            if (e.NewItems != null)
-            {
-                foreach (object cartesianSeriesAsObject in e.NewItems)
-                {
-                    ((CartesianSeries)cartesianSeriesAsObject).ParentChart = this;
-                }
-            }
         }
 
         protected override void SetKendoChartSeries()
