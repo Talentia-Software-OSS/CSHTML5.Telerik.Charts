@@ -3,15 +3,11 @@
 //-------------------------------------//
 using Telerik.Windows.Controls.ChartView;
 using System.Windows;
-using System;
 using kendo_ui_chart.kendo.dataviz.ui;
 using TypeScriptDefinitionsSupport;
 using CSHTML5;
-using CSHTML5.Wrappers.KendoUI.Common;
-using System.Collections.Generic;
 using System.Windows.Media;
 using JSConversionHelpers;
-using System.Linq;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -94,35 +90,8 @@ namespace Telerik.Windows.Controls
                     //}
                     #endregion
 
-                    //if (cartesianSeries is CategoricalStrokedSeries)
-                    //{
-                    //    JSConverters.SetSeriesItemColor(seriesItem, (cartesianSeriesAsCategoricalSeries as CategoricalStrokedSeries).Stroke);
-                    //    if (cartesianSeries is AreaSeries)
-                    //    {
-                    //        JSConverters.SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
-                    //    }                        
-                    //}
-
                     // mapped fields
-                    var propertyFields = new List<DataPropertyMapping>();
-                    if (cartesianSeries is CategoricalSeries)
-                    {
-                        var categoricalSeries = cartesianSeries as CategoricalSeries;
-                        DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
-                        seriesItem.categoryField = categoryMapping.FieldName;
-                        propertyFields.Add(categoryMapping);
-
-                        DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
-                        seriesItem.field = valueMapping.FieldName;
-                        propertyFields.Add(valueMapping);
-                    }
-
-                    DataPropertyMapping colorMapping = JSConverters.SetColorSeriesOrGetColorMapping(cartesianSeries, seriesItem);
-                    if (colorMapping != null)
-                    {
-                        propertyFields.Add(colorMapping);
-                    }
-
+                    var propertyFields = SetInSeriesItemAndGetPropertyFields(cartesianSeries, seriesItem);
                     // data mapping
                     var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;

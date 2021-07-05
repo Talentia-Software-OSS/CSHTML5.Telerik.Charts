@@ -8,7 +8,7 @@ using System.Windows.Media;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
 
-namespace JSConversionHelpers { 
+namespace JSConversionHelpers {
     public class DataPropertyMapping
     {
         public string PropName;
