@@ -73,6 +73,7 @@ namespace Telerik.Windows.Controls
                 {
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
                     seriesItem.type = cartesianSeries.GetChartType();
+                    seriesItem.missingValues = "gap";
 
                     #region attempt at dealing with tooltips in series.
                     //if(cartesianSeries is LineSeries)
@@ -91,31 +92,27 @@ namespace Telerik.Windows.Controls
                     //}
                     #endregion
 
+                    var cartesianSeriesAsCategoricalSeries = cartesianSeries as CategoricalSeries;
+                    
                     if (cartesianSeries is CategoricalStrokedSeries)
                     {
-                        var cartesianSeriesAsCategoricalSeries = cartesianSeries as CategoricalStrokedSeries;
-                        string categoryField = cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath; //I'll just assume this has to have a value because I can't find a default value or anything like that in the telerik things I found on the internet.
-                        string valueField = cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath; // same as above.
-
-                        SetSeriesItemColor(seriesItem, cartesianSeriesAsCategoricalSeries.Stroke);
+                        SetSeriesItemColor(seriesItem, (cartesianSeriesAsCategoricalSeries as CategoricalStrokedSeries).Stroke);
                         if (cartesianSeries is AreaSeries)
                         {
                             SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
-                        }
-
-                        var propNames = new List<string>() { categoryField, valueField };
-
-                        var res = PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
-
-                        seriesItem.categoryField = categoryField;
-                        seriesItem.field = valueField;
-                        seriesItem.data = res;
-                        seriesItem.missingValues = "gap";
+                        }                        
                     }
-                    else
-                    {
-                        //get the data as points as is.
-                    }
+
+                    // field mappings
+                    string categoryField = cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath; //I'll just assume this has to have a value because I can't find a default value or anything like that in the telerik things I found on the internet.
+                    string valueField = cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath; // same as above.
+                    seriesItem.categoryField = categoryField;
+                    seriesItem.field = valueField;
+
+                    // data mapping
+                    var propNames = new List<string>() { categoryField, valueField };
+                    var res = PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
+                    seriesItem.data = res;
 
                     //var v = new JSObject();
                     //Interop.ExecuteJavaScript(@"$0.UnderlyingJSInstance = [1, 2, 3]", v);
