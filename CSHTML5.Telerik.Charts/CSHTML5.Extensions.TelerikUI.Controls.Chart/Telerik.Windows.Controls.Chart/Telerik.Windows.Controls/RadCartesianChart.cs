@@ -10,6 +10,8 @@ using CSHTML5;
 using CSHTML5.Wrappers.KendoUI.Common;
 using System.Collections.Generic;
 using System.Windows.Media;
+using JSConversionHelpers;
+using System.Linq;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -53,7 +55,7 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //------------- METHODS ---------------//
         //-------------------------------------//
-        public RadCartesianChart(): base()
+        public RadCartesianChart() : base()
         {
             this.DefaultStyleKey = typeof(RadCartesianChart);
             _grid = null;
@@ -92,31 +94,39 @@ namespace Telerik.Windows.Controls
                     //}
                     #endregion
 
-                    var cartesianSeriesAsCategoricalSeries = cartesianSeries as CategoricalSeries;
-                    
-                    if (cartesianSeries is CategoricalStrokedSeries)
+                    //if (cartesianSeries is CategoricalStrokedSeries)
+                    //{
+                    //    JSConverters.SetSeriesItemColor(seriesItem, (cartesianSeriesAsCategoricalSeries as CategoricalStrokedSeries).Stroke);
+                    //    if (cartesianSeries is AreaSeries)
+                    //    {
+                    //        JSConverters.SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
+                    //    }                        
+                    //}
+
+                    // mapped fields
+                    var propertyFields = new List<DataPropertyMapping>();
+                    if (cartesianSeries is CategoricalSeries)
                     {
-                        SetSeriesItemColor(seriesItem, (cartesianSeriesAsCategoricalSeries as CategoricalStrokedSeries).Stroke);
-                        if (cartesianSeries is AreaSeries)
-                        {
-                            SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
-                        }                        
+                        var categoricalSeries = cartesianSeries as CategoricalSeries;
+                        DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
+                        seriesItem.categoryField = categoryMapping.FieldName;
+                        propertyFields.Add(categoryMapping);
+
+                        DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
+                        seriesItem.field = valueMapping.FieldName;
+                        propertyFields.Add(valueMapping);
                     }
 
-                    // field mappings
-                    string categoryField = cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath; //I'll just assume this has to have a value because I can't find a default value or anything like that in the telerik things I found on the internet.
-                    string valueField = cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath; // same as above.
-                    seriesItem.categoryField = categoryField;
-                    seriesItem.field = valueField;
+                    DataPropertyMapping colorMapping = JSConverters.SetColorSeriesOrGetColorMapping(cartesianSeries, seriesItem);
+                    if (colorMapping != null)
+                    {
+                        propertyFields.Add(colorMapping);
+                    }
 
                     // data mapping
-                    var propNames = new List<string>() { categoryField, valueField };
-                    var res = PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
+                    var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
-                    //var v = new JSObject();
-                    //Interop.ExecuteJavaScript(@"$0.UnderlyingJSInstance = [1, 2, 3]", v);
-                    //seriesItem.data = v;
                     series.Add(seriesItem);
                 }
             }
@@ -135,7 +145,7 @@ namespace Telerik.Windows.Controls
                 //labels.color = "LightGray"; //todo: find out what defines the label's color (it is not HorizontalAxis.Foreground apparently)
                 categoryAxisItem.labels = labels;
 
-                string XAxisColor = GetStringToSetAsColor(HorizontalAxis.LineStroke);
+                string XAxisColor = JSConverters.GetStringToSetAsColor(HorizontalAxis.LineStroke);
                 if (XAxisColor != null)
                 {
                     categoryAxisItem.color = XAxisColor;
@@ -200,7 +210,7 @@ namespace Telerik.Windows.Controls
                 Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
             }
 
-            string YAxisColor = GetStringToSetAsColor(VerticalAxis.LineStroke);
+            string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
             if (YAxisColor != null)
             {
                 valueAxisItem.color = YAxisColor;
@@ -248,55 +258,6 @@ namespace Telerik.Windows.Controls
             chartO.series = series;
             _kendoChart.setOptions(chartO);
         }
-
-        JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<string> propertiesToPutInResult)
-        {
-            object preparedSeriesData = Interop.ExecuteJavaScript("[]");
-
-            foreach (var cSharpItem in seriesData)
-            {
-                var jsObject = Interop.ExecuteJavaScript("new Object()");
-                foreach (string propertyName in propertiesToPutInResult)
-                {
-                    object propertyValue = Utils.GetNestedPropertyValue(cSharpItem, propertyName);
-
-                    if (propertyValue is DateTime)
-                    {
-                        Interop.ExecuteJavaScript(@"$0[$1] = new Date($2)", jsObject, propertyName, propertyValue.ToString()); //We'll simply do this for now, it might need some formatting to be sure Date() will understand the date.
-                    }
-                    else
-                    {
-                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName, propertyValue.ToString());
-                    }
-                }
-                Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
-            }
-            return new JSObject(preparedSeriesData);
-        }
-
-        void SetSeriesItemColor(ChartSeriesItem seriesItem, Brush color)
-        {
-            string colorToSet = GetStringToSetAsColor(color);
-            if (colorToSet != null)
-            {
-                seriesItem.color = colorToSet;
-            }
-        }
-
-        string GetStringToSetAsColor(Brush color)
-        {
-            if (color != null)
-            {
-                //todo: I don't remember if we have a good way of getting the string to set the css value from users' code.
-                //todo: make it work with other brushes than SoliColorbrush (the attempt with LineargradientBrush didn't work although it works in the SL version).
-                if (color is SolidColorBrush)
-                {
-                    return (string)((SolidColorBrush)color).ConvertToCSSValue();
-                }
-            }
-            return null;
-        }
-
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//

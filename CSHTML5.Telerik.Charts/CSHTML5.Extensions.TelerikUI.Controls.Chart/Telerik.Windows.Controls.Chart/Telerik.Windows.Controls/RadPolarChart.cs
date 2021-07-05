@@ -41,6 +41,12 @@ namespace Telerik.Windows.Controls
                     seriesItem.yField = valueMapping.FieldName;
 
                     var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping };
+                    DataPropertyMapping colorMapping = JSConverters.SetColorSeriesOrGetColorMapping(radarLineSerie, seriesItem);
+                    if (colorMapping != null)
+                    {
+                        propertyFields.Add(colorMapping);
+                    }
+
                     var res = JSConverters.PrepareSeriesData(radarLineSerie.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
