@@ -6,40 +6,11 @@ using TypeScriptDefinitionsSupport;
 
 namespace Telerik.Windows.Controls
 {
-    public class RadPieChart : RadChartBase
+    public class RadPieChart : RadChartSeriesBase<PieSeries>
     {
-        
-
-        public RadPieChart()
+        public RadPieChart(): base()
         {
             this.DefaultStyleKey = typeof(RadPieChart);
-            _series = new PresenterCollection<PieSeries>();
-            _series.CollectionChanged += Series_CollectionChanged;
-        }
-
-        private PresenterCollection<PieSeries> _series;
-        public PresenterCollection<PieSeries> Series
-        {
-            get { return _series; }
-        }
-
-        private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:
-            if (e.OldItems != null)
-            {
-                foreach (object pieSeriesAsObject in e.OldItems)
-                {
-                    ((PieSeries)pieSeriesAsObject).ParentChart = null;
-                }
-            }
-            if (e.NewItems != null)
-            {
-                foreach (object pieSeriesAsObject in e.NewItems)
-                {
-                    ((PieSeries)pieSeriesAsObject).ParentChart = this;
-                }
-            }
         }
 
         protected override void SetKendoChartSeries()

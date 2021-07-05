@@ -35,7 +35,15 @@ namespace JSConversionHelpers {
 
             if (propertyValue != null)
             {
-                return string.Format((propertyValue is DateTime) ? "new Date({0})" : "'{0}'", propertyValue.ToString());
+                switch (Type.GetTypeCode(propertyValue.GetType()))
+                {
+                    case TypeCode.DateTime:
+                        return string.Format("new Date({0})", propertyValue.ToString());
+                    case TypeCode.String:
+                        return string.Format("'{0}'", propertyValue.ToString());
+                    default:
+                        return string.Format("{0}", propertyValue.ToString());
+                }
             }
 
             return null;
