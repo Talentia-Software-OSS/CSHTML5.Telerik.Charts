@@ -9,7 +9,7 @@ namespace Telerik.Windows.Controls.ChartView
     {
         public override string GetChartType()
         {
-            return "bar";
+            return ChartTypeBar;
         }
     }
 }

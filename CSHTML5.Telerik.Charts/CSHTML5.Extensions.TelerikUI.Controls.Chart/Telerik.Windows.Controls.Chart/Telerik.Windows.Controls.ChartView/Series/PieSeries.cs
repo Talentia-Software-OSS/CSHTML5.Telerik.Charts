@@ -24,10 +24,9 @@ namespace Telerik.Windows.Controls.ChartView
         internal const int Angle285 = 285;
 
         internal const int Angle315 = 315;
-
         public override string GetChartType()
         {
-            return "pie";
+            return ChartTypePie;
         }
 
         public double StartAngle = PieSeries.Angle150;

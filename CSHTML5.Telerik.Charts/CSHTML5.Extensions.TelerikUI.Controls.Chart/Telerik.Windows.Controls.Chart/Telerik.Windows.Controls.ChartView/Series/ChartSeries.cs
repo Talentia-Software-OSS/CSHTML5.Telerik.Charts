@@ -22,6 +22,12 @@ namespace Telerik.Windows.Controls.ChartView
     [ContentProperty("DataPoints")]
     public abstract class ChartSeries : ChartElementPresenter, IChartElementPresenter
     {
+        internal const string ChartTypePie = "pie";
+        internal const string ChartTypeBar = "bar";
+        internal const string ChartTypeLine = "line";
+        internal const string ChartTypeArea = "area";
+        internal const string ChartTypePolarLine = "polarLine";
+
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
@@ -67,7 +73,7 @@ namespace Telerik.Windows.Controls.ChartView
 
         public virtual string GetChartType()
         {
-            return "line";
+            return ChartTypeLine;
         }
 
         IEnumerable _dataSource;
