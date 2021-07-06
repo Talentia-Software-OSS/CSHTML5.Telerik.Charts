@@ -1,3 +1,7 @@
+using JSConversionHelpers;
+using kendo_ui_chart.kendo.dataviz.ui;
+using System.Collections.Generic;
+
 namespace Telerik.Windows.Controls.ChartView
 {
     public abstract class RadChartSeriesBase<T> : RadChartBase where T : ChartSeries
@@ -31,6 +35,30 @@ namespace Telerik.Windows.Controls.ChartView
                     ((T)serieAsObject).ParentChart = this;
                 }
             }
+        }
+
+        protected virtual List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            var propertyFields = new List<DataPropertyMapping>();
+            if (chartSeries is CategoricalSeries)
+            {
+                var categoricalSeries = chartSeries as CategoricalSeries;
+                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
+                seriesItem.categoryField = categoryMapping.FieldName;
+                propertyFields.Add(categoryMapping);
+
+                DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
+                seriesItem.field = valueMapping.FieldName;
+                propertyFields.Add(valueMapping);
+            }
+
+            DataPropertyMapping colorMapping = JSConverters.SetColorSeriesOrGetColorMapping(chartSeries, seriesItem);
+            if (colorMapping != null)
+            {
+                propertyFields.Add(colorMapping);
+            }
+            
+            return propertyFields;
         }
     }
 }

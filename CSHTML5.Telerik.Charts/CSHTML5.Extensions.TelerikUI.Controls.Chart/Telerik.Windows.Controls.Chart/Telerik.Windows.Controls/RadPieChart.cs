@@ -1,6 +1,5 @@
 ﻿using JSConversionHelpers;
 using kendo_ui_chart.kendo.dataviz.ui;
-using System.Collections.Generic;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
 
@@ -31,16 +30,8 @@ namespace Telerik.Windows.Controls
                     seriesItem.startAngle = pieSeries.StartAngle;
 
                     // mapped fields
-                    DataPropertyMapping categoryMapping = new DataPropertyMapping(pieSeries.CategoryBinding?.PropertyPath ?? "Category");
-                    seriesItem.categoryField = categoryMapping.FieldName;
-
-                    DataPropertyMapping valueMapping = new DataPropertyMapping(pieSeries.ValueBinding?.PropertyPath ?? "Value");
-                    seriesItem.field = valueMapping.FieldName;
-
-                    // unmapped detail fields
-                    DataPropertyMapping colorMapping = new DataPropertyMapping(pieSeries.ColorBinding?.PropertyPath ?? "Color", "color");
-
-                    var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping, colorMapping };
+                    var propertyFields = SetInSeriesItemAndGetPropertyFields(pieSeries, seriesItem);
+                    // data mapping
                     var res = JSConverters.PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
 

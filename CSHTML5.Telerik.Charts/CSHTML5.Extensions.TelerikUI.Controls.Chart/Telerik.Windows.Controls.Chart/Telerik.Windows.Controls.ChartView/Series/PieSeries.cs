@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Telerik.Windows.Controls.ChartView
 {
-    public class PieSeries : CategoricalSeries
+    public class PieSeries : CategoricalColorSeries
     {
         internal const int Angle45 = 45;
 
@@ -31,22 +31,5 @@ namespace Telerik.Windows.Controls.ChartView
         }
 
         public double StartAngle = PieSeries.Angle150;
-
-        //-------------------------------------//
-        //-------------- FIELDS ---------------//
-        //-------------------------------------//
-        public static readonly DependencyProperty ColorBindingProperty = DependencyProperty.Register("ColorBindingProperty", typeof(DataPointBinding), typeof(PieSeries), null);
-        //-------------------------------------//
-        //-------------------------------------//
-        //-------------------------------------//
-
-        //-------------------------------------//
-        //------------ PROPERTIES -------------//
-        //-------------------------------------//
-        public DataPointBinding ColorBinding
-        {
-            get { return (DataPointBinding)this.GetValue(PieSeries.ColorBindingProperty); }
-            set { this.SetValue(PieSeries.ColorBindingProperty, (object)value); }
-        }
     }
 }

@@ -34,13 +34,8 @@ namespace Telerik.Windows.Controls
                     seriesItem.style = radarLineSerie.GetChartStyle();
 
                     // mapped fields
-                    DataPropertyMapping categoryMapping = new DataPropertyMapping(radarLineSerie.CategoryBinding?.PropertyPath ?? "Category");
-                    seriesItem.xField = categoryMapping.FieldName;
-
-                    DataPropertyMapping valueMapping = new DataPropertyMapping(radarLineSerie.ValueBinding?.PropertyPath ?? "Value");
-                    seriesItem.yField = valueMapping.FieldName;
-
-                    var propertyFields = new List<DataPropertyMapping>() { categoryMapping, valueMapping };
+                    var propertyFields = SetInSeriesItemAndGetPropertyFields(radarLineSerie, seriesItem);
+                    // data mapping
                     var res = JSConverters.PrepareSeriesData(radarLineSerie.ItemsSource, propertyFields);
                     seriesItem.data = res;
 
@@ -52,6 +47,30 @@ namespace Telerik.Windows.Controls
             // add chart to kendo
             chartO.series = series;
             _kendoChart.setOptions(chartO);
+        }
+
+        protected override List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            var propertyFields = new List<DataPropertyMapping>();
+            if (chartSeries is CategoricalSeries)
+            {
+                var categoricalSeries = chartSeries as CategoricalSeries;
+                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
+                seriesItem.xField = categoryMapping.FieldName;
+                propertyFields.Add(categoryMapping);
+
+                DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
+                seriesItem.yField = valueMapping.FieldName;
+                propertyFields.Add(valueMapping);
+            }
+
+            DataPropertyMapping colorMapping = JSConverters.SetColorSeriesOrGetColorMapping(chartSeries, seriesItem);
+            if (colorMapping != null)
+            {
+                propertyFields.Add(colorMapping);
+            }
+
+            return propertyFields;
         }
     }
 }
