@@ -56,6 +56,7 @@ namespace CSHTML5.TelerikChartExample.Views
             ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
             ReferenceGraph.Series[1].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 1, 1));
             ReferenceGraph.Series[2].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 6, 1));
+            ReferenceGraph.Series[3].ItemsSource = GenerateBarSerie(5, new DateTime(2000, 6, 1));
         }
 
         private RadObservableCollection<DTPoint> GenerateRandomSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)
@@ -75,5 +76,23 @@ namespace CSHTML5.TelerikChartExample.Views
             }
             return serie;
         }
+        private RadObservableCollection<DTPoint> GenerateBarSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)
+        {
+            RadObservableCollection<DTPoint> serie = new RadObservableCollection<DTPoint>();
+            DateTime currentDate = initialDateTime;
+            Random rd = new Random(random.Next());
+            for (int i = 0; i < size; i++)
+            {
+                DTPoint point = new DTPoint
+                {
+                    XValue = currentDate,
+                    YValue = rd.NextDouble() * (maxValue - minValue) + minValue,
+                };
+                serie.Add(point);
+                currentDate = currentDate.AddMonths(intervalBetweenPoints);
+            }
+            return serie;
+        }
+
     }
 }

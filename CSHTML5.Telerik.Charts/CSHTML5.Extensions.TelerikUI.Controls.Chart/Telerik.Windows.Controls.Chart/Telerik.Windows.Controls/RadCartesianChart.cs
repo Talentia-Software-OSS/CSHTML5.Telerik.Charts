@@ -2,17 +2,11 @@
 //-------------- USINGS ---------------//
 //-------------------------------------//
 using Telerik.Windows.Controls.ChartView;
-using Telerik.Windows.Controls.Primitives;
-using System.Windows.Controls;
 using System.Windows;
-using System;
 using kendo_ui_chart.kendo.dataviz.ui;
 using TypeScriptDefinitionsSupport;
 using CSHTML5;
-using CSHTML5.Wrappers.KendoUI.Common;
-using System.Collections.Generic;
 using System.Windows.Media;
-using CSHTML5.Internal;
 using JSConversionHelpers;
 //-------------------------------------//
 //-------------------------------------//
@@ -20,12 +14,11 @@ using JSConversionHelpers;
 
 namespace Telerik.Windows.Controls
 {
-    public class RadCartesianChart : RadChartBase
+    public class RadCartesianChart : RadChartSeriesBase<CartesianSeries>
     {
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
-        private PresenterCollection<CartesianSeries> _series;
         private CartesianChartGrid _grid;
         public static readonly DependencyProperty HorizontalAxisProperty = DependencyProperty.Register("HorizontalAxisProperty", typeof(CartesianAxis), typeof(RadCartesianChart), null);
         public static readonly DependencyProperty VerticalAxisProperty = DependencyProperty.Register("VerticalAxisProperty", typeof(CartesianAxis), typeof(RadCartesianChart), null);
@@ -36,10 +29,6 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //------------ PROPERTIES -------------//
         //-------------------------------------//
-        public PresenterCollection<CartesianSeries> Series
-        {
-            get { return _series; }
-        }
         public CartesianChartGrid Grid
         {
             get { return _grid; }
@@ -62,31 +51,10 @@ namespace Telerik.Windows.Controls
         //-------------------------------------//
         //------------- METHODS ---------------//
         //-------------------------------------//
-        public RadCartesianChart()
+        public RadCartesianChart() : base()
         {
             this.DefaultStyleKey = typeof(RadCartesianChart);
-            _series = new PresenterCollection<CartesianSeries>();
-            _series.CollectionChanged += Series_CollectionChanged;
             _grid = null;
-        }
-
-        private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:
-            if (e.OldItems != null)
-            {
-                foreach (object cartesianSeriesAsObject in e.OldItems)
-                {
-                    ((CartesianSeries)cartesianSeriesAsObject).ParentChart = null;
-                }
-            }
-            if (e.NewItems != null)
-            {
-                foreach (object cartesianSeriesAsObject in e.NewItems)
-                {
-                    ((CartesianSeries)cartesianSeriesAsObject).ParentChart = this;
-                }
-            }
         }
 
         protected override void SetKendoChartSeries()
@@ -103,6 +71,7 @@ namespace Telerik.Windows.Controls
                 {
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
                     seriesItem.type = cartesianSeries.GetChartType();
+                    seriesItem.missingValues = "gap";
 
                     #region attempt at dealing with tooltips in series.
                     //if(cartesianSeries is LineSeries)
@@ -121,36 +90,12 @@ namespace Telerik.Windows.Controls
                     //}
                     #endregion
 
-                    if (cartesianSeries is CategoricalStrokedSeries)
-                    {
-                        var cartesianSeriesAsCategoricalSeries = cartesianSeries as CategoricalStrokedSeries;
+                    // mapped fields
+                    var propertyFields = SetInSeriesItemAndGetPropertyFields(cartesianSeries, seriesItem);
+                    // data mapping
+                    var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propertyFields);
+                    seriesItem.data = res;
 
-                        DataPropertyMapping categoryMapping = new DataPropertyMapping(cartesianSeriesAsCategoricalSeries.CategoryBinding.PropertyPath ?? "Category");
-                        seriesItem.categoryField = categoryMapping.FieldName;
-
-                        DataPropertyMapping valueMapping = new DataPropertyMapping(cartesianSeriesAsCategoricalSeries.ValueBinding.PropertyPath ?? "Value");
-                        seriesItem.field = valueMapping.FieldName;
-
-                        SetSeriesItemColor(seriesItem, cartesianSeriesAsCategoricalSeries.Stroke);
-                        if (cartesianSeries is AreaSeries)
-                        {
-                            SetSeriesItemColor(seriesItem, ((AreaSeries)cartesianSeriesAsCategoricalSeries).Fill);
-                        }
-
-                        var propNames = new List<DataPropertyMapping>() { categoryMapping, valueMapping };
-                        var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propNames);
-                        seriesItem.data = res;
-
-                        seriesItem.missingValues = "gap";
-                    }
-                    else
-                    {
-                        //get the data as points as is.
-                    }
-
-                    //var v = new JSObject();
-                    //Interop.ExecuteJavaScript(@"$0.UnderlyingJSInstance = [1, 2, 3]", v);
-                    //seriesItem.data = v;
                     series.Add(seriesItem);
                 }
             }
@@ -169,7 +114,7 @@ namespace Telerik.Windows.Controls
                 //labels.color = "LightGray"; //todo: find out what defines the label's color (it is not HorizontalAxis.Foreground apparently)
                 categoryAxisItem.labels = labels;
 
-                string XAxisColor = GetStringToSetAsColor(HorizontalAxis.LineStroke);
+                string XAxisColor = JSConverters.GetStringToSetAsColor(HorizontalAxis.LineStroke);
                 if (XAxisColor != null)
                 {
                     categoryAxisItem.color = XAxisColor;
@@ -234,7 +179,7 @@ namespace Telerik.Windows.Controls
                 Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
             }
 
-            string YAxisColor = GetStringToSetAsColor(VerticalAxis.LineStroke);
+            string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
             if (YAxisColor != null)
             {
                 valueAxisItem.color = YAxisColor;
@@ -282,55 +227,6 @@ namespace Telerik.Windows.Controls
             chartO.series = series;
             _kendoChart.setOptions(chartO);
         }
-
-        JSObject PrepareSeriesData(System.Collections.IEnumerable seriesData, List<string> propertiesToPutInResult)
-        {
-            object preparedSeriesData = Interop.ExecuteJavaScript("[]");
-
-            foreach (var cSharpItem in seriesData)
-            {
-                var jsObject = Interop.ExecuteJavaScript("new Object()");
-                foreach (string propertyName in propertiesToPutInResult)
-                {
-                    object propertyValue = Utils.GetNestedPropertyValue(cSharpItem, propertyName);
-
-                    if (propertyValue is DateTime)
-                    {
-                        Interop.ExecuteJavaScript(@"$0[$1] = new Date($2)", jsObject, propertyName, propertyValue.ToString()); //We'll simply do this for now, it might need some formatting to be sure Date() will understand the date.
-                    }
-                    else
-                    {
-                        Interop.ExecuteJavaScript(@"$0[$1] = $2;", jsObject, propertyName, propertyValue.ToString());
-                    }
-                }
-                Interop.ExecuteJavaScript("$0.push($1)", preparedSeriesData, jsObject);
-            }
-            return new JSObject(preparedSeriesData);
-        }
-
-        void SetSeriesItemColor(ChartSeriesItem seriesItem, Brush color)
-        {
-            string colorToSet = GetStringToSetAsColor(color);
-            if (colorToSet != null)
-            {
-                seriesItem.color = colorToSet;
-            }
-        }
-
-        string GetStringToSetAsColor(Brush color)
-        {
-            if (color != null)
-            {
-                //todo: I don't remember if we have a good way of getting the string to set the css value from users' code.
-                //todo: make it work with other brushes than SoliColorbrush (the attempt with LineargradientBrush didn't work although it works in the SL version).
-                if (color is SolidColorBrush)
-                {
-                    return (string)((SolidColorBrush)color).ConvertToCSSValue();
-                }
-            }
-            return null;
-        }
-
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//

@@ -94,7 +94,10 @@ namespace Telerik.Windows.Controls.ChartView
             if (d != null)
             {
                 chartSeries.DataSource = (IEnumerable)e.NewValue;
-                chartSeries.ParentChart.Refresh();
+                if (chartSeries.ParentChart.IsLoaded)
+                {
+                    chartSeries.ParentChart.Refresh();
+                }
             }
         }
 
