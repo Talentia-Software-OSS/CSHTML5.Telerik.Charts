@@ -55,11 +55,14 @@ namespace Telerik.Windows.Controls
             if (chartSeries is CategoricalSeries)
             {
                 var categoricalSeries = chartSeries as CategoricalSeries;
-                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
+                
+                var categoryPropertyName = JSConverters.GetFieldNameFromProperty(categoricalSeries.CategoryBinding);
+                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoryPropertyName ?? "Category");
                 seriesItem.xField = categoryMapping.FieldName;
                 propertyFields.Add(categoryMapping);
 
-                DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
+                var valuePropertyName = JSConverters.GetFieldNameFromProperty(categoricalSeries.ValueBinding);
+                DataPropertyMapping valueMapping = new DataPropertyMapping(valuePropertyName ?? "Value");
                 seriesItem.yField = valueMapping.FieldName;
                 propertyFields.Add(valueMapping);
             }

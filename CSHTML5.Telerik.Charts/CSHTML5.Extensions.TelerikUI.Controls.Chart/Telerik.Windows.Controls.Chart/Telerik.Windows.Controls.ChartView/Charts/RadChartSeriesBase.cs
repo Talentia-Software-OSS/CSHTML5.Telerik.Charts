@@ -14,7 +14,7 @@ namespace Telerik.Windows.Controls.ChartView
 
         public RadChartSeriesBase() : base()
         {
-            _series = new PresenterCollection<T>();
+            _series = new PresenterCollection<T>(this);
             _series.CollectionChanged += Series_CollectionChanged;
         }
         
@@ -43,11 +43,14 @@ namespace Telerik.Windows.Controls.ChartView
             if (chartSeries is CategoricalSeries)
             {
                 var categoricalSeries = chartSeries as CategoricalSeries;
-                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoricalSeries.CategoryBinding?.PropertyPath ?? "Category");
+
+                var categoryPropertyName = JSConverters.GetFieldNameFromProperty(categoricalSeries.CategoryBinding);
+                DataPropertyMapping categoryMapping = new DataPropertyMapping(categoryPropertyName ?? "Category");
                 seriesItem.categoryField = categoryMapping.FieldName;
                 propertyFields.Add(categoryMapping);
 
-                DataPropertyMapping valueMapping = new DataPropertyMapping(categoricalSeries.ValueBinding?.PropertyPath ?? "Value");
+                var valuePropertyName = JSConverters.GetFieldNameFromProperty(categoricalSeries.ValueBinding);
+                DataPropertyMapping valueMapping = new DataPropertyMapping(valuePropertyName ?? "Value");
                 seriesItem.field = valueMapping.FieldName;
                 propertyFields.Add(valueMapping);
             }
