@@ -9,8 +9,6 @@ namespace CSHTML5.TelerikChartExample.Views
         public ChartViewModel(TChartPage page, RadObservableCollection<TChartSeries> items)
         {
             page.DataContext = this;
-            //page.ExamplePieChart.DataContext = this;
-            //page.ExamplePieChart.Series[0].DataContext = this;
             this.Items = items;
         }
 

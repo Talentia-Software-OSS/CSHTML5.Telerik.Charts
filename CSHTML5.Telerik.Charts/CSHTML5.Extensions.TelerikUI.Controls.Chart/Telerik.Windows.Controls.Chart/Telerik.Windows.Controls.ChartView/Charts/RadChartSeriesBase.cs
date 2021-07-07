@@ -17,7 +17,7 @@ namespace Telerik.Windows.Controls.ChartView
             _series = new PresenterCollection<T>();
             _series.CollectionChanged += Series_CollectionChanged;
         }
-
+        
         private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             //When we add a CartesianChart, we set its ParentChart to this, when we remove one, we set it to null:

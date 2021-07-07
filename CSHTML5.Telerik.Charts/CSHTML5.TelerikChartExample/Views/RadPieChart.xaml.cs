@@ -21,7 +21,6 @@ namespace CSHTML5.TelerikChartExample.Views
             // create ViewModel
             var items = GetSerie();
             _chartViewModel = new ChartViewModel<RadPieChart, SerieObject>(this, items);
-            // set DataContext for series
             ExamplePieChart.Series[0].DataContext = _chartViewModel;
         }
 
