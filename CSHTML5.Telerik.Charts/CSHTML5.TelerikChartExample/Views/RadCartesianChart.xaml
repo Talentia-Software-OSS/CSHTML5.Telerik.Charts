@@ -48,7 +48,7 @@
                         </telerik:LinearAxis.MajorTickStyle>
                     </telerik:LinearAxis>
                 </telerik:RadCartesianChart.VerticalAxis>
-                <telerik:LineSeries Stroke="OrangeRed" ZIndex="1" Background="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue">
+                <telerik:LineSeries Stroke="OrangeRed" ZIndex="1" Background="Black" ItemsSource="{Binding Path=Series1}" CategoryBinding="XValue" ValueBinding="YValue">
                     <telerik:LineSeries.TrackBallInfoTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="90">
@@ -58,17 +58,17 @@
                         </DataTemplate>
                     </telerik:LineSeries.TrackBallInfoTemplate>
                 </telerik:LineSeries>
-                <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series2}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
                     <telerik:AreaSeries.TrackBallInfoTemplate>
                         <DataTemplate/>
                     </telerik:AreaSeries.TrackBallInfoTemplate>
                 </telerik:AreaSeries>
-                <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series3}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
                     <telerik:AreaSeries.TrackBallInfoTemplate>
                         <DataTemplate/>
                     </telerik:AreaSeries.TrackBallInfoTemplate>
                 </telerik:AreaSeries>
-                <telerik:BarSeries CategoryBinding="XValue" ValueBinding="YValue" ItemsSource="{Binding}">
+                <telerik:BarSeries CategoryBinding="XValue" ValueBinding="YValue" ItemsSource="{Binding Path=Series4}">
                 </telerik:BarSeries>
             </telerik:RadCartesianChart>
             <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>

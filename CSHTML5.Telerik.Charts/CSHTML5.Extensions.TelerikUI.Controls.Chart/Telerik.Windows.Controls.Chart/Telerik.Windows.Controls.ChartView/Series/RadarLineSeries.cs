@@ -7,6 +7,8 @@ namespace Telerik.Windows.Controls.ChartView
 {
     public class RadarLineSeries : CategoricalStrokedSeries
     {
+        internal const string ChartStyleSmooth= "smooth";
+
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
@@ -26,13 +28,12 @@ namespace Telerik.Windows.Controls.ChartView
 
         public override string GetChartType()
         {
-            return "polarLine";
+            return ChartTypePolarLine;
         }
 
-        
         internal string GetChartStyle()
         {
-            return "smooth";
+            return ChartStyleSmooth;
         }
     }
 }

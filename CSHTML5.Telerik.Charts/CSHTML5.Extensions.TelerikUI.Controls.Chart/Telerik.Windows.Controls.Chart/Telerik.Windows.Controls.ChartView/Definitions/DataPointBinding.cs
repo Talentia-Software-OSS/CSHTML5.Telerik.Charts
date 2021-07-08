@@ -26,11 +26,7 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         //--------------- EVENTS --------------//
         //-------------------------------------//
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add { }
-            remove { }
-        }
+        public event PropertyChangedEventHandler PropertyChanged; 
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -46,5 +42,10 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
 
         public string PropertyPath { get; set; }
+        
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

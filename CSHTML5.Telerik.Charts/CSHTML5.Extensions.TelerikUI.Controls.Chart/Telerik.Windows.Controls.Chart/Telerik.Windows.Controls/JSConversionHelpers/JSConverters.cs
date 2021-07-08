@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Media;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
 
@@ -90,6 +91,11 @@ namespace JSConversionHelpers {
             return new JSObject(preparedSeriesData);
         }
 
+        public static string GetFieldNameFromProperty(DataPointBinding dataBinding)
+        {
+            return (dataBinding is PropertyNameDataPointBinding) ? ((PropertyNameDataPointBinding)dataBinding)?.PropertyName : dataBinding?.PropertyPath;
+        }
+
         public static DataPropertyMapping SetColorSeriesOrGetColorMapping(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
             if (chartSeries is CategoricalStrokedSeries)
@@ -103,7 +109,8 @@ namespace JSConversionHelpers {
                 }
             } else if (chartSeries is CategoricalColorSeries)
             {
-                DataPropertyMapping colorMapping = new DataPropertyMapping(((CategoricalColorSeries)chartSeries).ColorBinding?.PropertyPath ?? "Color");
+                var colorPropertyName = JSConverters.GetFieldNameFromProperty(((CategoricalColorSeries)chartSeries).ColorBinding);
+                DataPropertyMapping colorMapping = new DataPropertyMapping(colorPropertyName ?? "Color");
                 seriesItem.colorField = colorMapping.FieldName;
                 
                 return colorMapping;

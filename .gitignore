@@ -337,3 +337,4 @@ ASALocalRun/
 /CSHTML5.Telerik.Charts/TestChartApplication/TestChartApplication.Browser/wwwroot/libs/fastclick.js
 /CSHTML5.Telerik.Charts/TestChartApplication/TestChartApplication.Browser/wwwroot/libs/cshtml5.js
 /CSHTML5.Telerik.Charts/TestChartApplication/TestChartApplication.Browser/wwwroot/libs/cshtml5.css
+.vscode/settings.json

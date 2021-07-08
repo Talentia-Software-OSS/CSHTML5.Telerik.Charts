@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Navigation;
 using Telerik.Windows.Data;
 
 namespace CSHTML5.TelerikChartExample.Views
 {
     public partial class RadCartesianChart : Page
     {
+        private CartesianChartViewModel<RadCartesianChart, DTPoint> _carthesianChartViewModel;
+
         public class DTPoint
         {
             public DateTime XValue { get; set; }
@@ -22,14 +16,23 @@ namespace CSHTML5.TelerikChartExample.Views
         }
 
         static Random random = new Random();
-        private RadObservableCollection<DTPoint> centerAvgGraph = new RadObservableCollection<DTPoint>();
-        private float MaxScale, MinScale;
+        //private RadObservableCollection<DTPoint> centerAvgGraph = new RadObservableCollection<DTPoint>();
+        private float MaxScale;
         private double MaxY;
 
         public RadCartesianChart()
         {
             this.InitializeComponent();
             Loaded += SetReferencePeriod_Loaded;
+
+            // create ViewModel
+            _carthesianChartViewModel = new CartesianChartViewModel<RadCartesianChart, DTPoint>(
+                this,
+                GenerateRandomSerie(10, new DateTime(2000, 1, 1)),
+                GenerateRandomSerie(5, new DateTime(2000, 1, 1)),
+                GenerateRandomSerie(5, new DateTime(2000, 6, 1)),
+                GenerateBarSerie(5, new DateTime(2000, 6, 1))
+            );
         }
 
         private void SetReferencePeriod_Loaded(object sender, RoutedEventArgs e)
@@ -40,23 +43,16 @@ namespace CSHTML5.TelerikChartExample.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
             MaxScale = 300;
             MaxY = MaxScale + 10.0;
-            displayGraph();
-        }
-
-        private void displayGraph()
-        {
-            centerAvgGraph.Clear();
-            centerAvgGraph = GenerateRandomSerie(10, new DateTime(2000, 1, 1));
             XAxis.MajorTickInterval = 2;
-            MaxY = MaxScale + 10.0;
             YAxis.Maximum = MaxY;
-            ReferenceGraph.Series[0].ItemsSource = centerAvgGraph;
-            ReferenceGraph.Series[1].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 1, 1));
-            ReferenceGraph.Series[2].ItemsSource = GenerateRandomSerie(5, new DateTime(2000, 6, 1));
-            ReferenceGraph.Series[3].ItemsSource = GenerateBarSerie(5, new DateTime(2000, 6, 1));
+
+            _carthesianChartViewModel.Series1.Clear();
+            _carthesianChartViewModel.Series1 = GenerateRandomSerie(10, new DateTime(2000, 1, 1));
+
+            // set piechart data on refresh
+            ReferenceGraph.Refresh();
         }
 
         private RadObservableCollection<DTPoint> GenerateRandomSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)
@@ -76,6 +72,7 @@ namespace CSHTML5.TelerikChartExample.Views
             }
             return serie;
         }
+
         private RadObservableCollection<DTPoint> GenerateBarSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)
         {
             RadObservableCollection<DTPoint> serie = new RadObservableCollection<DTPoint>();

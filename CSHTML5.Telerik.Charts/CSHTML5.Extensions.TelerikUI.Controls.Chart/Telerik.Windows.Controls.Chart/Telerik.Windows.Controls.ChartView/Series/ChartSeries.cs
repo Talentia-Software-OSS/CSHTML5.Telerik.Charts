@@ -2,13 +2,9 @@
 //-------------- USINGS ---------------//
 //-------------------------------------//
 using Telerik.Charting;
-using Telerik.Windows.Controls.Primitives;
-using System.Windows.Controls;
 using System.Windows;
-using System;
 using System.Windows.Markup;
 using System.Collections;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 //-------------------------------------//
 //-------------------------------------//
@@ -22,6 +18,12 @@ namespace Telerik.Windows.Controls.ChartView
     [ContentProperty("DataPoints")]
     public abstract class ChartSeries : ChartElementPresenter, IChartElementPresenter
     {
+        internal const string ChartTypePie = "pie";
+        internal const string ChartTypeBar = "bar";
+        internal const string ChartTypeLine = "line";
+        internal const string ChartTypeArea = "area";
+        internal const string ChartTypePolarLine = "polarLine";
+
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
@@ -67,7 +69,7 @@ namespace Telerik.Windows.Controls.ChartView
 
         public virtual string GetChartType()
         {
-            return "line";
+            return ChartTypeLine;
         }
 
         IEnumerable _dataSource;
@@ -79,8 +81,17 @@ namespace Telerik.Windows.Controls.ChartView
             }
             set
             {
+                // remove event listeneres on the old datasource
+                var oldDataSource = _dataSource;
+                INotifyCollectionChanged notifyingDataSource = oldDataSource as INotifyCollectionChanged;
+                if (notifyingDataSource != null)
+                {
+                    notifyingDataSource.CollectionChanged -= new NotifyCollectionChangedEventHandler(NotifyingDataSource_CollectionChanged);
+                }
+
+                // set to the new datasource and notify change
                 _dataSource = value;
-                INotifyCollectionChanged notifyingDataSource = _dataSource as INotifyCollectionChanged;
+                notifyingDataSource = _dataSource as INotifyCollectionChanged;
                 if (notifyingDataSource != null)
                 {
                     notifyingDataSource.CollectionChanged += new NotifyCollectionChangedEventHandler(NotifyingDataSource_CollectionChanged);
@@ -105,7 +116,6 @@ namespace Telerik.Windows.Controls.ChartView
         {
             ParentChart.Refresh();
         }
-
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
