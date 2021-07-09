@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Telerik.Windows.Controls
 {
-    public class RadPolarChart: RadChartSeriesBase<RadarLineSeries>
+    public class RadPolarChart: RadChartSeriesBase<PolarLineSeries>
     {
         public RadPolarChart(): base()
         {
@@ -22,7 +22,7 @@ namespace Telerik.Windows.Controls
 
             // create series
             var series = new JSArray<ChartSeriesItem>();
-            foreach (RadarLineSeries radarLineSerie in _series)
+            foreach (PolarLineSeries radarLineSerie in _series) // also RadarLineSeries is a PolarLineSeries
             {
                 if (radarLineSerie.ItemsSource != null)
                 {
@@ -51,6 +51,11 @@ namespace Telerik.Windows.Controls
 
         protected override List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
+            if (chartSeries is RadarLineSeries)
+            {
+                return base.SetInSeriesItemAndGetPropertyFields(chartSeries, seriesItem);
+            }
+
             var propertyFields = new List<DataPropertyMapping>();
             if (chartSeries is CategoricalSeries)
             {

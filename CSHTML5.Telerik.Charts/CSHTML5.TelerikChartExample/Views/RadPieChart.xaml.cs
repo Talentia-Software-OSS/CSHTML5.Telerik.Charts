@@ -6,7 +6,7 @@ namespace CSHTML5.TelerikChartExample.Views
 {
     public partial class RadPieChart : Page
     {
-        private class SerieObject
+        public class SerieObject
         {
             public string Category { get; set; }
             public double SerieValue { get; set; }
@@ -34,7 +34,7 @@ namespace CSHTML5.TelerikChartExample.Views
             _chartViewModel.Items.Add(new SerieObject() { Category = "North africa", SerieValue = 13.6, Color = "#033939" });
         }
 
-        private static RadObservableCollection<SerieObject> GetSerie()
+        public static RadObservableCollection<SerieObject> GetSerie()
         {
             RadObservableCollection<SerieObject> serie = new RadObservableCollection<SerieObject>();
 

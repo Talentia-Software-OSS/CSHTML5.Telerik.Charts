@@ -23,6 +23,7 @@ namespace Telerik.Windows.Controls.ChartView
         internal const string ChartTypeLine = "line";
         internal const string ChartTypeArea = "area";
         internal const string ChartTypePolarLine = "polarLine";
+        internal const string ChartTypeRadarLine = "radarLine";
 
         //-------------------------------------//
         //-------------- FIELDS ---------------//
