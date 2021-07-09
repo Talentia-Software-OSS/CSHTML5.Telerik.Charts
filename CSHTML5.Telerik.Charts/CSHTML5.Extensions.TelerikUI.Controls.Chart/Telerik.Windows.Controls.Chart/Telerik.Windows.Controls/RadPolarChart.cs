@@ -13,13 +13,8 @@ namespace Telerik.Windows.Controls
             this.DefaultStyleKey = typeof(RadPolarChart);
         }
 
-        protected override void SetKendoChartSeries()
+        protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
-            // create chart options
-            ChartOptions chartO = new ChartOptions();
-            //chartO.seriesDefaults = Interop.ExecuteJavaScript("{ labels: { visible: true, background: 'transparent', template: '#= category #: \n #= value#%' } }");
-            chartO.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
-
             // create series
             var series = new JSArray<ChartSeriesItem>();
             foreach (PolarLineSeries radarLineSerie in _series) // also RadarLineSeries is a PolarLineSeries
@@ -44,9 +39,7 @@ namespace Telerik.Windows.Controls
                 }
             }
 
-            // add chart to kendo
-            chartO.series = series;
-            _kendoChart.setOptions(chartO);
+            chartOptions.series = series;
         }
 
         protected override List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)

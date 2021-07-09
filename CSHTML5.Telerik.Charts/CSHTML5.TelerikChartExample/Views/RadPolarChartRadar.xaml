@@ -11,6 +11,7 @@
                 <telerik:RadarLineSeries ItemsSource="{Binding Path=Series1}" CategoryBinding="Category"
                             ValueBinding="SerieValue" Stroke="OrangeRed" ShowLabels="True">
                 </telerik:RadarLineSeries>
+                <telerik:RadPolarChart.Legend></telerik:RadPolarChart.Legend>
                 <!--<telerik:RadarLineSeries ItemsSource="{Binding Path=Series2}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Green" ShowLabels="True">
                 </telerik:RadarLineSeries>
@@ -19,6 +20,20 @@
                 </telerik:RadarLineSeries>-->
             </telerik:RadPolarChart>
             <Button Content="Apply Polar Chart" Margin="0,20,0,0" Click="Button_Click_PolarChart" HorizontalAlignment="Left"/>
+            <!--<telerik:RadLegend Grid.Row="1" HorizontalAlignment="Center" Items="{Binding LegendItems}"
+                           VerticalAlignment="Center"
+                           FontFamily="Segoe UI" FontSize="11">
+                --><!--telerik:RadLegend.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </telerik:RadLegend.ItemsPanel>
+                <telerik:RadLegend.Resources>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Margin" Value="10 0 0 0" />
+                    </Style>
+                </telerik:RadLegend.Resources>--><!--
+            </telerik:RadLegend>-->
         </StackPanel>
     </Grid>
 </Page>

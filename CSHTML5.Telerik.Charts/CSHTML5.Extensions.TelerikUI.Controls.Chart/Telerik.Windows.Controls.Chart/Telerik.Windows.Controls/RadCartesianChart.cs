@@ -57,7 +57,7 @@ namespace Telerik.Windows.Controls
             _grid = null;
         }
 
-        protected override void SetKendoChartSeries()
+        protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
             //todo: refactor this method into smaller methods. Also, we should probably put the similar code for the two axes in the same places (instead of dealing with one axis, then the other).
 
