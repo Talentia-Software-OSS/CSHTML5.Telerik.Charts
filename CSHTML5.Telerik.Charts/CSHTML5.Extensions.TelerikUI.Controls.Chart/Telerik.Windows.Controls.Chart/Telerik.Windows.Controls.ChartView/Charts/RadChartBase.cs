@@ -7,6 +7,7 @@ using System;
 using System.Windows.Markup;
 using CSHTML5.Internal;
 using kendo_ui_chart.kendo.dataviz.ui;
+using JSConversionHelpers;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -62,11 +63,21 @@ namespace Telerik.Windows.Controls.ChartView
             if (null != this.Legend)
             {
                 chartOptions.legend = new ChartLegend();
-                chartOptions.legend.background = "green";
-                chartOptions.legend.visible = true;
-
+                chartOptions.legend.visible = Legend.Visibility == Visibility.Visible;
+                // set bg
+                if (Legend.Background != null)
+                {
+                    chartOptions.legend.background = JSConverters.GetStringToSetAsColor(Legend.Background);
+                }
+                // set labels
                 chartOptions.legend.labels = new ChartLegendLabels();
-                chartOptions.legend.labels.font = "20px sans-serif";
+                if (Legend.FontFamily != null)
+                {
+                    chartOptions.legend.labels.font = string.Format("{0:0}px {1}", Legend.FontSize, Legend.FontFamily.ToString().ToLower());
+                }
+                // set position and alignment
+                chartOptions.legend.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
+                chartOptions.legend.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
             }
         }
 
