@@ -48,7 +48,7 @@
                         </telerik:LinearAxis.MajorTickStyle>
                     </telerik:LinearAxis>
                 </telerik:RadCartesianChart.VerticalAxis>
-                <telerik:LineSeries Stroke="OrangeRed" ZIndex="1" Background="Black" ItemsSource="{Binding Path=Series1}" CategoryBinding="XValue" ValueBinding="YValue">
+                <telerik:LineSeries Stroke="OrangeRed" ZIndex="1" Background="Black" ItemsSource="{Binding Path=Series1}" CategoryBinding="XValue" ValueBinding="YValue" SeriesName="Series 1">
                     <telerik:LineSeries.TrackBallInfoTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Width="90">
@@ -58,18 +58,23 @@
                         </DataTemplate>
                     </telerik:LineSeries.TrackBallInfoTemplate>
                 </telerik:LineSeries>
-                <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series2}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="LeftRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series2}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4" SeriesName="Series 2">
                     <telerik:AreaSeries.TrackBallInfoTemplate>
                         <DataTemplate/>
                     </telerik:AreaSeries.TrackBallInfoTemplate>
                 </telerik:AreaSeries>
-                <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series3}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4">
+                <telerik:AreaSeries x:Name="RightRange" ZIndex="10" Fill="Black" ItemsSource="{Binding Path=Series3}" CategoryBinding="XValue" ValueBinding="YValue" Opacity=".4" SeriesName="Series 3">
                     <telerik:AreaSeries.TrackBallInfoTemplate>
                         <DataTemplate/>
                     </telerik:AreaSeries.TrackBallInfoTemplate>
                 </telerik:AreaSeries>
-                <telerik:BarSeries CategoryBinding="XValue" ValueBinding="YValue" ItemsSource="{Binding Path=Series4}">
+                <telerik:BarSeries CategoryBinding="XValue" ValueBinding="YValue" ItemsSource="{Binding Path=Series4}" SeriesName="Series 4">
                 </telerik:BarSeries>
+                <telerik:RadCartesianChart.Legend>
+                    <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
+                                         Position="Top" Background="Red">
+                    </telerik:KendoLegend>
+                </telerik:RadCartesianChart.Legend>
             </telerik:RadCartesianChart>
             <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
         </StackPanel>
