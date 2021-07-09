@@ -62,6 +62,10 @@ namespace Telerik.Windows.Controls.ChartView
             if (null != this.Legend)
             {
                 chartOptions.legend = new ChartLegend();
+                chartOptions.legend.background = "green";
+                chartOptions.legend.visible = true;
+
+                chartOptions.legend.labels = new ChartLegendLabels();
                 chartOptions.legend.labels.font = "20px sans-serif";
             }
         }

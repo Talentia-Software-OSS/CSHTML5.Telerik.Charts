@@ -23,6 +23,7 @@ namespace Telerik.Windows.Controls
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
 
                     // set series details
+                    seriesItem.name = pieSeries.SeriesName;
                     seriesItem.type = pieSeries.GetChartType();
                     seriesItem.startAngle = pieSeries.StartAngle;
 

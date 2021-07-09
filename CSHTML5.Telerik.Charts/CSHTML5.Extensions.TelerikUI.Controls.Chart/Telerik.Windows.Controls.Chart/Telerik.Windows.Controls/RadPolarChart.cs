@@ -25,6 +25,7 @@ namespace Telerik.Windows.Controls
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
 
                     // set series details
+                    seriesItem.name = radarLineSerie.SeriesName;
                     seriesItem.type = radarLineSerie.GetChartType();
                     seriesItem.style = radarLineSerie.GetChartStyle();
 

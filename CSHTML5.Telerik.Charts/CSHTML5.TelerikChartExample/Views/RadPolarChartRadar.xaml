@@ -9,9 +9,11 @@
         <StackPanel Orientation="Vertical">
             <telerik:RadPolarChart Name="ExamplePolarChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
                 <telerik:RadarLineSeries ItemsSource="{Binding Path=Series1}" CategoryBinding="Category"
-                            ValueBinding="SerieValue" Stroke="OrangeRed" ShowLabels="True">
+                            ValueBinding="SerieValue" SeriesName="Radar line serie name" Stroke="OrangeRed" ShowLabels="True">
                 </telerik:RadarLineSeries>
-                <telerik:RadPolarChart.Legend></telerik:RadPolarChart.Legend>
+                <telerik:RadPolarChart.Legend>
+                    <telerik:KendoLegend></telerik:KendoLegend>
+                </telerik:RadPolarChart.Legend>
                 <!--<telerik:RadarLineSeries ItemsSource="{Binding Path=Series2}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Green" ShowLabels="True">
                 </telerik:RadarLineSeries>

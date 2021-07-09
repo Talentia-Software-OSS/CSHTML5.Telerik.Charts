@@ -70,6 +70,7 @@ namespace Telerik.Windows.Controls
                 if (cartesianSeries.ItemsSource != null)
                 {
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
+                    seriesItem.name = cartesianSeries.SeriesName;
                     seriesItem.type = cartesianSeries.GetChartType();
                     seriesItem.missingValues = "gap";
 

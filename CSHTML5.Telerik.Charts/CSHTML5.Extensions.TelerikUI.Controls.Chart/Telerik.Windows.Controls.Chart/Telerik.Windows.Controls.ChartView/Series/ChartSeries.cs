@@ -25,6 +25,14 @@ namespace Telerik.Windows.Controls.ChartView
         internal const string ChartTypePolarLine = "polarLine";
         internal const string ChartTypeRadarLine = "radarLine";
 
+        public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
+
+        public string SeriesName
+        {
+            get { return (string)this.GetValue(ChartSeries.SeriesNameProperty); }
+            set { this.SetValue(ChartSeries.SeriesNameProperty, (object)value); }
+        }
+
         //-------------------------------------//
         //-------------- FIELDS ---------------//
         //-------------------------------------//
