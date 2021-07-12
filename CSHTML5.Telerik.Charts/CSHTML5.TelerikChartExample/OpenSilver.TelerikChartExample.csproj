@@ -27,6 +27,7 @@
     <None Remove="Views\RadCartesianChart.xaml" />
     <None Remove="Views\RadPieChart.xaml" />
     <None Remove="Views\RadPolarChart.xaml" />
+    <None Remove="Views\RadPolarChartRadar.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="App.xaml.cs">
@@ -51,6 +52,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Views\RadPieChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+    <Content Include="Views\RadPolarChartRadar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <Content Include="Views\RadPolarChart.xaml">

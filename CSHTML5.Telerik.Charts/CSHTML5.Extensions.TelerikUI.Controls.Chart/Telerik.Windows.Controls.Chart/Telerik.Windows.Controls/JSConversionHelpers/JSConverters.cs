@@ -4,6 +4,7 @@ using kendo_ui_chart.kendo.dataviz.ui;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
@@ -57,6 +58,13 @@ namespace JSConversionHelpers {
 
     public static class JSConverters
     { 
+        public enum JSAlignemnt
+        {
+            start,
+            center,
+            end
+        }
+
         public static string GetObjectWithPresetPropertiesAsString(object cSharpItem, List<DataPropertyMapping> propertiesToPutInResult)
         {
             StringBuilder sb = new StringBuilder("");
@@ -95,6 +103,51 @@ namespace JSConversionHelpers {
         {
             return (dataBinding is PropertyNameDataPointBinding) ? ((PropertyNameDataPointBinding)dataBinding)?.PropertyName : dataBinding?.PropertyPath;
         }
+
+        #region Position Alignment
+        public static JSAlignemnt GetAlignment(LegendPosition position, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
+        {
+            switch (position)
+            {
+                case LegendPosition.Top:
+                case LegendPosition.Bottom:// OTOD: vertical
+                    return GetHorizontalAlignment(horizontalAlignment);
+                case LegendPosition.Left:
+                case LegendPosition.Right:
+                    return GetVerticalAlignment(verticalAlignment);
+                default:
+                    return JSAlignemnt.center;
+            }
+        }
+
+        private static JSAlignemnt GetVerticalAlignment(VerticalAlignment verticalAlignment)
+        {
+            switch (verticalAlignment)
+            {
+                case VerticalAlignment.Top:
+                    return JSAlignemnt.start;
+                case VerticalAlignment.Bottom:
+                    return JSAlignemnt.end;
+                case VerticalAlignment.Center:
+                default:
+                    return JSAlignemnt.center;
+            }
+        }
+
+        public static JSAlignemnt GetHorizontalAlignment(HorizontalAlignment horizontalAlignment)
+        {
+            switch (horizontalAlignment)
+            {
+                case HorizontalAlignment.Left:
+                    return JSAlignemnt.start;
+                case HorizontalAlignment.Right:
+                    return JSAlignemnt.end;
+                case HorizontalAlignment.Center:
+                default:
+                    return JSAlignemnt.center;
+            }
+        }
+        #endregion
 
         public static DataPropertyMapping SetColorSeriesOrGetColorMapping(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {

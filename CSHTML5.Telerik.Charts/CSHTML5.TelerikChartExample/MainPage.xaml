@@ -19,6 +19,7 @@
       <ListBoxItem>RadCartesianChart</ListBoxItem>
       <ListBoxItem>RadPieChart</ListBoxItem>
       <ListBoxItem>RadPolarChart</ListBoxItem>
+      <ListBoxItem>RadPolarChartRadar</ListBoxItem>
     </ListBox>
     <navigation:Frame Padding="5,5,5,5" x:Name="Frame"
                                       VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"

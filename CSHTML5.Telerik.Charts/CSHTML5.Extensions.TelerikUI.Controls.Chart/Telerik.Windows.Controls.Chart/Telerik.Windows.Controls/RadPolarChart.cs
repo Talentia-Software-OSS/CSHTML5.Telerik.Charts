@@ -6,23 +6,18 @@ using System.Collections.Generic;
 
 namespace Telerik.Windows.Controls
 {
-    public class RadPolarChart: RadChartSeriesBase<RadarLineSeries>
+    public class RadPolarChart: RadChartSeriesBase<PolarLineSeries>
     {
         public RadPolarChart(): base()
         {
             this.DefaultStyleKey = typeof(RadPolarChart);
         }
 
-        protected override void SetKendoChartSeries()
+        protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
-            // create chart options
-            ChartOptions chartO = new ChartOptions();
-            //chartO.seriesDefaults = Interop.ExecuteJavaScript("{ labels: { visible: true, background: 'transparent', template: '#= category #: \n #= value#%' } }");
-            chartO.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
-
             // create series
             var series = new JSArray<ChartSeriesItem>();
-            foreach (RadarLineSeries radarLineSerie in _series)
+            foreach (PolarLineSeries radarLineSerie in _series) // also RadarLineSeries is a PolarLineSeries
             {
                 if (radarLineSerie.ItemsSource != null)
                 {
@@ -30,6 +25,7 @@ namespace Telerik.Windows.Controls
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
 
                     // set series details
+                    seriesItem.name = radarLineSerie.SeriesName;
                     seriesItem.type = radarLineSerie.GetChartType();
                     seriesItem.style = radarLineSerie.GetChartStyle();
 
@@ -44,13 +40,16 @@ namespace Telerik.Windows.Controls
                 }
             }
 
-            // add chart to kendo
-            chartO.series = series;
-            _kendoChart.setOptions(chartO);
+            chartOptions.series = series;
         }
 
         protected override List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
+            if (chartSeries is RadarLineSeries)
+            {
+                return base.SetInSeriesItemAndGetPropertyFields(chartSeries, seriesItem);
+            }
+
             var propertyFields = new List<DataPropertyMapping>();
             if (chartSeries is CategoricalSeries)
             {

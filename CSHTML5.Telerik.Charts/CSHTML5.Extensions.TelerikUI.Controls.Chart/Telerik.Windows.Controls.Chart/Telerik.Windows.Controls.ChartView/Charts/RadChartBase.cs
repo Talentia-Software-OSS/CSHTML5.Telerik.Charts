@@ -6,6 +6,8 @@ using System.Windows;
 using System;
 using System.Windows.Markup;
 using CSHTML5.Internal;
+using kendo_ui_chart.kendo.dataviz.ui;
+using JSConversionHelpers;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -36,7 +38,7 @@ namespace Telerik.Windows.Controls.ChartView
             {
                 _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
                 {
-                    SetKendoChartSeries();
+                    SetKendoChartOptions();
                     _kendoChart.Refresh();
                 });
             }
@@ -48,7 +50,47 @@ namespace Telerik.Windows.Controls.ChartView
             }
         }
 
-        protected abstract void SetKendoChartSeries();
+        protected abstract void SetKendoChartSeries(ChartOptions chartOptions);
+
+        protected virtual void SetKendoChartTooltip(ChartOptions chartOptions)
+        {
+            //if (tooltip) {
+            chartOptions.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
+            // }
+        }
+        protected virtual void SetKendoChartLegend(ChartOptions chartOptions)
+        {
+            if (null != this.Legend)
+            {
+                chartOptions.legend = new ChartLegend();
+                chartOptions.legend.visible = Legend.Visibility == Visibility.Visible;
+                // set bg
+                if (Legend.Background != null)
+                {
+                    chartOptions.legend.background = JSConverters.GetStringToSetAsColor(Legend.Background);
+                }
+                // set labels
+                chartOptions.legend.labels = new ChartLegendLabels();
+                if (Legend.FontFamily != null)
+                {
+                    chartOptions.legend.labels.font = string.Format("{0:0}px {1}", Legend.FontSize, Legend.FontFamily.ToString().ToLower());
+                }
+                // set position and alignment
+                chartOptions.legend.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
+                chartOptions.legend.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
+            }
+        }
+
+        protected virtual void SetKendoChartOptions()
+        {
+            ChartOptions chartOptions = new ChartOptions();
+
+            SetKendoChartTooltip(chartOptions);
+            SetKendoChartLegend(chartOptions);
+            SetKendoChartSeries(chartOptions);
+
+            _kendoChart.setOptions(chartOptions);
+        }
 
         #endregion
 
@@ -56,6 +98,7 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------- FIELDS ---------------//
         //-------------------------------------//
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.Register("BehaviorsProperty", typeof(ChartBehaviorCollection), typeof(RadChartBase), new PropertyMetadata(new ChartBehaviorCollection()));
+        public static readonly DependencyProperty KendoLegendProperty = DependencyProperty.Register("KendoLegendProperty", typeof(KendoLegend), typeof(RadChartBase), null);
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -67,6 +110,13 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (ChartBehaviorCollection)this.GetValue(RadChartBase.BehaviorsProperty); }
         }
+
+        public KendoLegend Legend
+        {
+            get { return (KendoLegend)this.GetValue(RadChartBase.KendoLegendProperty); }
+            set { this.SetValue(RadChartBase.KendoLegendProperty, (object)value); }
+        }
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//

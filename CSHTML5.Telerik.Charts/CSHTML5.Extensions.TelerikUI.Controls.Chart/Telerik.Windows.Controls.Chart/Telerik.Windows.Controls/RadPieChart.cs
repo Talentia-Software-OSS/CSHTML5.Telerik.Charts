@@ -12,11 +12,8 @@ namespace Telerik.Windows.Controls
             this.DefaultStyleKey = typeof(RadPieChart);
         }
 
-        protected override void SetKendoChartSeries()
+        protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
-            ChartOptions chartO = new ChartOptions();
-            chartO.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
-
             var series = new JSArray<ChartSeriesItem>();
             foreach (PieSeries pieSeries in _series)
             {
@@ -26,6 +23,7 @@ namespace Telerik.Windows.Controls
                     ChartSeriesItem seriesItem = new ChartSeriesItem();
 
                     // set series details
+                    seriesItem.name = pieSeries.SeriesName;
                     seriesItem.type = pieSeries.GetChartType();
                     seriesItem.startAngle = pieSeries.StartAngle;
 
@@ -40,8 +38,7 @@ namespace Telerik.Windows.Controls
             }
 
             // add chart to kendo
-            chartO.series = series;
-            _kendoChart.setOptions(chartO);
+            chartOptions.series = series;
         }
     }
 }
