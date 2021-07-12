@@ -99,6 +99,8 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.Register("BehaviorsProperty", typeof(ChartBehaviorCollection), typeof(RadChartBase), new PropertyMetadata(new ChartBehaviorCollection()));
         public static readonly DependencyProperty KendoLegendProperty = DependencyProperty.Register("KendoLegendProperty", typeof(KendoLegend), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -114,6 +116,12 @@ namespace Telerik.Windows.Controls.ChartView
         public KendoLegend Legend
         {
             get { return (KendoLegend)this.GetValue(RadChartBase.KendoLegendProperty); }
+            set { this.SetValue(RadChartBase.KendoLegendProperty, (object)value); }
+        }
+
+        public KendoTooltip Tooltip
+        {
+            get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
             set { this.SetValue(RadChartBase.KendoLegendProperty, (object)value); }
         }
 
