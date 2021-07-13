@@ -45,7 +45,7 @@
     <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Series\BarSeries.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Definitions\KendoLegend.cs">
+    <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Custom\KendoLegend.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Telerik.Windows.Controls.Chart\Telerik.Windows.Controls.ChartView\Series\PolarLineSeries.cs">

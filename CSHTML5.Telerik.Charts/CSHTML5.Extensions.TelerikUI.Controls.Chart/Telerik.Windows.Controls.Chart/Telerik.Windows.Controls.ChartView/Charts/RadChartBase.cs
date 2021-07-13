@@ -63,7 +63,12 @@ namespace Telerik.Windows.Controls.ChartView
                 {
                     chartOptions.tooltip.background = JSConverters.GetStringToSetAsColor(Tooltip.Background);
                 }
-            
+
+                if (Tooltip.Color != null)
+                {
+                    chartOptions.tooltip.color = JSConverters.GetStringToSetAsColor(Tooltip.Color);
+                }
+
                 if (Tooltip.FontFamily != null)
                 {
                     chartOptions.tooltip.font = string.Format("{0:0}px {1}", Tooltip.FontSize, Tooltip.FontFamily.ToString().ToLower());
@@ -81,6 +86,11 @@ namespace Telerik.Windows.Controls.ChartView
                     {
                         chartOptions.tooltip.border.color = JSConverters.GetStringToSetAsColor(Tooltip.BorderBrush);
                     }
+                }
+
+                if (Tooltip.Format != null)
+                {
+                    chartOptions.tooltip.format = Tooltip.Format;
                 }
 
                 // set position and alignment
@@ -102,12 +112,18 @@ namespace Telerik.Windows.Controls.ChartView
                 {
                     chartOptions.legend.background = JSConverters.GetStringToSetAsColor(Legend.Background);
                 }
+
                 // set labels
                 chartOptions.legend.labels = new ChartLegendLabels();
                 if (Legend.FontFamily != null)
                 {
                     chartOptions.legend.labels.font = string.Format("{0:0}px {1}", Legend.FontSize, Legend.FontFamily.ToString().ToLower());
                 }
+                if (Legend.Color != null)
+                {
+                    chartOptions.legend.labels.color = JSConverters.GetStringToSetAsColor(Legend.Color);
+                }
+
                 // set position and alignment
                 chartOptions.legend.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
                 chartOptions.legend.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
