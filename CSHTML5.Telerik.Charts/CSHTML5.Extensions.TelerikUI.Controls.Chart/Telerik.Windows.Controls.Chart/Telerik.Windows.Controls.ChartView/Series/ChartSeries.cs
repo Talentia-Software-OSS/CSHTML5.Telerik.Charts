@@ -26,11 +26,18 @@ namespace Telerik.Windows.Controls.ChartView
         internal const string ChartTypeRadarLine = "radarLine";
 
         public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
+        public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
 
         public string SeriesName
         {
             get { return (string)this.GetValue(ChartSeries.SeriesNameProperty); }
             set { this.SetValue(ChartSeries.SeriesNameProperty, (object)value); }
+        }
+
+        public KendoTooltip Tooltip
+        {
+            get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
+            set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
         }
 
         //-------------------------------------//

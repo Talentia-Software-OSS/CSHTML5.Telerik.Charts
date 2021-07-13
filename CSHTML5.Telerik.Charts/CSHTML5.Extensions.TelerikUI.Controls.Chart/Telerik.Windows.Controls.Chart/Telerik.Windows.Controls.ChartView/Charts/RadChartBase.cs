@@ -92,15 +92,9 @@ namespace Telerik.Windows.Controls.ChartView
                 {
                     chartOptions.tooltip.format = Tooltip.Format;
                 }
-
-                // set position and alignment
-                //chartOptions.tooltip.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
-                //chartOptions.tooltip.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
             }
-            //if (tooltip) {
-            // chartOptions.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
-            // }
         }
+
         protected virtual void SetKendoChartLegend(ChartOptions chartOptions)
         {
             if (null != this.Legend)

@@ -72,6 +72,8 @@ namespace Telerik.Windows.Controls
                 propertyFields.Add(colorMapping);
             }
 
+            SetKendoSeriesTooltip(chartSeries, seriesItem);
+
             return propertyFields;
         }
     }

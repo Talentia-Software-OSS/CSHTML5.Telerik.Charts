@@ -26,6 +26,11 @@
                 </telerik:PolarLineSeries>
                 <telerik:PolarLineSeries ItemsSource="{Binding Path=Series3}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Blue" ShowLabels="True" SeriesName="Serie 3">
+                    <telerik:PolarLineSeries.Tooltip>
+                        <telerik:KendoTooltip Visibility="Visible" FontFamily="Segoe UI" FontSize="20"
+                                         Background="Blue" BorderThickness="1" BorderBrush="Red" Color="White">
+                        </telerik:KendoTooltip>
+                    </telerik:PolarLineSeries.Tooltip>
                 </telerik:PolarLineSeries>
             </telerik:RadPolarChart>
             <Button Content="Apply Polar Chart" Margin="0,20,0,0" Click="Button_Click_PolarChart" HorizontalAlignment="Left"/>
