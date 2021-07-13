@@ -22,6 +22,11 @@
                                          Position="Top" Background="Red">
                     </telerik:KendoLegend>
                 </telerik:RadPolarChart.Legend>
+                <telerik:RadPolarChart.Tooltip>
+                    <telerik:KendoTooltip Visibility="Visible" FontFamily="Segoe UI" FontSize="11"
+                                         Background="Green" BorderThickness="1" BorderBrush="Red">
+                    </telerik:KendoTooltip>
+                </telerik:RadPolarChart.Tooltip>
             </telerik:RadPolarChart>
             <Button Content="Apply Polar Chart" Margin="0,20,0,0" Click="Button_Click_PolarChart" HorizontalAlignment="Left"/>
         </StackPanel>

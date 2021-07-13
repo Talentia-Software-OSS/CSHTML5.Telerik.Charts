@@ -12,23 +12,8 @@ using Telerik.Windows.Controls;
 
 namespace Telerik.Windows.Controls.ChartView
 {
-    public enum TooltipPosition
-    {
-        Top,
-        Bottom,
-        Left,
-        Right,
-        Custom
-    }
 
     public class KendoTooltip : Control
     {
-        public static readonly DependencyProperty PositionProperty = DependencyProperty.Register("PositionProperty", typeof(TooltipPosition), typeof(KendoTooltip), new PropertyMetadata(TooltipPosition.Right));
-
-        public TooltipPosition Position
-        {
-            get { return (TooltipPosition)this.GetValue(KendoTooltip.PositionProperty); }
-            set { this.SetValue(KendoTooltip.PositionProperty, (object)value); }
-        }
     }
 }

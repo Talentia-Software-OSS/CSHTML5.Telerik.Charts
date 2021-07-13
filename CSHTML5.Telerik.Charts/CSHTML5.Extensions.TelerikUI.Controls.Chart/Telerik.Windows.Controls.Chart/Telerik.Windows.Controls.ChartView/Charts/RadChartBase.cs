@@ -54,8 +54,41 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected virtual void SetKendoChartTooltip(ChartOptions chartOptions)
         {
+            if (null != this.Tooltip)
+            {
+                chartOptions.tooltip = new ChartTooltip();
+                chartOptions.tooltip.visible = Tooltip.Visibility == Visibility.Visible;
+                // set bg
+                if (Tooltip.Background != null)
+                {
+                    chartOptions.tooltip.background = JSConverters.GetStringToSetAsColor(Tooltip.Background);
+                }
+            
+                if (Tooltip.FontFamily != null)
+                {
+                    chartOptions.tooltip.font = string.Format("{0:0}px {1}", Tooltip.FontSize, Tooltip.FontFamily.ToString().ToLower());
+                }
+
+                if (Tooltip.BorderThickness != null || Tooltip.BorderBrush != null)
+                {
+                    chartOptions.tooltip.border = new ChartTooltipBorder();
+                    
+                    if (Tooltip.BorderThickness != null) {
+                        chartOptions.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(Tooltip.BorderThickness);
+                    }
+
+                    if (Tooltip.BorderBrush != null)
+                    {
+                        chartOptions.tooltip.border.color = JSConverters.GetStringToSetAsColor(Tooltip.BorderBrush);
+                    }
+                }
+
+                // set position and alignment
+                //chartOptions.tooltip.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
+                //chartOptions.tooltip.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
+            }
             //if (tooltip) {
-            chartOptions.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
+            // chartOptions.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
             // }
         }
         protected virtual void SetKendoChartLegend(ChartOptions chartOptions)
@@ -122,7 +155,7 @@ namespace Telerik.Windows.Controls.ChartView
         public KendoTooltip Tooltip
         {
             get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
-            set { this.SetValue(RadChartBase.KendoLegendProperty, (object)value); }
+            set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
         }
 
         //-------------------------------------//
