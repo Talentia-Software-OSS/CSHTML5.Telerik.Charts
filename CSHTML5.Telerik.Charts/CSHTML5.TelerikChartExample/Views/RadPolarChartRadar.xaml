@@ -11,11 +11,13 @@
                 <telerik:RadarLineSeries ItemsSource="{Binding Path=Series1}" CategoryBinding="Category"
                             ValueBinding="SerieValue" SeriesName="Radar line serie name" Stroke="OrangeRed" ShowLabels="True">
                 </telerik:RadarLineSeries>
-                <telerik:RadPolarChart.Legend>
-                    <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
-                                         Position="Top" Background="Red">
+                <telerik:RadarLineSeries ItemsSource="{Binding Path=Series1}" CategoryBinding="Category"
+                            ValueBinding="SerieValue" SeriesName="Radar line serie name" Stroke="OrangeRed" ShowLabels="True">
+                </telerik:RadarLineSeries>
+                <!--<telerik:RadPolarChart.Legend>
+                    <telerik:KendoLegend>
                     </telerik:KendoLegend>
-                </telerik:RadPolarChart.Legend>
+                </telerik:RadPolarChart.Legend>-->
                 <!--<telerik:RadarLineSeries ItemsSource="{Binding Path=Series2}" CategoryBinding="X"
                             ValueBinding="Y" Stroke="Green" ShowLabels="True">
                 </telerik:RadarLineSeries>

@@ -9,6 +9,14 @@
         <StackPanel Orientation="Vertical">
             <!-- Reference Graph definition -->
             <telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
+                <telerik:RadCartesianChart.Legend>
+                    <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
+                                         Position="Top" Background="Red">
+                    </telerik:KendoLegend>
+                </telerik:RadCartesianChart.Legend>
+                <telerik:RadCartesianChart.Tooltip>
+                    <telerik:KendoTooltip></telerik:KendoTooltip>
+                </telerik:RadCartesianChart.Tooltip>
                 <telerik:RadCartesianChart.Grid>
                     <telerik:CartesianChartGrid MajorYLineDashArray="5, 2" MajorLinesVisibility="Y" MajorYLinesRenderMode="All" >
                         <telerik:CartesianChartGrid.MajorYLineStyle>
@@ -70,11 +78,6 @@
                 </telerik:AreaSeries>
                 <telerik:BarSeries CategoryBinding="XValue" ValueBinding="YValue" ItemsSource="{Binding Path=Series4}" SeriesName="Series 4">
                 </telerik:BarSeries>
-                <telerik:RadCartesianChart.Legend>
-                    <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
-                                         Position="Top" Background="Red">
-                    </telerik:KendoLegend>
-                </telerik:RadCartesianChart.Legend>
             </telerik:RadCartesianChart>
             <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
         </StackPanel>

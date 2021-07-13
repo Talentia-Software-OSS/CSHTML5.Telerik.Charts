@@ -1,6 +1,7 @@
 using JSConversionHelpers;
 using kendo_ui_chart.kendo.dataviz.ui;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Telerik.Windows.Controls.ChartView
 {
@@ -60,8 +61,56 @@ namespace Telerik.Windows.Controls.ChartView
             {
                 propertyFields.Add(colorMapping);
             }
-            
+
+            SetKendoSeriesTooltip(chartSeries, seriesItem);
+
             return propertyFields;
         }
+
+        protected virtual void SetKendoSeriesTooltip(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            if (chartSeries.Tooltip != null)
+            {
+                seriesItem.tooltip = new ChartSeriesItemTooltip();
+
+                seriesItem.tooltip.visible = chartSeries.Tooltip.Visibility == Visibility.Visible;
+                // set bg
+                if (chartSeries.Tooltip.Background != null)
+                {
+                    seriesItem.tooltip.background = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.Background);
+                }
+
+                if (chartSeries.Tooltip.Color != null)
+                {
+                    seriesItem.tooltip.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.Color);
+                }
+
+                if (chartSeries.Tooltip.FontFamily != null)
+                {
+                    seriesItem.tooltip.font = string.Format("{0:0}px {1}", chartSeries.Tooltip.FontSize, chartSeries.Tooltip.FontFamily.ToString().ToLower());
+                }
+
+                if (chartSeries.Tooltip.BorderThickness != null || chartSeries.Tooltip.BorderBrush != null)
+                {
+                    seriesItem.tooltip.border = new ChartSeriesItemTooltipBorder();
+
+                    if (chartSeries.Tooltip.BorderThickness != null)
+                    {
+                        seriesItem.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Tooltip.BorderThickness);
+                    }
+
+                    if (chartSeries.Tooltip.BorderBrush != null)
+                    {
+                        seriesItem.tooltip.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.BorderBrush);
+                    }
+                }
+
+                if (chartSeries.Tooltip.Format != null)
+                {
+                    seriesItem.tooltip.format = chartSeries.Tooltip.Format;
+                }
+            }
+        }
+
     }
 }

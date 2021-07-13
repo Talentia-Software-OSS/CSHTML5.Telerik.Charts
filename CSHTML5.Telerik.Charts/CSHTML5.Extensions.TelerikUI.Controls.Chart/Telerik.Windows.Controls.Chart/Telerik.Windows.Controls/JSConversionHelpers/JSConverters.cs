@@ -194,5 +194,10 @@ namespace JSConversionHelpers {
             }
             return null;
         }
+
+        public static double GetBorderWidthFromThickness(Thickness thickness)
+        {
+            return thickness != null ? thickness.Top : 0;
+        }
     }
 }

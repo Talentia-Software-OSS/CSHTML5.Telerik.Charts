@@ -54,10 +54,47 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected virtual void SetKendoChartTooltip(ChartOptions chartOptions)
         {
-            //if (tooltip) {
-            chartOptions.tooltip = new ChartTooltip() { visible = true, format = "{0}%" };
-            // }
+            if (null != this.Tooltip)
+            {
+                chartOptions.tooltip = new ChartTooltip();
+                chartOptions.tooltip.visible = Tooltip.Visibility == Visibility.Visible;
+                // set bg
+                if (Tooltip.Background != null)
+                {
+                    chartOptions.tooltip.background = JSConverters.GetStringToSetAsColor(Tooltip.Background);
+                }
+
+                if (Tooltip.Color != null)
+                {
+                    chartOptions.tooltip.color = JSConverters.GetStringToSetAsColor(Tooltip.Color);
+                }
+
+                if (Tooltip.FontFamily != null)
+                {
+                    chartOptions.tooltip.font = string.Format("{0:0}px {1}", Tooltip.FontSize, Tooltip.FontFamily.ToString().ToLower());
+                }
+
+                if (Tooltip.BorderThickness != null || Tooltip.BorderBrush != null)
+                {
+                    chartOptions.tooltip.border = new ChartTooltipBorder();
+                    
+                    if (Tooltip.BorderThickness != null) {
+                        chartOptions.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(Tooltip.BorderThickness);
+                    }
+
+                    if (Tooltip.BorderBrush != null)
+                    {
+                        chartOptions.tooltip.border.color = JSConverters.GetStringToSetAsColor(Tooltip.BorderBrush);
+                    }
+                }
+
+                if (Tooltip.Format != null)
+                {
+                    chartOptions.tooltip.format = Tooltip.Format;
+                }
+            }
         }
+
         protected virtual void SetKendoChartLegend(ChartOptions chartOptions)
         {
             if (null != this.Legend)
@@ -69,12 +106,18 @@ namespace Telerik.Windows.Controls.ChartView
                 {
                     chartOptions.legend.background = JSConverters.GetStringToSetAsColor(Legend.Background);
                 }
+
                 // set labels
                 chartOptions.legend.labels = new ChartLegendLabels();
                 if (Legend.FontFamily != null)
                 {
                     chartOptions.legend.labels.font = string.Format("{0:0}px {1}", Legend.FontSize, Legend.FontFamily.ToString().ToLower());
                 }
+                if (Legend.Color != null)
+                {
+                    chartOptions.legend.labels.color = JSConverters.GetStringToSetAsColor(Legend.Color);
+                }
+
                 // set position and alignment
                 chartOptions.legend.position = Legend.Position.ToString().ToLower();    // does not treat custom - if needed to expose offsetX, offsetY properties
                 chartOptions.legend.align = JSConverters.GetAlignment(Legend.Position, Legend.VerticalAlignment, Legend.HorizontalAlignment).ToString();
@@ -99,6 +142,8 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.Register("BehaviorsProperty", typeof(ChartBehaviorCollection), typeof(RadChartBase), new PropertyMetadata(new ChartBehaviorCollection()));
         public static readonly DependencyProperty KendoLegendProperty = DependencyProperty.Register("KendoLegendProperty", typeof(KendoLegend), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
+
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -115,6 +160,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoLegend)this.GetValue(RadChartBase.KendoLegendProperty); }
             set { this.SetValue(RadChartBase.KendoLegendProperty, (object)value); }
+        }
+
+        public KendoTooltip Tooltip
+        {
+            get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
+            set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
         }
 
         //-------------------------------------//
