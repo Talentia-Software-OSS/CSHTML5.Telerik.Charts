@@ -26,7 +26,7 @@ namespace Telerik.Windows.Controls.ChartView
         internal const string ChartTypePolarLine = "polarLine";
         internal const string ChartTypeRadarLine = "radarLine";
 
-        public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), new PropertyMetadata(Guid.NewGuid().ToString()));
+        public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
 
         public string SeriesName
