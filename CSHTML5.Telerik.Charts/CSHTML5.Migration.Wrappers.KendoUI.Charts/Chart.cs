@@ -14,7 +14,7 @@ namespace kendo_ui_chart.kendo.dataviz.ui
 {
     public partial class Chart : JSComponent
     {
-        private void LoadKendoUILibraries()
+        private static void LoadKendoUILibraries()
         {
             Configuration.LocationOfKendoAllJS = "ms-appx:///CSHTML5.Migration.Wrappers.KendoUI.Charts/scripts/kendo.all.min.js";
             Configuration.LocationOfKendoCommonMaterialCSS = "ms-appx:///CSHTML5.Migration.Wrappers.KendoUI.Charts/styles/kendo.common-material.min.css";
@@ -24,6 +24,28 @@ namespace kendo_ui_chart.kendo.dataviz.ui
         }
 
         public static Configuration Configuration = new Configuration();
+
+        public static JSLibrary JSLibraryInstance;
+
+        static Chart()
+        {
+            LoadKendoUILibraries();
+            JSLibraryInstance = new JSLibrary(
+                    css: new Interop.ResourceFile[]
+                    {
+                        new Interop.ResourceFile("kendo.common-material", Configuration.LocationOfKendoCommonMaterialCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.common-material.min.css"
+                        new Interop.ResourceFile("kendo.material", Configuration.LocationOfKendoMaterialCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.material.min.css"
+                        new Interop.ResourceFile("kendo.material.mobile", Configuration.LocationOfKendoMaterialMobileCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.material.mobile.min.css"
+                        new Interop.ResourceFile("kendo.rtl", Configuration.LocationOfKendoRTLCSS) // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.rtl.min.css"
+                    },
+                    js: new Interop.ResourceFile[]
+                    {
+                        new Interop.ResourceFile("jQuery", "ms-appx:///CSHTML5.Migration.Wrappers.KendoUI.Charts/scripts/jquery.min.js"),
+                        new Interop.ResourceFile("kendo", Configuration.LocationOfKendoAllJS) // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/scripts/kendo.all.min.js"
+                    }
+                );
+            JSLibraryInstance.Load();
+        }
 
         static JSLibrary _jsLibrary;
         public override JSLibrary JSLibrary { get { return _jsLibrary; } }
@@ -42,21 +64,15 @@ namespace kendo_ui_chart.kendo.dataviz.ui
         {
             if (Configuration.AreSourcesSet)
             {
-                _jsLibrary = new JSLibrary(
-                    css: new Interop.ResourceFile[]
-                    {
-                        new Interop.ResourceFile("kendo.common-material", Configuration.LocationOfKendoCommonMaterialCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.common-material.min.css"
-                        new Interop.ResourceFile("kendo.material", Configuration.LocationOfKendoMaterialCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.material.min.css"
-                        new Interop.ResourceFile("kendo.material.mobile", Configuration.LocationOfKendoMaterialMobileCSS), // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.material.mobile.min.css"
-                        new Interop.ResourceFile("kendo.rtl", Configuration.LocationOfKendoRTLCSS) // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/styles/kendo.rtl.min.css"
-                    },
-                    js: new Interop.ResourceFile[]
-                    {
-                        new Interop.ResourceFile("jQuery", "ms-appx:///CSHTML5.Migration.Wrappers.KendoUI.Charts/scripts/jquery.min.js"),
-                        new Interop.ResourceFile("kendo", Configuration.LocationOfKendoAllJS) // e.g. "ms-appx:///CSHTML5.Wrappers.KendoUI.Grid/scripts/kendo.all.min.js"
-                    }
-                );
-                base.JSComponent_Loaded(sender, e);
+                _jsLibrary = JSLibraryInstance;
+                if (_jsLibrary.IsLoaded)
+                {
+                    JsLibrary_LibraryLoaded(true);
+                }
+                else
+                {
+                    _jsLibrary.LibraryLoaded += JsLibrary_LibraryLoaded;
+                }
             }
             else
             {
@@ -65,6 +81,27 @@ To do so, please follow the tutorial at: http://www.cshtml5.com";
                 MessageBox.Show(@"Before you can use the Kendo Chart Control, you must add to your project the corresponding libraries.
 To do so, please follow the tutorial at: http://www.cshtml5.com"); //todo: put the address of the tutorial.
                 base.AbortLoading();
+            }
+        }
+
+        private void JsLibrary_LibraryLoaded(bool result)
+        {
+            if (result)
+            {
+                if (this.initJSInstance)
+                    this.InitializeJSInstance();
+                // Using a Dispatcher because we need the component to be fully loaded before being able to properly modify the visual tree (we might meet uninitialized elements otherwise).
+                // before this fix (2019/01/28), the Sample Showcase can display such an error when clicking on Third Party -> Telerik Kendo UI -> Grid then reclicking Grid
+                Dispatcher.BeginInvoke(() =>
+                {
+                    this.jsInstanceLoaded.SetResult(true);
+
+                    this.OnJSInstanceLoaded();
+                });
+            }
+            else
+            {
+                this.jsInstanceLoaded.SetResult(false);
             }
         }
 

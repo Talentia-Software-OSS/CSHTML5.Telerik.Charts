@@ -180,14 +180,16 @@ namespace Telerik.Windows.Controls
                 Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
             }
 
-            string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
-            if (YAxisColor != null)
-            {
-                valueAxisItem.color = YAxisColor;
-            }
+            if (VerticalAxis != null) {
+                string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
+                if (YAxisColor != null)
+                {
+                    valueAxisItem.color = YAxisColor;
+                }
 
-            valueAxis.Add(valueAxisItem);
-            chartO.valueAxis = valueAxis;
+                valueAxis.Add(valueAxisItem);
+                chartO.valueAxis = valueAxis;
+            }
 
             if (Behaviors != null)
             {
@@ -227,6 +229,11 @@ namespace Telerik.Windows.Controls
 
             chartO.series = series;
             _kendoChart.setOptions(chartO);
+
+            if (_kendoChart.options.series.Count != _series.Count)
+            {
+                throw new System.Exception("Not working");
+            }
         }
         //-------------------------------------//
         //-------------------------------------//

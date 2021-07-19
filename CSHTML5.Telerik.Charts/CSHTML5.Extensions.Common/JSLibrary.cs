@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CSHTML5.Wrappers.KendoUI.Common
 {
+
+    public delegate void LibraryLoadedEventHandler(bool result);
+
     /// <summary>  
     /// Class used to represent a set of JS and CSS files that should be loaded only once.
     /// </summary>
@@ -15,6 +18,11 @@ namespace CSHTML5.Wrappers.KendoUI.Common
         /// Whether the library is already loaded.
         /// </value>
         public bool IsLoaded { get; private set; }
+
+        /// <summary>
+        /// Get Called when it's loaded, subscrib
+        /// </summary>
+        public event LibraryLoadedEventHandler LibraryLoaded;
 
         /// <value>
         /// URLs pointing to the library's CSS files.
@@ -58,6 +66,10 @@ namespace CSHTML5.Wrappers.KendoUI.Common
                         wasLoadingSuccessful = false;
                     }
                 this.IsLoaded = wasLoadingSuccessful;
+                if (this.LibraryLoaded != null)
+                {
+                    LibraryLoaded(wasLoadingSuccessful);
+                }
             }
         }
 

@@ -45,9 +45,18 @@ namespace JSConversionHelpers {
                     case TypeCode.DateTime:
                         return string.Format("new Date('{0}')", propertyValue.ToString());
                     case TypeCode.String:
-                        return string.Format("'{0}'", propertyValue.ToString());
                     default:
-                        return string.Format("{0}", propertyValue.ToString());
+                        return string.Format("'{0}'", propertyValue.ToString());
+                        /*
+                        if (propertyValue.GetType().IsInstanceOfType(typeof(Color)))
+                        {
+                            return string.Format("'{0}'", propertyValue.ToString());
+                        }
+                        else
+                        {
+                            return string.Format("{0}", propertyValue.ToString());
+                        }
+                        */
                 }
             }
 
@@ -96,7 +105,8 @@ namespace JSConversionHelpers {
             }
             Interop.ExecuteJavaScript(sb.ToString(), preparedSeriesData);
 
-            return new JSObject(preparedSeriesData);
+            return preparedSeriesData as JSObject;
+            //return new JSObject(preparedSeriesData);
         }
 
         public static string GetFieldNameFromProperty(DataPointBinding dataBinding)

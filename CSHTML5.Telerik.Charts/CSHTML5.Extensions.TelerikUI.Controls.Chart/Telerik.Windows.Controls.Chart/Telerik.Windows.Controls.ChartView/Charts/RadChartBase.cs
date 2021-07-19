@@ -34,7 +34,7 @@ namespace Telerik.Windows.Controls.ChartView
         private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
         public async void Refresh()
         {
-            if (await _kendoChart.JSInstanceLoaded)
+            if (null != _kendoChart && await _kendoChart.JSInstanceLoaded)
             {
                 _dispatcherQueueToRefreshTheChart.QueueActionIfQueueIsEmpty(() =>
                 {
