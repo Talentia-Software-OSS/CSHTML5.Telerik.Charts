@@ -105,7 +105,7 @@ namespace JSConversionHelpers {
             }
             Interop.ExecuteJavaScript(sb.ToString(), preparedSeriesData);
 
-            return preparedSeriesData as JSObject;
+            return preparedSeriesData as JSObject ?? new JSObject(preparedSeriesData);
             //return new JSObject(preparedSeriesData);
         }
 

@@ -131,7 +131,8 @@ namespace Telerik.Windows.Controls.ChartView
 
         private void NotifyingDataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ParentChart.Refresh();
+            if (ParentChart.IsLoaded)
+                ParentChart.Refresh();
         }
         //-------------------------------------//
         //-------------------------------------//
