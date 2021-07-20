@@ -17,6 +17,7 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------- FIELDS ---------------//
         //-------------------------------------//
         public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("MaximumProperty", typeof(double), typeof(NumericalAxis), null);
+        public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("MinimumProperty", typeof(double), typeof(NumericalAxis), null);
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -28,6 +29,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (double)this.GetValue(NumericalAxis.MaximumProperty); }
             set { this.SetValue(NumericalAxis.MaximumProperty, (object)value); }
+        }
+
+        public double Minimum
+        {
+            get { return (double)this.GetValue(NumericalAxis.MinimumProperty); }
+            set { this.SetValue(NumericalAxis.MinimumProperty, (object)value); }
         }
         //-------------------------------------//
         //-------------------------------------//

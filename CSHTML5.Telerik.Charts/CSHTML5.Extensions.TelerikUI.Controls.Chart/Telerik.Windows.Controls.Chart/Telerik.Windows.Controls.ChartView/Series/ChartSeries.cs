@@ -21,6 +21,7 @@ namespace Telerik.Windows.Controls.ChartView
     {
         internal const string ChartTypePie = "pie";
         internal const string ChartTypeBar = "bar";
+        internal const string ChartTypeColumn = "column";
         internal const string ChartTypeLine = "line";
         internal const string ChartTypeArea = "area";
         internal const string ChartTypePolarLine = "polarLine";
