@@ -95,6 +95,53 @@ namespace Telerik.Windows.Controls.ChartView
             }
         }
 
+        protected virtual void SetKendoChartDefaultsLabel(ChartSeriesDefaults seriesDefaults)
+        {
+            if (Label != null)
+            {
+                //ChartSeriesDefaults seriesItem = chartOptions.seriesDefaults;
+                seriesDefaults.labels = new ChartSeriesDefaultsLabels();
+                //seriesItem.label = new ChartValueAxisItemNotesLabel();
+
+                seriesDefaults.labels.visible = Label.Visibility == Visibility.Visible;
+                // set bg
+                if (Label.Background != null)
+                {
+                    seriesDefaults.labels.background = JSConverters.GetStringToSetAsColor(Label.Background);
+                }
+
+                if (Label.Color != null)
+                {
+                    seriesDefaults.labels.color = JSConverters.GetStringToSetAsColor(Label.Color);
+                }
+
+                if (Label.FontFamily != null)
+                {
+                    seriesDefaults.labels.font = string.Format("{0:0}px {1}", Label.FontSize, Label.FontFamily.ToString().ToLower());
+                }
+
+                //if (chartSeries.Tooltip.BorderThickness != null || chartSeries.Tooltip.BorderBrush != null)
+                //{
+                //    seriesItem.tooltip.border = new ChartSeriesItemTooltipBorder();
+
+                //    if (chartSeries.Tooltip.BorderThickness != null)
+                //    {
+                //        seriesItem.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Tooltip.BorderThickness);
+                //    }
+
+                //    if (chartSeries.Tooltip.BorderBrush != null)
+                //    {
+                //        seriesItem.tooltip.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.BorderBrush);
+                //    }
+                //}
+
+                if (Label.Format != null)
+                {
+                    seriesDefaults.labels.format = Label.Format;
+                }
+            }
+        }
+
         protected virtual void SetKendoChartLegend(ChartOptions chartOptions)
         {
             if (null != this.Legend)
@@ -130,8 +177,13 @@ namespace Telerik.Windows.Controls.ChartView
 
             SetKendoChartTooltip(chartOptions);
             SetKendoChartLegend(chartOptions);
+            if (Label != null)
+            {
+                chartOptions.seriesDefaults = new ChartSeriesDefaults();
+                SetKendoChartDefaultsLabel(chartOptions.seriesDefaults);
+            }
             SetKendoChartSeries(chartOptions);
-
+            
             _kendoChart.setOptions(chartOptions);
         }
 
@@ -143,6 +195,7 @@ namespace Telerik.Windows.Controls.ChartView
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.Register("BehaviorsProperty", typeof(ChartBehaviorCollection), typeof(RadChartBase), new PropertyMetadata(new ChartBehaviorCollection()));
         public static readonly DependencyProperty KendoLegendProperty = DependencyProperty.Register("KendoLegendProperty", typeof(KendoLegend), typeof(RadChartBase), null);
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
 
         //-------------------------------------//
         //-------------------------------------//
@@ -166,6 +219,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
             set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
+        }
+
+        public KendoLabel Label
+        {
+            get { return (KendoLabel)this.GetValue(RadChartBase.KendoLabelProperty); }
+            set { this.SetValue(RadChartBase.KendoLabelProperty, (object)value); }
         }
 
         //-------------------------------------//

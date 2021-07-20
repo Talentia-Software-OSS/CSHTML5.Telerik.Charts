@@ -63,8 +63,55 @@ namespace Telerik.Windows.Controls.ChartView
             }
 
             SetKendoSeriesTooltip(chartSeries, seriesItem);
+            SetKendoSeriesLabel(chartSeries, seriesItem);
 
             return propertyFields;
+        }
+
+        protected virtual void SetKendoSeriesLabel(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            if (chartSeries.Label != null)
+            {
+                seriesItem.labels = new ChartSeriesItemLabels();
+                //seriesItem.label = new ChartValueAxisItemNotesLabel();
+
+                seriesItem.labels.visible = chartSeries.Label.Visibility == Visibility.Visible;
+                // set bg
+                if (chartSeries.Label.Background != null)
+                {
+                    seriesItem.labels.background = JSConverters.GetStringToSetAsColor(chartSeries.Label.Background);
+                }
+
+                if (chartSeries.Label.Color != null)
+                {
+                    seriesItem.labels.color = JSConverters.GetStringToSetAsColor(chartSeries.Label.Color);
+                }
+
+                if (chartSeries.Label.FontFamily != null)
+                {
+                    seriesItem.labels.font = string.Format("{0:0}px {1}", chartSeries.Label.FontSize, chartSeries.Label.FontFamily.ToString().ToLower());
+                }
+
+                //if (chartSeries.Tooltip.BorderThickness != null || chartSeries.Tooltip.BorderBrush != null)
+                //{
+                //    seriesItem.tooltip.border = new ChartSeriesItemTooltipBorder();
+
+                //    if (chartSeries.Tooltip.BorderThickness != null)
+                //    {
+                //        seriesItem.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Tooltip.BorderThickness);
+                //    }
+
+                //    if (chartSeries.Tooltip.BorderBrush != null)
+                //    {
+                //        seriesItem.tooltip.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.BorderBrush);
+                //    }
+                //}
+
+                if (chartSeries.Label.Format != null)
+                {
+                    seriesItem.labels.format = chartSeries.Label.Format;
+                }
+            }
         }
 
         protected virtual void SetKendoSeriesTooltip(ChartSeries chartSeries, ChartSeriesItem seriesItem)

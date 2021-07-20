@@ -29,6 +29,7 @@ namespace Telerik.Windows.Controls.ChartView
 
         public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
 
         public string SeriesName
         {
@@ -40,6 +41,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
             set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
+        }
+
+        public KendoLabel Label
+        {
+            get { return (KendoLabel)this.GetValue(RadChartBase.KendoLabelProperty); }
+            set { this.SetValue(RadChartBase.KendoLabelProperty, (object)value); }
         }
 
         //-------------------------------------//
