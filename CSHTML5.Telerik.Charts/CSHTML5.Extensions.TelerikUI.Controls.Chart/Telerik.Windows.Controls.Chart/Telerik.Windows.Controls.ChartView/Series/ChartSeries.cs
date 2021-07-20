@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Collections;
 using System.Collections.Specialized;
+using System;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -20,6 +21,7 @@ namespace Telerik.Windows.Controls.ChartView
     {
         internal const string ChartTypePie = "pie";
         internal const string ChartTypeBar = "bar";
+        internal const string ChartTypeColumn = "column";
         internal const string ChartTypeLine = "line";
         internal const string ChartTypeArea = "area";
         internal const string ChartTypePolarLine = "polarLine";
@@ -27,6 +29,7 @@ namespace Telerik.Windows.Controls.ChartView
 
         public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
 
         public string SeriesName
         {
@@ -38,6 +41,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
             set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
+        }
+
+        public KendoLabel Label
+        {
+            get { return (KendoLabel)this.GetValue(RadChartBase.KendoLabelProperty); }
+            set { this.SetValue(RadChartBase.KendoLabelProperty, (object)value); }
         }
 
         //-------------------------------------//
@@ -130,7 +139,8 @@ namespace Telerik.Windows.Controls.ChartView
 
         private void NotifyingDataSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ParentChart.Refresh();
+            if (ParentChart.IsLoaded)
+                ParentChart.Refresh();
         }
         //-------------------------------------//
         //-------------------------------------//

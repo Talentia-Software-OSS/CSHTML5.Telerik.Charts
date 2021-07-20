@@ -35,8 +35,8 @@ namespace CSHTML5.Wrappers.KendoUI.Common
     /// </remarks>
     public abstract class JSComponent : HtmlPresenter
     {
-        bool initJSInstance = false;
-        readonly TaskCompletionSource<bool> jsInstanceLoaded = new TaskCompletionSource<bool>();
+        protected bool initJSInstance = false;
+        protected readonly TaskCompletionSource<bool> jsInstanceLoaded = new TaskCompletionSource<bool>();
 
         /// <value>
         /// JS Library that must be loaded before this component.

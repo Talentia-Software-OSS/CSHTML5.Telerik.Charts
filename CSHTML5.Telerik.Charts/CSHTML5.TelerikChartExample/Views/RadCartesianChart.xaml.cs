@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CSHTML5.TelerikChartExample.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using Telerik.Windows.Data;
@@ -8,6 +11,8 @@ namespace CSHTML5.TelerikChartExample.Views
     public partial class RadCartesianChart : Page
     {
         private CartesianChartViewModel<RadCartesianChart, DTPoint> _carthesianChartViewModel;
+
+        public RangeObservableCollection<BrokenViewModel> BrokenItems = new RangeObservableCollection<BrokenViewModel>();
 
         public class DTPoint
         {
@@ -33,6 +38,15 @@ namespace CSHTML5.TelerikChartExample.Views
                 GenerateRandomSerie(5, new DateTime(2000, 6, 1)),
                 GenerateBarSerie(5, new DateTime(2000, 6, 1))
             );
+
+            BrokenChart.DataContext = this;
+
+            BrokenItems.AddRange(new List<BrokenViewModel>()
+            {
+                new BrokenViewModel() { Label = "In progress", Value = "14", Color = Color.Green },
+                new BrokenViewModel() { Label = "To process", Value = "23", Color = Color.Blue },
+                new BrokenViewModel() { Label = "Suspended", Value = "48", Color = Color.Red },
+            }) ;
         }
 
         private void SetReferencePeriod_Loaded(object sender, RoutedEventArgs e)
@@ -53,6 +67,7 @@ namespace CSHTML5.TelerikChartExample.Views
 
             // set piechart data on refresh
             ReferenceGraph.Refresh();
+            BrokenChart.Refresh();
         }
 
         private RadObservableCollection<DTPoint> GenerateRandomSerie(int size, DateTime initialDateTime, double minValue = 0, double maxValue = 300, int intervalBetweenPoints = 1)

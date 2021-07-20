@@ -27,6 +27,7 @@ namespace CSHTML5.TelerikChartExample.Views
         {
             // set piechart data on refresh
             ExamplePieChart.Refresh();
+            ExamplePieChart2.Refresh();
         }
 
         private void AddItems_Click(object sender, RoutedEventArgs e)
