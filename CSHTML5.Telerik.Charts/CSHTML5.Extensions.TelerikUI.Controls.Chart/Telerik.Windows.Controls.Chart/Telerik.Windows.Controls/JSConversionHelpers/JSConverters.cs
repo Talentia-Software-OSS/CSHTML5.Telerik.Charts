@@ -67,11 +67,19 @@ namespace JSConversionHelpers {
 
     public static class JSConverters
     { 
-        public enum JSAlignemnt
+        public enum JSAlignment
         {
             start,
             center,
             end
+        }
+
+        public static string FirstCharToLowerCase(string str)
+        {
+            if (string.IsNullOrEmpty(str) || char.IsLower(str[0]))
+                return str;
+
+            return char.ToLower(str[0]) + str.Substring(1);
         }
 
         public static string GetObjectWithPresetPropertiesAsString(object cSharpItem, List<DataPropertyMapping> propertiesToPutInResult)
@@ -115,46 +123,46 @@ namespace JSConversionHelpers {
         }
 
         #region Position Alignment
-        public static JSAlignemnt GetAlignment(LegendPosition position, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
+        public static JSAlignment GetAlignment(LegendPosition position, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
         {
             switch (position)
             {
                 case LegendPosition.Top:
-                case LegendPosition.Bottom:// OTOD: vertical
+                case LegendPosition.Bottom:
                     return GetHorizontalAlignment(horizontalAlignment);
                 case LegendPosition.Left:
                 case LegendPosition.Right:
                     return GetVerticalAlignment(verticalAlignment);
                 default:
-                    return JSAlignemnt.center;
+                    return JSAlignment.center;
             }
         }
 
-        private static JSAlignemnt GetVerticalAlignment(VerticalAlignment verticalAlignment)
+        private static JSAlignment GetVerticalAlignment(VerticalAlignment verticalAlignment)
         {
             switch (verticalAlignment)
             {
                 case VerticalAlignment.Top:
-                    return JSAlignemnt.start;
+                    return JSAlignment.start;
                 case VerticalAlignment.Bottom:
-                    return JSAlignemnt.end;
+                    return JSAlignment.end;
                 case VerticalAlignment.Center:
                 default:
-                    return JSAlignemnt.center;
+                    return JSAlignment.center;
             }
         }
 
-        public static JSAlignemnt GetHorizontalAlignment(HorizontalAlignment horizontalAlignment)
+        public static JSAlignment GetHorizontalAlignment(HorizontalAlignment horizontalAlignment)
         {
             switch (horizontalAlignment)
             {
                 case HorizontalAlignment.Left:
-                    return JSAlignemnt.start;
+                    return JSAlignment.start;
                 case HorizontalAlignment.Right:
-                    return JSAlignemnt.end;
+                    return JSAlignment.end;
                 case HorizontalAlignment.Center:
                 default:
-                    return JSAlignemnt.center;
+                    return JSAlignment.center;
             }
         }
         #endregion

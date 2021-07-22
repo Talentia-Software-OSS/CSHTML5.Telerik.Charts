@@ -10,6 +10,27 @@
             <telerik:RadPieChart Name="ExamplePieChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
                 <telerik:RadPieChart.Tooltip>
                     <telerik:KendoTooltip>
+                        <telerik:KendoTooltip.TooltipTemplate>
+                            #= category # (#= kendo.format('{0:P}', percentage) #)
+                        </telerik:KendoTooltip.TooltipTemplate>
+                    </telerik:KendoTooltip>
+                </telerik:RadPieChart.Tooltip>
+                <telerik:PieSeries ItemsSource="{Binding Path=Items}" CategoryBinding="Category" SeriesName="PieChart Name">
+                    <telerik:PieSeries.ValueBinding>
+                        <telerik:PropertyNameDataPointBinding PropertyName="SerieValue"/>
+                    </telerik:PieSeries.ValueBinding>
+                    <telerik:PieSeries.Label>
+                        <telerik:KendoLabel Position="InsideEnd">
+                            <telerik:KendoLabel.LabelTemplate>
+                                #= category # (#= kendo.format('{0:P}', percentage)#)
+                            </telerik:KendoLabel.LabelTemplate>
+                        </telerik:KendoLabel>
+                    </telerik:PieSeries.Label>
+                </telerik:PieSeries>
+            </telerik:RadPieChart>
+            <telerik:RadPieChart Name="ExamplePieChart2" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
+                <telerik:RadPieChart.Tooltip>
+                    <telerik:KendoTooltip>
                         <telerik:KendoTooltip.Format>
                             {0}%
                         </telerik:KendoTooltip.Format>
@@ -21,21 +42,7 @@
                     </telerik:PieSeries.ValueBinding>
                 </telerik:PieSeries>
             </telerik:RadPieChart>
-            <telerik:RadPieChart Name="ExamplePieChart2" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-              <telerik:RadPieChart.Tooltip>
-                <telerik:KendoTooltip>
-                  <telerik:KendoTooltip.Format>
-                    {0}%
-                  </telerik:KendoTooltip.Format>
-                </telerik:KendoTooltip>
-              </telerik:RadPieChart.Tooltip>
-              <telerik:PieSeries ItemsSource="{Binding Path=Items}" CategoryBinding="Category" SeriesName="PieChart Name">
-                <telerik:PieSeries.ValueBinding>
-                  <telerik:PropertyNameDataPointBinding PropertyName="SerieValue"/>
-                </telerik:PieSeries.ValueBinding>
-              </telerik:PieSeries>
-            </telerik:RadPieChart>
-      <Button Content="Apply Pie CHart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
+            <Button Content="Apply Pie CHart" Margin="0,20,0,0" Click="Button_Click_PieChart" HorizontalAlignment="Left"/>
             <Button Content="Add item" Margin="0,20,0,0" Click="AddItems_Click" HorizontalAlignment="Left"/>
         </StackPanel>
     </Grid>
