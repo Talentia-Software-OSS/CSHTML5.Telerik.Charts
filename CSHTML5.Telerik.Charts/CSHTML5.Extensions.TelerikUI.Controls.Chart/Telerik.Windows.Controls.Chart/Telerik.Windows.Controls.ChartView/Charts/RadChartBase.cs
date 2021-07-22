@@ -52,6 +52,58 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected abstract void SetKendoChartSeries(ChartOptions chartOptions);
 
+        protected virtual void SetKendoChartDefaultsLabel(ChartSeriesDefaults seriesDefaults)
+        {
+            if (Label != null)
+            {
+                seriesDefaults.labels = new ChartSeriesDefaultsLabels();
+
+                seriesDefaults.labels.visible = Label.Visibility == Visibility.Visible;
+                // set bg
+                if (Label.Background != null)
+                {
+                    seriesDefaults.labels.background = JSConverters.GetStringToSetAsColor(Label.Background);
+                }
+
+                if (Label.Color != null)
+                {
+                    seriesDefaults.labels.color = JSConverters.GetStringToSetAsColor(Label.Color);
+                }
+
+                if (Label.FontFamily != null)
+                {
+                    seriesDefaults.labels.font = string.Format("{0:0}px {1}", Label.FontSize, Label.FontFamily.ToString().ToLower());
+                }
+
+                if (Label.BorderThickness != null || Label.BorderBrush != null)
+                {
+                    seriesDefaults.labels.border = new ChartSeriesDefaultsLabelsBorder();
+
+                    if (Label.BorderThickness != null)
+                    {
+                        seriesDefaults.labels.border.width = JSConverters.GetBorderWidthFromThickness(Label.BorderThickness);
+                    }
+
+                    if (Label.BorderBrush != null)
+                    {
+                        seriesDefaults.labels.border.color = JSConverters.GetStringToSetAsColor(Label.BorderBrush);
+                    }
+                }
+
+                if (Label.Format != null)
+                {
+                    seriesDefaults.labels.format = Label.Format;
+                }
+
+                if (Label.LabelTemplate != null)
+                {
+                    seriesDefaults.labels.template = Label.LabelTemplate;
+                }
+
+                // no align, position properties series defaults
+            }
+        }
+
         protected virtual void SetKendoChartTooltip(ChartOptions chartOptions)
         {
             if (null != this.Tooltip)
@@ -92,52 +144,10 @@ namespace Telerik.Windows.Controls.ChartView
                 {
                     chartOptions.tooltip.format = Tooltip.Format;
                 }
-            }
-        }
 
-        protected virtual void SetKendoChartDefaultsLabel(ChartSeriesDefaults seriesDefaults)
-        {
-            if (Label != null)
-            {
-                //ChartSeriesDefaults seriesItem = chartOptions.seriesDefaults;
-                seriesDefaults.labels = new ChartSeriesDefaultsLabels();
-                //seriesItem.label = new ChartValueAxisItemNotesLabel();
-
-                seriesDefaults.labels.visible = Label.Visibility == Visibility.Visible;
-                // set bg
-                if (Label.Background != null)
+                if (Tooltip.TooltipTemplate != null)
                 {
-                    seriesDefaults.labels.background = JSConverters.GetStringToSetAsColor(Label.Background);
-                }
-
-                if (Label.Color != null)
-                {
-                    seriesDefaults.labels.color = JSConverters.GetStringToSetAsColor(Label.Color);
-                }
-
-                if (Label.FontFamily != null)
-                {
-                    seriesDefaults.labels.font = string.Format("{0:0}px {1}", Label.FontSize, Label.FontFamily.ToString().ToLower());
-                }
-
-                //if (chartSeries.Tooltip.BorderThickness != null || chartSeries.Tooltip.BorderBrush != null)
-                //{
-                //    seriesItem.tooltip.border = new ChartSeriesItemTooltipBorder();
-
-                //    if (chartSeries.Tooltip.BorderThickness != null)
-                //    {
-                //        seriesItem.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Tooltip.BorderThickness);
-                //    }
-
-                //    if (chartSeries.Tooltip.BorderBrush != null)
-                //    {
-                //        seriesItem.tooltip.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.BorderBrush);
-                //    }
-                //}
-
-                if (Label.Format != null)
-                {
-                    seriesDefaults.labels.format = Label.Format;
+                    chartOptions.tooltip.template = Tooltip.TooltipTemplate;
                 }
             }
         }

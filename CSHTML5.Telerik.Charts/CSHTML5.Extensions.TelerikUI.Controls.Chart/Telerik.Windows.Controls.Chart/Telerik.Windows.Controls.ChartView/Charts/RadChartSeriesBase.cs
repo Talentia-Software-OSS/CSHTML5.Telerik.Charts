@@ -73,10 +73,9 @@ namespace Telerik.Windows.Controls.ChartView
             if (chartSeries.Label != null)
             {
                 seriesItem.labels = new ChartSeriesItemLabels();
-                //seriesItem.label = new ChartValueAxisItemNotesLabel();
 
                 seriesItem.labels.visible = chartSeries.Label.Visibility == Visibility.Visible;
-                // set bg
+                
                 if (chartSeries.Label.Background != null)
                 {
                     seriesItem.labels.background = JSConverters.GetStringToSetAsColor(chartSeries.Label.Background);
@@ -92,24 +91,39 @@ namespace Telerik.Windows.Controls.ChartView
                     seriesItem.labels.font = string.Format("{0:0}px {1}", chartSeries.Label.FontSize, chartSeries.Label.FontFamily.ToString().ToLower());
                 }
 
-                //if (chartSeries.Tooltip.BorderThickness != null || chartSeries.Tooltip.BorderBrush != null)
-                //{
-                //    seriesItem.tooltip.border = new ChartSeriesItemTooltipBorder();
+                if (chartSeries.Label.BorderThickness != null || chartSeries.Label.BorderBrush != null)
+                {
+                    seriesItem.labels.border = new ChartSeriesItemLabelsBorder();
 
-                //    if (chartSeries.Tooltip.BorderThickness != null)
-                //    {
-                //        seriesItem.tooltip.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Tooltip.BorderThickness);
-                //    }
+                    if (chartSeries.Label.BorderThickness != null)
+                    {
+                        seriesItem.labels.border.width = JSConverters.GetBorderWidthFromThickness(chartSeries.Label.BorderThickness);
+                    }
 
-                //    if (chartSeries.Tooltip.BorderBrush != null)
-                //    {
-                //        seriesItem.tooltip.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Tooltip.BorderBrush);
-                //    }
-                //}
+                    if (chartSeries.Label.BorderBrush != null)
+                    {
+                        seriesItem.labels.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Label.BorderBrush);
+                    }
+                }
 
                 if (chartSeries.Label.Format != null)
                 {
                     seriesItem.labels.format = chartSeries.Label.Format;
+                }
+
+                if (chartSeries.Label.LabelTemplate != null)
+                {
+                    seriesItem.labels.template = chartSeries.Label.LabelTemplate;
+                }
+
+                if (chartSeries.Label.Align != LabelAlignment.Default)
+                {
+                    seriesItem.labels.align = JSConverters.FirstCharToLowerCase(chartSeries.Label.Align.ToString());  // column, circle
+                }
+
+                if (chartSeries.Label.Position != LabelPosition.Default)
+                {
+                    seriesItem.labels.position = JSConverters.FirstCharToLowerCase(chartSeries.Label.Position.ToString());
                 }
             }
         }
@@ -155,6 +169,11 @@ namespace Telerik.Windows.Controls.ChartView
                 if (chartSeries.Tooltip.Format != null)
                 {
                     seriesItem.tooltip.format = chartSeries.Tooltip.Format;
+                }
+
+                if (Tooltip.TooltipTemplate != null)
+                {
+                    seriesItem.tooltip.template = Tooltip.TooltipTemplate;
                 }
             }
         }

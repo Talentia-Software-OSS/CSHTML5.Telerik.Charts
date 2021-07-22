@@ -17,6 +17,7 @@ namespace Telerik.Windows.Controls.ChartView
     {
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("ColorProperty", typeof(Brush), typeof(KendoTooltip), null);
         public static readonly DependencyProperty FormatProperty = DependencyProperty.Register("FormatProperty", typeof(string), typeof(KendoTooltip), null);
+        public static readonly DependencyProperty TooltipTemplateProperty = DependencyProperty.Register("TooltipTemplateProperty", typeof(string), typeof(KendoTooltip), null);
         
         public Brush Color
         {
@@ -28,6 +29,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (string)this.GetValue(KendoTooltip.FormatProperty); }
             set { this.SetValue(KendoTooltip.FormatProperty, (object)value); }
+        }
+
+        public string TooltipTemplate
+        {
+            get { return (string)this.GetValue(KendoTooltip.TooltipTemplateProperty); }
+            set { this.SetValue(KendoTooltip.TooltipTemplateProperty, (object)value); }
         }
     }
 }
