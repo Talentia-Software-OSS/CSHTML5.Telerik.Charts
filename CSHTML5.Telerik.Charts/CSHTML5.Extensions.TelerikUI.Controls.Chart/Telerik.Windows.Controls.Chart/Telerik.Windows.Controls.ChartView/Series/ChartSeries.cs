@@ -28,8 +28,9 @@ namespace Telerik.Windows.Controls.ChartView
         internal const string ChartTypeRadarLine = "radarLine";
 
         public static readonly DependencyProperty SeriesNameProperty = DependencyProperty.Register("SeriesNameProperty", typeof(string), typeof(ChartSeries), null);
-        public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
-        public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
+        public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(ChartSeries), null);
+        public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(ChartSeries), null);
+        public static readonly DependencyProperty KendoBorderProperty = DependencyProperty.Register("KendoBorderProperty", typeof(KendoBorder), typeof(ChartSeries), new PropertyMetadata(KendoBorder.NoBorder));
 
         public string SeriesName
         {
@@ -39,14 +40,20 @@ namespace Telerik.Windows.Controls.ChartView
 
         public KendoTooltip Tooltip
         {
-            get { return (KendoTooltip)this.GetValue(RadChartBase.KendoTooltipProperty); }
-            set { this.SetValue(RadChartBase.KendoTooltipProperty, (object)value); }
+            get { return (KendoTooltip)this.GetValue(ChartSeries.KendoTooltipProperty); }
+            set { this.SetValue(ChartSeries.KendoTooltipProperty, (object)value); }
         }
 
         public KendoLabel Label
         {
-            get { return (KendoLabel)this.GetValue(RadChartBase.KendoLabelProperty); }
-            set { this.SetValue(RadChartBase.KendoLabelProperty, (object)value); }
+            get { return (KendoLabel)this.GetValue(ChartSeries.KendoLabelProperty); }
+            set { this.SetValue(ChartSeries.KendoLabelProperty, (object)value); }
+        }
+
+        public KendoBorder Border
+        {
+            get { return (KendoBorder)this.GetValue(ChartSeries.KendoBorderProperty); }
+            set { this.SetValue(ChartSeries.KendoBorderProperty, (object)value); }
         }
 
         //-------------------------------------//

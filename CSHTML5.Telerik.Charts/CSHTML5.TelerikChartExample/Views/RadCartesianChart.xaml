@@ -81,12 +81,12 @@
             </telerik:RadCartesianChart>
 
           <telerik:RadCartesianChart x:Name="BrokenChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="White" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color">
+                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color" Gap="0.25">
                     <telerik:BarSeries.Label>
                         <telerik:KendoLabel Visibility="Visible" Background="Blue"></telerik:KendoLabel>
                     </telerik:BarSeries.Label>
                 </telerik:BarSeries>
-                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color">
+                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color" Gap="0.25">
                 </telerik:BarSeries>
                 <telerik:RadCartesianChart.Label>
                     <telerik:KendoLabel Visibility="Visible" Background="Yellow"></telerik:KendoLabel>

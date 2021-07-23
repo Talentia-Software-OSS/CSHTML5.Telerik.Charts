@@ -38,7 +38,7 @@ namespace Telerik.Windows.Controls.ChartView
             }
         }
 
-        protected virtual List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        protected virtual List<DataPropertyMapping> GetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
             var propertyFields = new List<DataPropertyMapping>();
             if (chartSeries is CategoricalSeries)
@@ -62,10 +62,15 @@ namespace Telerik.Windows.Controls.ChartView
                 propertyFields.Add(colorMapping);
             }
 
+            return propertyFields;
+        }
+
+        protected virtual void SetKendoSeriesOptions(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
             SetKendoSeriesTooltip(chartSeries, seriesItem);
             SetKendoSeriesLabel(chartSeries, seriesItem);
-
-            return propertyFields;
+            SetKendoSeriesBorder(chartSeries, seriesItem);
+            SetKendoSeriesAdditionalOptions(chartSeries, seriesItem);
         }
 
         protected virtual void SetKendoSeriesLabel(ChartSeries chartSeries, ChartSeriesItem seriesItem)
@@ -176,6 +181,27 @@ namespace Telerik.Windows.Controls.ChartView
                     seriesItem.tooltip.template = Tooltip.TooltipTemplate;
                 }
             }
+        }
+
+        protected virtual void SetKendoSeriesBorder(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            if (chartSeries.Border != null)
+            {
+                seriesItem.border = new ChartSeriesItemBorder();
+
+                if (chartSeries.Border.Color != null)
+                {
+                    seriesItem.border.color = JSConverters.GetStringToSetAsColor(chartSeries.Border.Color);
+                }
+                
+                seriesItem.border.opacity = chartSeries.Border.Opacity;
+                seriesItem.border.width = chartSeries.Border.Width;
+                seriesItem.border.dashType = chartSeries.Border.DashType.ToString().ToLower();
+            }
+        }
+
+        protected virtual void SetKendoSeriesAdditionalOptions(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
         }
 
     }
