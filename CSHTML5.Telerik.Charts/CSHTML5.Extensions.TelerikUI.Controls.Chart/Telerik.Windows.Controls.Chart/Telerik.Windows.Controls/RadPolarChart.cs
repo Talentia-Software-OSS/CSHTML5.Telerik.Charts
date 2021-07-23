@@ -30,10 +30,12 @@ namespace Telerik.Windows.Controls
                     seriesItem.style = radarLineSerie.GetChartStyle();
 
                     // mapped fields
-                    var propertyFields = SetInSeriesItemAndGetPropertyFields(radarLineSerie, seriesItem);
+                    var propertyFields = GetPropertyFields(radarLineSerie, seriesItem);
                     // data mapping
                     var res = JSConverters.PrepareSeriesData(radarLineSerie.ItemsSource, propertyFields);
                     seriesItem.data = res;
+
+                    SetKendoSeriesOptions(radarLineSerie, seriesItem);
 
                     // add serie to series array
                     series.Add(seriesItem);
@@ -43,11 +45,11 @@ namespace Telerik.Windows.Controls
             chartOptions.series = series;
         }
 
-        protected override List<DataPropertyMapping> SetInSeriesItemAndGetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        protected override List<DataPropertyMapping> GetPropertyFields(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
             if (chartSeries is RadarLineSeries)
             {
-                return base.SetInSeriesItemAndGetPropertyFields(chartSeries, seriesItem);
+                return base.GetPropertyFields(chartSeries, seriesItem);
             }
 
             var propertyFields = new List<DataPropertyMapping>();

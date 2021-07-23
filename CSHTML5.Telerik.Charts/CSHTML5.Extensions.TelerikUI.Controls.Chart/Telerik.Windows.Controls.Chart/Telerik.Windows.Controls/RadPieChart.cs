@@ -28,10 +28,12 @@ namespace Telerik.Windows.Controls
                     seriesItem.startAngle = pieSeries.StartAngle;
 
                     // mapped fields
-                    var propertyFields = SetInSeriesItemAndGetPropertyFields(pieSeries, seriesItem);
+                    var propertyFields = GetPropertyFields(pieSeries, seriesItem);
                     // data mapping
                     var res = JSConverters.PrepareSeriesData(pieSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
+
+                    SetKendoSeriesOptions(pieSeries, seriesItem);
 
                     series.Add(seriesItem);
                 }

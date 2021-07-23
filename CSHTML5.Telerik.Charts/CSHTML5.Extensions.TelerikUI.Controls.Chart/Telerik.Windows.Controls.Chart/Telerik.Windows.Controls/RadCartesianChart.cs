@@ -91,10 +91,12 @@ namespace Telerik.Windows.Controls
                     #endregion
 
                     // mapped fields
-                    var propertyFields = SetInSeriesItemAndGetPropertyFields(cartesianSeries, seriesItem);
+                    var propertyFields = GetPropertyFields(cartesianSeries, seriesItem);
                     // data mapping
                     var res = JSConverters.PrepareSeriesData(cartesianSeries.ItemsSource, propertyFields);
                     seriesItem.data = res;
+
+                    SetKendoSeriesOptions(cartesianSeries, seriesItem);
 
                     series.Add(seriesItem);
                 }
@@ -239,6 +241,17 @@ namespace Telerik.Windows.Controls
                         }
                     }
                 }
+            }
+        }
+
+        protected override void SetKendoSeriesAdditionalOptions(ChartSeries chartSeries, ChartSeriesItem seriesItem)
+        {
+            base.SetKendoSeriesAdditionalOptions(chartSeries, seriesItem);
+            var series = chartSeries as BarSeries;
+            if (series != null)
+            {
+                seriesItem.gap = series.Gap;
+                seriesItem.spacing = series.Spacing;
             }
         }
     }
