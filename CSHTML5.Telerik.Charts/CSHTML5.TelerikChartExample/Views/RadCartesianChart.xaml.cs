@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Telerik.Windows.Data;
 
 namespace CSHTML5.TelerikChartExample.Views
@@ -43,9 +44,9 @@ namespace CSHTML5.TelerikChartExample.Views
 
             BrokenItems.AddRange(new List<BrokenViewModel>()
             {
-                new BrokenViewModel() { Label = "In progress", Value = "14", Color = Color.Green },
-                new BrokenViewModel() { Label = "To process", Value = "23", Color = Color.Blue },
-                new BrokenViewModel() { Label = "Suspended", Value = "48", Color = Color.Red },
+                new BrokenViewModel() { Label = "In progress", Value = "14", Color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 77, 77, 77)) },
+                new BrokenViewModel() { Label = "To process", Value = "23", Color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 245, 214, 87)) },
+                new BrokenViewModel() { Label = "Suspended", Value = "48", Color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 176, 124, 198)) },
             }) ;
         }
 

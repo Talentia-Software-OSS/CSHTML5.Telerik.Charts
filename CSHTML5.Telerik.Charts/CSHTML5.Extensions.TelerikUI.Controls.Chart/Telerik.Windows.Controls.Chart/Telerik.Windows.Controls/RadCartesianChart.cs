@@ -61,10 +61,9 @@ namespace Telerik.Windows.Controls
         {
             //todo: refactor this method into smaller methods. Also, we should probably put the similar code for the two axes in the same places (instead of dealing with one axis, then the other).
 
-            ChartOptions chartO = new ChartOptions();
+            //ChartOptions chartO = new ChartOptions();
             var series = new JSArray<ChartSeriesItem>();
 
-            #region Preparing the data points (series)
             foreach (CartesianSeries cartesianSeries in _series)
             {
                 if (cartesianSeries.ItemsSource != null)
@@ -100,7 +99,30 @@ namespace Telerik.Windows.Controls
                     series.Add(seriesItem);
                 }
             }
-            #endregion
+
+            chartOptions.series = series;
+            //_kendoChart.setOptions(chartO);
+
+            if (chartOptions.series.Count != _series.Count)
+            {
+                throw new System.Exception("Not working");
+            }
+        }
+
+        protected override void SetOtherOptions(ChartOptions chartO)
+        {
+            //Setting the chart's background color:
+            Brush background = Background;
+            if (background != null && background is SolidColorBrush)
+            {
+                chartO.chartArea = new ChartChartArea();
+                chartO.chartArea.background = (string)((SolidColorBrush)background).ConvertToCSSValue();
+            }
+        }
+
+        protected override void SetAxis(ChartOptions chartO)
+        {
+            base.SetAxis(chartO);
 
             var categoryAxis = new JSArray<ChartCategoryAxisItem>();
             var categoryAxisItem = new ChartCategoryAxisItem();
@@ -180,7 +202,8 @@ namespace Telerik.Windows.Controls
                 Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
             }
 
-            if (VerticalAxis != null) {
+            if (VerticalAxis != null)
+            {
                 string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
                 if (YAxisColor != null)
                 {
@@ -217,26 +240,6 @@ namespace Telerik.Windows.Controls
                     }
                 }
             }
-
-            //Setting the chart's background color:
-            Brush background = Background;
-            if (background != null && background is SolidColorBrush)
-            {
-                chartO.chartArea = new ChartChartArea();
-                chartO.chartArea.background = (string)((SolidColorBrush)background).ConvertToCSSValue();
-            }
-
-
-            chartO.series = series;
-            _kendoChart.setOptions(chartO);
-
-            if (_kendoChart.options.series.Count != _series.Count)
-            {
-                throw new System.Exception("Not working");
-            }
         }
-        //-------------------------------------//
-        //-------------------------------------//
-        //-------------------------------------//
     }
 }

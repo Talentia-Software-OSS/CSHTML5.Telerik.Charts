@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Windows.Media;
 
 namespace CSHTML5.TelerikChartExample.Helpers
 {
@@ -30,8 +31,8 @@ namespace CSHTML5.TelerikChartExample.Helpers
             }
         }
 
-        private Color _color;
-        public Color Color
+        private Brush _color;
+        public Brush Color
         {
             get { return _color; }
             set
