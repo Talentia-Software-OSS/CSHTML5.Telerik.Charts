@@ -181,6 +181,14 @@ namespace Telerik.Windows.Controls.ChartView
             }
         }
 
+        protected virtual void SetAxis(ChartOptions chartOptions)
+        {
+        }
+
+        protected virtual void SetOtherOptions(ChartOptions chartOptions)
+        {
+        }
+
         protected virtual void SetKendoChartOptions()
         {
             ChartOptions chartOptions = new ChartOptions();
@@ -193,7 +201,9 @@ namespace Telerik.Windows.Controls.ChartView
                 SetKendoChartDefaultsLabel(chartOptions.seriesDefaults);
             }
             SetKendoChartSeries(chartOptions);
-            
+            SetAxis(chartOptions);
+            SetOtherOptions(chartOptions);
+
             _kendoChart.setOptions(chartOptions);
         }
 

@@ -46,17 +46,15 @@ namespace JSConversionHelpers {
                         return string.Format("new Date('{0}')", propertyValue.ToString());
                     case TypeCode.String:
                     default:
-                        return string.Format("'{0}'", propertyValue.ToString());
-                        /*
-                        if (propertyValue.GetType().IsInstanceOfType(typeof(Color)))
+                        if (propertyValue.GetType().IsAssignableFrom(typeof(SolidColorBrush)))
                         {
-                            return string.Format("'{0}'", propertyValue.ToString());
+                            return string.Format("'{0}'", ((SolidColorBrush)propertyValue).ConvertToCSSValue());
                         }
                         else
                         {
-                            return string.Format("{0}", propertyValue.ToString());
+                            return string.Format("'{0}'", propertyValue.ToString());
                         }
-                        */
+
                 }
             }
 
