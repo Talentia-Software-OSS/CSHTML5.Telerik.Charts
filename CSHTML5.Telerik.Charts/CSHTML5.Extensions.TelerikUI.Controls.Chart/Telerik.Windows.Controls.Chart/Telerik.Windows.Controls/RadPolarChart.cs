@@ -15,6 +15,8 @@ namespace Telerik.Windows.Controls
 
         protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
+            base.SetKendoChartSeries(chartOptions);
+
             // create series
             var series = new JSArray<ChartSeriesItem>();
             foreach (PolarLineSeries radarLineSerie in _series) // also RadarLineSeries is a PolarLineSeries

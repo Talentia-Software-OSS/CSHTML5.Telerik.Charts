@@ -2,6 +2,7 @@ using JSConversionHelpers;
 using kendo_ui_chart.kendo.dataviz.ui;
 using System.Collections.Generic;
 using System.Windows;
+using System.Linq;
 
 namespace Telerik.Windows.Controls.ChartView
 {
@@ -207,6 +208,14 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected virtual void SetKendoSeriesAdditionalOptions(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
+        }
+
+        protected override void SetKendoChartSeries(ChartOptions chartOptions)
+        {
+            var hasData = null != _series.FirstOrDefault(serie => serie.ItemsSource != null && serie.ItemsSource.Cast<object>().Count() > 0);
+
+            this._kendoChart.Visibility = hasData ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            this._noDataTextBlock.Text = NoDataMessage;
         }
 
     }

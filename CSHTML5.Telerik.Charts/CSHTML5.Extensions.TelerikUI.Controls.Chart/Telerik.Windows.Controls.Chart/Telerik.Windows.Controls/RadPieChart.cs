@@ -1,4 +1,5 @@
 ﻿using JSConversionHelpers;
+using System.Linq;
 using kendo_ui_chart.kendo.dataviz.ui;
 using Telerik.Windows.Controls.ChartView;
 using TypeScriptDefinitionsSupport;
@@ -14,6 +15,7 @@ namespace Telerik.Windows.Controls
 
         protected override void SetKendoChartSeries(ChartOptions chartOptions)
         {
+            base.SetKendoChartSeries(chartOptions);
             var series = new JSArray<ChartSeriesItem>();
             foreach (PieSeries pieSeries in _series)
             {
