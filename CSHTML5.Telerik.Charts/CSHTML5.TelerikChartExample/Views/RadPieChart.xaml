@@ -11,18 +11,22 @@
                 <telerik:RadPieChart.Tooltip>
                     <telerik:KendoTooltip>
                         <telerik:KendoTooltip.TooltipTemplate>
-                            #= category # (#= kendo.format('{0:P}', percentage) #)
+                            #= category # (#= kendo.format('{0:P0}', percentage) #)
                         </telerik:KendoTooltip.TooltipTemplate>
                     </telerik:KendoTooltip>
                 </telerik:RadPieChart.Tooltip>
                 <telerik:PieSeries ItemsSource="{Binding Path=Items}" CategoryBinding="Category" SeriesName="PieChart Name">
+                    <telerik:PieSeries.Border>
+                        <telerik:KendoBorder Width="2" Color="White">
+                        </telerik:KendoBorder>
+                    </telerik:PieSeries.Border>
                     <telerik:PieSeries.ValueBinding>
                         <telerik:PropertyNameDataPointBinding PropertyName="SerieValue"/>
                     </telerik:PieSeries.ValueBinding>
                     <telerik:PieSeries.Label>
                         <telerik:KendoLabel Position="InsideEnd">
                             <telerik:KendoLabel.LabelTemplate>
-                                #= category # (#= kendo.format('{0:P}', percentage)#)
+                                #= category # (#= kendo.format('{0:P0}', percentage)#)
                             </telerik:KendoLabel.LabelTemplate>
                         </telerik:KendoLabel>
                     </telerik:PieSeries.Label>
