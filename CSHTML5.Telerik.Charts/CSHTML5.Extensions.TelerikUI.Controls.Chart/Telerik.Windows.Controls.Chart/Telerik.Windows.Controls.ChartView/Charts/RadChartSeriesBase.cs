@@ -81,9 +81,14 @@ namespace Telerik.Windows.Controls.ChartView
 
                 seriesItem.labels.visible = chartSeries.Label.Visibility == Visibility.Visible;
                 
-                if (chartSeries.Label.Background != null)
+                if (chartSeries.Label.Background != null )
                 {
                     seriesItem.labels.background = JSConverters.GetStringToSetAsColor(chartSeries.Label.Background);
+                }
+                // workaround for:  https://www.telerik.com/support/kb/aspnet-ajax/chart-(html5)/details/series-labels-color-is-not-transparent
+                else
+                {
+                   seriesItem.labels.background = "transparent";
                 }
 
                 if (chartSeries.Label.Color != null)
