@@ -2,42 +2,33 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:converters="clr-namespace:OpenSilver.Extensions.TelerikUI.Controls.Chart.Converters"
     xmlns:kendo="clr-namespace:kendo_ui_chart.kendo.dataviz.ui;assembly=CSHTML5.Migration.Wrappers.KendoUI.Charts">
- 
-    <Style TargetType="telerik:RadCartesianChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="telerik:RadCartesianChart">
-                    <Border>
-                        <kendo:Chart x:Name="KendoChart"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
-    <Style TargetType="telerik:RadPieChart">
-        <Setter Property="Template">
-          <Setter.Value>
-          <ControlTemplate TargetType="telerik:RadPieChart">
-              <Border>
-                <kendo:Chart x:Name="KendoChart"/>
-              </Border>
-            </ControlTemplate>
-          </Setter.Value>
-        </Setter>
-      </Style>
+    <converters:InvertVisibilityConverter x:Key="invertVisibilityConverter"/>
 
-    <Style TargetType="telerik:RadPolarChart">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="telerik:RadPolarChart">
-                    <Border>
-                        <kendo:Chart x:Name="KendoChart"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    <Style x:Name="DefaultCharts" TargetType="Control">
+      <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="telerik:RadPieChart">
+          <Border>
+            <Grid>
+              <kendo:Chart x:Name="KendoChart"/>
+              <TextBlock x:Name="NoDataTextBlock" 
+                         Visibility="{Binding Visibility, Converter={StaticResource invertVisibilityConverter}, ElementName=KendoChart}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"/>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+    </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="telerik:RadCartesianChart" BasedOn="{StaticResource DefaultCharts}"/>
+
+  <Style TargetType="telerik:RadPieChart" BasedOn="{StaticResource DefaultCharts}"/>
+
+  <Style TargetType="telerik:RadPolarChart" BasedOn="{StaticResource DefaultCharts}"/>
 
 </ResourceDictionary>

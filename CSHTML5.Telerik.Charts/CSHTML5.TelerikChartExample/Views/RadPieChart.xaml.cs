@@ -38,6 +38,7 @@ namespace CSHTML5.TelerikChartExample.Views
         public static RadObservableCollection<SerieObject> GetSerie()
         {
             RadObservableCollection<SerieObject> serie = new RadObservableCollection<SerieObject>();
+            
 
             serie.Add(new SerieObject() { Category = "Asia", SerieValue = 53.8, Color = "#9de219" });
             serie.Add(new SerieObject() { Category = "Europe", SerieValue = 16.1, Color = "#90cc38" });
@@ -45,6 +46,7 @@ namespace CSHTML5.TelerikChartExample.Views
             serie.Add(new SerieObject() { Category = "Africa", SerieValue = 9.6, Color = "#006634" });
             serie.Add(new SerieObject() { Category = "Middle East", SerieValue = 5.2, Color = "#004d38" });
             serie.Add(new SerieObject() { Category = "North America", SerieValue = 3.6, Color = "#033939" });
+            
 
             return serie;
         }

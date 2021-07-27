@@ -8,6 +8,7 @@ using System.Windows.Markup;
 using CSHTML5.Internal;
 using kendo_ui_chart.kendo.dataviz.ui;
 using JSConversionHelpers;
+using System.Windows.Controls;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -24,11 +25,13 @@ namespace Telerik.Windows.Controls.ChartView
         #region Non-Generated methods
 
         protected kendo_ui_chart.kendo.dataviz.ui.Chart _kendoChart;
+        protected TextBlock _noDataTextBlock;
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             _kendoChart = this.GetTemplateChild("KendoChart") as kendo_ui_chart.kendo.dataviz.ui.Chart;
+            _noDataTextBlock = this.GetTemplateChild("NoDataTextBlock") as TextBlock;
         }
 
         private INTERNAL_DispatcherQueueHandler _dispatcherQueueToRefreshTheChart = new INTERNAL_DispatcherQueueHandler();
@@ -216,6 +219,7 @@ namespace Telerik.Windows.Controls.ChartView
         public static readonly DependencyProperty KendoLegendProperty = DependencyProperty.Register("KendoLegendProperty", typeof(KendoLegend), typeof(RadChartBase), null);
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(RadChartBase), null);
         public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
+        public static readonly DependencyProperty NoDataMessageProperty = DependencyProperty.Register("NoDataMessageProperty", typeof(string), typeof(RadChartBase), new PropertyMetadata("No data to plot"));
 
         //-------------------------------------//
         //-------------------------------------//
@@ -245,6 +249,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoLabel)this.GetValue(RadChartBase.KendoLabelProperty); }
             set { this.SetValue(RadChartBase.KendoLabelProperty, (object)value); }
+        }
+
+        public string NoDataMessage
+        {
+            get { return (string)this.GetValue(RadChartBase.NoDataMessageProperty); }
+            set { this.SetValue(RadChartBase.NoDataMessageProperty, (object)value); }
         }
 
         //-------------------------------------//
