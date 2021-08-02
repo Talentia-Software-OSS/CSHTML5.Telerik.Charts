@@ -25,11 +25,17 @@ namespace Telerik.Windows.Controls.ChartView
     public class KendoLegend : Control
     {
         public static readonly DependencyProperty ColorProperty = DependencyProperty.Register("ColorProperty", typeof(Brush), typeof(KendoLegend), null);
+        public static readonly DependencyProperty SeriesColorProperty = DependencyProperty.Register("SeriesColorProperty", typeof(Brush), typeof(KendoLegend), null);
         public static readonly DependencyProperty PositionProperty = DependencyProperty.Register("PositionProperty", typeof(LegendPosition), typeof(KendoLegend), new PropertyMetadata(LegendPosition.Right));
 
         public Brush Color
         {
             get { return (Brush)this.GetValue(KendoLegend.ColorProperty); }
+            set { this.SetValue(KendoLegend.ColorProperty, (object)value); }
+        }
+        public Brush[] SeriesColor
+        {
+            get { return (Brush[])this.GetValue(KendoLegend.ColorProperty); }
             set { this.SetValue(KendoLegend.ColorProperty, (object)value); }
         }
 

@@ -7,6 +7,7 @@ using System.Windows.Markup;
 using System.Collections;
 using System.Collections.Specialized;
 using System;
+using System.Windows.Media;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -31,6 +32,7 @@ namespace Telerik.Windows.Controls.ChartView
         public static readonly DependencyProperty KendoTooltipProperty = DependencyProperty.Register("KendoTooltipProperty", typeof(KendoTooltip), typeof(ChartSeries), null);
         public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(ChartSeries), null);
         public static readonly DependencyProperty KendoBorderProperty = DependencyProperty.Register("KendoBorderProperty", typeof(KendoBorder), typeof(ChartSeries), new PropertyMetadata(KendoBorder.NoBorder));
+        public static readonly DependencyProperty SeriesColorProperty = DependencyProperty.Register("SeriesColorProperty", typeof(Brush), typeof(ChartSeries), null);
 
         public string SeriesName
         {
@@ -54,6 +56,12 @@ namespace Telerik.Windows.Controls.ChartView
         {
             get { return (KendoBorder)this.GetValue(ChartSeries.KendoBorderProperty); }
             set { this.SetValue(ChartSeries.KendoBorderProperty, (object)value); }
+        }
+
+        public Brush SeriesColor
+        {
+            get { return (Brush)this.GetValue(KendoLegend.SeriesColorProperty); }
+            set { this.SetValue(KendoLegend.SeriesColorProperty, (object)value); }
         }
 
         //-------------------------------------//
