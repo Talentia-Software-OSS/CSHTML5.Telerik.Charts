@@ -208,6 +208,11 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected virtual void SetKendoSeriesAdditionalOptions(ChartSeries chartSeries, ChartSeriesItem seriesItem)
         {
+            if (chartSeries.SeriesColor != null)
+            {
+                seriesItem.color = JSConverters.GetStringToSetAsColor(chartSeries.SeriesColor);
+            }
+
         }
 
         protected override void SetKendoChartSeries(ChartOptions chartOptions)

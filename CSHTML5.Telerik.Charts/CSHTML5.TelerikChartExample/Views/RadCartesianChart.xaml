@@ -11,7 +11,7 @@
             <telerik:RadCartesianChart x:Name="ReferenceGraph" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
                 <telerik:RadCartesianChart.Legend>
                     <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
-                                         Position="Top" Background="Red">
+                                         Position="Top" Background="Transparent">
                     </telerik:KendoLegend>
                 </telerik:RadCartesianChart.Legend>
                 <telerik:RadCartesianChart.Tooltip>
@@ -81,17 +81,21 @@
             </telerik:RadCartesianChart>
 
           <telerik:RadCartesianChart x:Name="BrokenChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="White" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
-                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color">
+                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Test" SeriesName="Serie1" SeriesColor="Blue">
                     <telerik:BarSeries.Label>
                         <telerik:KendoLabel Visibility="Visible" Background="Blue"></telerik:KendoLabel>
                     </telerik:BarSeries.Label>
                 </telerik:BarSeries>
-                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color">
+                <telerik:BarSeries Type="Column" CategoryBinding="Label" ValueBinding="Value" ItemsSource="{Binding Path=BrokenItems}" ColorBinding="Color" SeriesName="Serie2" SeriesColor="Green">
                 </telerik:BarSeries>
                 <telerik:RadCartesianChart.Label>
                     <telerik:KendoLabel Visibility="Visible" Background="Yellow"></telerik:KendoLabel>
                 </telerik:RadCartesianChart.Label>
-
+                <telerik:RadCartesianChart.Legend>
+                    <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
+                                         Position="Bottom" Background="Transparent" MarkersHeight="10" MarkersWidth="10">
+                    </telerik:KendoLegend>
+                </telerik:RadCartesianChart.Legend>
             </telerik:RadCartesianChart>
       <Button Content="Apply Non-Graphic Selection Method" Margin="0,20,0,0" Click="Button_Click" HorizontalAlignment="Left"/>
         </StackPanel>
