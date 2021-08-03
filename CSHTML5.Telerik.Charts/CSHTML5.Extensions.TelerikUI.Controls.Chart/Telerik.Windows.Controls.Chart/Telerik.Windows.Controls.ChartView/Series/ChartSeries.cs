@@ -60,8 +60,8 @@ namespace Telerik.Windows.Controls.ChartView
 
         public Brush SeriesColor
         {
-            get { return (Brush)this.GetValue(KendoLegend.SeriesColorProperty); }
-            set { this.SetValue(KendoLegend.SeriesColorProperty, (object)value); }
+            get { return (Brush)this.GetValue(ChartSeries.SeriesColorProperty); }
+            set { this.SetValue(ChartSeries.SeriesColorProperty, (object)value); }
         }
 
         //-------------------------------------//

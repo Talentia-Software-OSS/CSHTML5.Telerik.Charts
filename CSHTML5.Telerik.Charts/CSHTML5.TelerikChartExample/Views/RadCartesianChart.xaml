@@ -93,7 +93,7 @@
                 </telerik:RadCartesianChart.Label>
                 <telerik:RadCartesianChart.Legend>
                     <telerik:KendoLegend Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="11"
-                                         Position="Bottom" Background="Transparent">
+                                         Position="Bottom" Background="Transparent" MarkersHeight="10" MarkersWidth="10">
                     </telerik:KendoLegend>
                 </telerik:RadCartesianChart.Legend>
             </telerik:RadCartesianChart>
