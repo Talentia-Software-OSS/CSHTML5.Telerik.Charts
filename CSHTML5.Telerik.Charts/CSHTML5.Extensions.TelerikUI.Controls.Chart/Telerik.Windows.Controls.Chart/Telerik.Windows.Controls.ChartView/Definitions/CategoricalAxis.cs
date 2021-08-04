@@ -1,17 +1,6 @@
-//-------------------------------------//
-//-------------- USINGS ---------------//
-//-------------------------------------//
-using Telerik.Windows.Controls.Primitives;
-using System.Windows.Controls;
-using System.Windows;
-using System;
-//-------------------------------------//
-//-------------------------------------//
-//-------------------------------------//
-
 namespace Telerik.Windows.Controls.ChartView
 {
-    public class CategoricalAxis : CartesianAxis
+    public class CategoricalAxis : ChartAxis
     {
         //-------------------------------------//
         //-------------- FIELDS ---------------//

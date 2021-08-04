@@ -9,6 +9,8 @@ using CSHTML5.Internal;
 using kendo_ui_chart.kendo.dataviz.ui;
 using JSConversionHelpers;
 using System.Windows.Controls;
+using TypeScriptDefinitionsSupport;
+using CSHTML5;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -186,7 +188,198 @@ namespace Telerik.Windows.Controls.ChartView
 
         protected virtual void SetAxis(ChartOptions chartOptions)
         {
+            // get gridlines visibility
+            bool hideCategoryAxisGridLines = false;
+            bool hideValueAxisGridLines = false;
+            if (Grid != null)
+            {
+                #region Determining Whether to hide the Grid lines or not.
+                switch (Grid.MajorLinesVisibility)
+                {
+                    case GridLineVisibility.None:
+                        hideCategoryAxisGridLines = true;
+                        hideValueAxisGridLines = true;
+                        break;
+                    case GridLineVisibility.X:
+                        hideValueAxisGridLines = true;
+                        break;
+                    case GridLineVisibility.Y:
+                        hideCategoryAxisGridLines = true;
+                        break;
+                    case GridLineVisibility.XY:
+                        break;
+                    default:
+                        break;
+                }
+                #endregion
+            }
+
+            var categoryAxisItem = GetCategoryAxis(hideCategoryAxisGridLines);
+            if (categoryAxisItem != null)
+            {
+                var categoryAxis = new JSArray<ChartCategoryAxisItem>();
+                categoryAxis.Add(categoryAxisItem);
+                chartOptions.categoryAxis = categoryAxis;
+            }
+
+            var valueAxisItem = GetValueAxis(hideValueAxisGridLines);
+            if (valueAxisItem != null)
+            {
+                var valueAxis = new JSArray<ChartValueAxisItem>();
+                valueAxis.Add(valueAxisItem);
+                chartOptions.valueAxis = valueAxis;
+            }
+
+            SetBehaviors(chartOptions, categoryAxisItem);
         }
+
+        #region Axis Setters
+        private void SetBehaviors(ChartOptions chartO, ChartCategoryAxisItem categoryAxisItem)
+        {
+            if (Behaviors != null)
+            {
+                foreach (var behavior in Behaviors)
+                {
+                    if (behavior is ChartTrackBallBehavior)
+                    {
+                        ChartTrackBallBehavior behaviorAsCTBB = (ChartTrackBallBehavior)behavior;
+                        if (behaviorAsCTBB.ShowIntersectionPoints)
+                        {
+                            categoryAxisItem.crosshair = new ChartCategoryAxisItemCrosshair();
+                            Interop.ExecuteJavaScript("$0.visible = true", categoryAxisItem.crosshair.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.crosshair.visible = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                            //categoryAxisItem.crosshair.tooltip = new ChartCategoryAxisItemCrosshairTooltip();
+                            //Interop.ExecuteJavaScript("$0.visible = true", categoryAxisItem.crosshair.tooltip.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.crosshair.visible = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                            //categoryAxisItem.crosshair.tooltip.format = "Date: {0:d}";
+
+                            chartO.tooltip = new ChartTooltip(); //todo: move this to somewhere more adapted?
+                            //Interop.ExecuteJavaScript("$0.visible = true", chartO.tooltip.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.crosshair.visible = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                            Interop.ExecuteJavaScript("$0.shared = true", chartO.tooltip.UnderlyingJSInstance); //todo: find out how to do chartO.tooltip.shared = true; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                                                                                                                //                            chartO.tooltip.sharedTemplate = @"<div>#: category #</div>
+                                                                                                                //# for (var i = 0; i < points.length; i++) { #
+                                                                                                                //    <div>#: points[i].series.name# : #: points[i].value #</div>
+                                                                                                                //# } #";
+                        }
+                    }
+                }
+            }
+        }
+
+        private ChartValueAxisItem GetValueAxis(bool hideValueAxisGridLines)
+        {
+            bool modifiedValueAxis = false;
+            bool createdMajorGridLines = false;
+            var valueAxisItem = new ChartValueAxisItem();
+
+            if (VerticalAxis != null)
+            {
+                string YAxisColor = JSConverters.GetStringToSetAsColor(VerticalAxis.LineStroke);
+                if (YAxisColor != null)
+                {
+                    valueAxisItem.color = YAxisColor;
+                }
+
+                modifiedValueAxis = true;
+            }
+
+            if (Grid != null)
+            {
+                valueAxisItem.visible = Grid.ValueAxisVisibility == Visibility.Visible;
+
+                if (Grid.MajorYLineDashArray != null)
+                {
+                    if (!createdMajorGridLines)
+                    {
+                        valueAxisItem.majorGridLines = new ChartValueAxisItemMajorGridLines();
+                        createdMajorGridLines = true;
+                    }
+                    valueAxisItem.majorGridLines.dashType = "dash"; //Note: it's MajorYLineDashArray="5, 2" but I think the kendo charts only support a set of values: "dash","dashDot","dot","longDash","longDashDot","longDashDotDot" and "solid"
+                    modifiedValueAxis = true;
+                }
+
+                if (Grid.MajorLineType != GridLinesType.Default)
+                {
+                    if (!createdMajorGridLines)
+                    {
+                        valueAxisItem.majorGridLines = new ChartValueAxisItemMajorGridLines();
+                        createdMajorGridLines = true;
+                    }
+                    valueAxisItem.majorGridLines.type = JSConverters.FirstCharToLowerCase(Grid.MajorLineType.ToString());
+                    modifiedValueAxis = true;
+                }
+
+                if (Grid.MajorLineStep >= 0)
+                {
+                    if (!createdMajorGridLines)
+                    {
+                        valueAxisItem.majorGridLines = new ChartValueAxisItemMajorGridLines();
+                        createdMajorGridLines = true;
+                    }
+                    valueAxisItem.majorGridLines.step = Grid.MajorLineStep;
+                    modifiedValueAxis = true;
+                }
+            }
+
+            //hiding the horizontal lines:
+            if (hideValueAxisGridLines)
+            {
+                if (!createdMajorGridLines)
+                {
+                    valueAxisItem.majorGridLines = new ChartValueAxisItemMajorGridLines();
+                    createdMajorGridLines = true;
+                }
+                valueAxisItem.majorGridLines.visible = false;
+                //Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.majorGridLines.UnderlyingJSInstance); //todo: find out how to do valueAxisItem.majorGridLines.visible = false; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                valueAxisItem.minorGridLines = new ChartValueAxisItemMinorGridLines();
+                valueAxisItem.minorGridLines.visible = false;
+                //Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
+                modifiedValueAxis = true;
+            }
+
+            if (modifiedValueAxis)
+            {
+                return valueAxisItem;
+            }
+
+            return null;
+        }
+
+        private ChartCategoryAxisItem GetCategoryAxis(bool hideCategoryAxisGridLines)
+        {
+            var categoryAxisItem = new ChartCategoryAxisItem();
+
+            if (HorizontalAxis != null)
+            {
+                var labels = new ChartCategoryAxisItemLabels();
+                labels.rotation = HorizontalAxis.LabelFitMode == Charting.AxisLabelFitMode.Rotate ? -60 : 0;
+                labels.format = HorizontalAxis.LabelFormat; //Note: this seems to apply to DateFormats as well so I don't think we need to set labels.dateFormats
+                labels.font = HorizontalAxis.FontFamily != null ? HorizontalAxis.FontFamily.Source : null;
+
+                //labels.color = "LightGray"; //todo: find out what defines the label's color (it is not HorizontalAxis.Foreground apparently)
+                categoryAxisItem.labels = labels;
+
+                string XAxisColor = JSConverters.GetStringToSetAsColor(HorizontalAxis.LineStroke);
+                if (XAxisColor != null)
+                {
+                    categoryAxisItem.color = XAxisColor;
+                }
+            }
+
+            if (Grid != null)
+            {
+                //hiding the vertical lines:
+                if (hideCategoryAxisGridLines)
+                {
+                    categoryAxisItem.majorGridLines = new ChartCategoryAxisItemMajorGridLines();
+                    Interop.ExecuteJavaScript("$0.visible = false", categoryAxisItem.majorGridLines.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.majorGridLines.visible = false; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
+                    categoryAxisItem.minorGridLines = new ChartCategoryAxisItemMinorGridLines();
+                    Interop.ExecuteJavaScript("$0.visible = false", categoryAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
+                }
+            }
+
+            return categoryAxisItem;
+        }
+
+        #endregion
 
         protected virtual void SetOtherOptions(ChartOptions chartOptions)
         {
@@ -221,6 +414,9 @@ namespace Telerik.Windows.Controls.ChartView
         public static readonly DependencyProperty KendoLabelProperty = DependencyProperty.Register("KendoLabelProperty", typeof(KendoLabel), typeof(RadChartBase), null);
         public static readonly DependencyProperty NoDataMessageProperty = DependencyProperty.Register("NoDataMessageProperty", typeof(string), typeof(RadChartBase), new PropertyMetadata("No data to plot"));
 
+        protected ChartGrid _grid;
+        public static readonly DependencyProperty HorizontalAxisProperty = DependencyProperty.Register("HorizontalAxisProperty", typeof(ChartAxis), typeof(RadCartesianChart), null);
+        public static readonly DependencyProperty VerticalAxisProperty = DependencyProperty.Register("VerticalAxisProperty", typeof(ChartAxis), typeof(RadCartesianChart), null);
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
@@ -228,6 +424,22 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         //------------ PROPERTIES -------------//
         //-------------------------------------//
+        public ChartGrid Grid
+        {
+            get { return _grid; }
+            set { _grid = value; }
+        }
+        public ChartAxis HorizontalAxis
+        {
+            get { return (ChartAxis)this.GetValue(RadCartesianChart.HorizontalAxisProperty); }
+            set { this.SetValue(RadCartesianChart.HorizontalAxisProperty, (object)value); }
+        }
+        public ChartAxis VerticalAxis
+        {
+            get { return (ChartAxis)this.GetValue(RadCartesianChart.VerticalAxisProperty); }
+            set { this.SetValue(RadCartesianChart.VerticalAxisProperty, (object)value); }
+        }
+
         public ChartBehaviorCollection Behaviors
         {
             get { return (ChartBehaviorCollection)this.GetValue(RadChartBase.BehaviorsProperty); }
@@ -266,10 +478,10 @@ namespace Telerik.Windows.Controls.ChartView
         //-------------------------------------//
         protected RadChartBase()
         {
+            _grid = null;
         }
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
-
     }
 }

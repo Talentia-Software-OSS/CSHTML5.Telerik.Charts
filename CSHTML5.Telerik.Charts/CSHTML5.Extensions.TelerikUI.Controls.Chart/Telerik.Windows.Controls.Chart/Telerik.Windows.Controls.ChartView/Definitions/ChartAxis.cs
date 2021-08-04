@@ -1,15 +1,16 @@
 namespace Telerik.Windows.Controls.ChartView
 {
-    public abstract class CartesianAxis: ChartAxis
+    public abstract class ChartAxis : LineAxis
     {
         //-------------------------------------//
         //------------- METHODS ---------------//
         //-------------------------------------//
-        protected CartesianAxis()
+        protected ChartAxis()
         {
         }
         //-------------------------------------//
         //-------------------------------------//
         //-------------------------------------//
+
     }
 }
