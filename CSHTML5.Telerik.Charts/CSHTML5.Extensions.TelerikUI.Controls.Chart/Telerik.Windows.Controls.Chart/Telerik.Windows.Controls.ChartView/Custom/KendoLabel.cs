@@ -36,7 +36,7 @@ namespace Telerik.Windows.Controls.ChartView
         Default,
         // for pie and donnut chart
         Circle,
-        Column,
+        Column
     }
 
     public class KendoLabel : Control
