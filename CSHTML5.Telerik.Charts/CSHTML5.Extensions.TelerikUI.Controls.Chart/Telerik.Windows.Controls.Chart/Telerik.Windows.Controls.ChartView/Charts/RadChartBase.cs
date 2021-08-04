@@ -9,8 +9,9 @@ using CSHTML5.Internal;
 using kendo_ui_chart.kendo.dataviz.ui;
 using JSConversionHelpers;
 using System.Windows.Controls;
-using TypeScriptDefinitionsSupport;
+using System.Text;
 using CSHTML5;
+using TypeScriptDefinitionsSupport;
 //-------------------------------------//
 //-------------------------------------//
 //-------------------------------------//
@@ -178,6 +179,23 @@ namespace Telerik.Windows.Controls.ChartView
                 if (Legend.Color != null)
                 {
                     chartOptions.legend.labels.color = JSConverters.GetStringToSetAsColor(Legend.Color);
+                }
+
+                // setting markers for legend
+                if (Legend.MarkersHeight >= 0 || Legend.MarkersWidth >= 0)
+                {
+                    StringBuilder sb = new StringBuilder("");
+                    sb.Append("$0.markers = {");
+                    if (Legend.MarkersHeight >= 0)
+                    {
+                        sb.AppendFormat("'{0}': {1},", "height", Legend.MarkersHeight);
+                    }
+                    if (Legend.MarkersWidth >= 0)
+                    {
+                        sb.AppendFormat("'{0}': {1},", "width", Legend.MarkersWidth);
+                    }
+                    sb.Append("};");
+                    Interop.ExecuteJavaScript(sb.ToString(), chartOptions.legend.UnderlyingJSInstance);
                 }
 
                 // set position and alignment
