@@ -420,7 +420,7 @@ namespace Telerik.Windows.Controls.ChartView
                     categoryAxisItem.color = XAxisColor;
                 }
             }
-
+ 
             if (Grid != null)
             {
                 //hiding the vertical lines:
