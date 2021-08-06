@@ -286,6 +286,7 @@ namespace Telerik.Windows.Controls.ChartView
         {
             bool modifiedValueAxis = false;
             bool createdMajorGridLines = false;
+            bool createdMinorGridLines = false;
             var valueAxisItem = new ChartValueAxisItem();
 
             if (VerticalAxis != null)
@@ -335,6 +336,44 @@ namespace Telerik.Windows.Controls.ChartView
                     valueAxisItem.majorGridLines.step = Grid.MajorLineStep;
                     modifiedValueAxis = true;
                 }
+
+                if (Grid.ValueAxisNarrowRange != true)
+                {
+                    valueAxisItem.narrowRange = Grid.ValueAxisNarrowRange;
+                    modifiedValueAxis = true;
+                }
+
+                if (Grid.MinorLinesVisibility != GridLineVisibility.None)
+                {
+                    if (!createdMinorGridLines)
+                    {
+                        valueAxisItem.minorGridLines = new ChartValueAxisItemMinorGridLines();
+                        createdMinorGridLines = true;
+                    }
+                    valueAxisItem.minorGridLines.visible = Grid.MinorLinesVisibility == GridLineVisibility.XY || Grid.MinorLinesVisibility == GridLineVisibility.Y;
+                    modifiedValueAxis = true;
+                }
+
+                if (Grid.MinorLineType != GridLinesType.Default)
+                {
+                    if (!createdMinorGridLines)
+                    {
+                        valueAxisItem.minorGridLines = new ChartValueAxisItemMinorGridLines();
+                        createdMinorGridLines = true;
+                    }
+                    valueAxisItem.minorGridLines.type = JSConverters.FirstCharToLowerCase(Grid.MajorLineType.ToString());
+                    modifiedValueAxis = true;
+                }
+
+                if (Grid.MajorUnit > -1)
+                {
+                    valueAxisItem.majorUnit = Grid.MajorUnit;
+                }
+
+                if (Grid.MinorUnit > -1)
+                {
+                    valueAxisItem.minorUnit = Grid.MinorUnit;
+                }
             }
 
             //hiding the horizontal lines:
@@ -343,13 +382,13 @@ namespace Telerik.Windows.Controls.ChartView
                 if (!createdMajorGridLines)
                 {
                     valueAxisItem.majorGridLines = new ChartValueAxisItemMajorGridLines();
-                    createdMajorGridLines = true;
                 }
                 valueAxisItem.majorGridLines.visible = false;
-                //Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.majorGridLines.UnderlyingJSInstance); //todo: find out how to do valueAxisItem.majorGridLines.visible = false; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
-                valueAxisItem.minorGridLines = new ChartValueAxisItemMinorGridLines();
-                valueAxisItem.minorGridLines.visible = false;
-                //Interop.ExecuteJavaScript("$0.visible = false", valueAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
+                if (!createdMinorGridLines)
+                {
+                    valueAxisItem.minorGridLines = new ChartValueAxisItemMinorGridLines();
+                    valueAxisItem.minorGridLines.visible = false;
+                }
                 modifiedValueAxis = true;
             }
 
@@ -381,7 +420,7 @@ namespace Telerik.Windows.Controls.ChartView
                     categoryAxisItem.color = XAxisColor;
                 }
             }
-
+ 
             if (Grid != null)
             {
                 //hiding the vertical lines:
@@ -391,6 +430,16 @@ namespace Telerik.Windows.Controls.ChartView
                     Interop.ExecuteJavaScript("$0.visible = false", categoryAxisItem.majorGridLines.UnderlyingJSInstance); //todo: find out how to do categoryAxisItem.majorGridLines.visible = false; without having Bridge break everything by boxing the value even though it is boxed in the generated code.
                     categoryAxisItem.minorGridLines = new ChartCategoryAxisItemMinorGridLines();
                     Interop.ExecuteJavaScript("$0.visible = false", categoryAxisItem.minorGridLines.UnderlyingJSInstance); //todo: same as above.
+                }
+
+                if (Grid.CategoryAxisStartAngle != JSConverters.StartAngle.Default)
+                {
+                    categoryAxisItem.startAngle = (int)Grid.CategoryAxisStartAngle;
+                }
+
+                if (Grid.CategoryAxisReverse)
+                {
+                    categoryAxisItem.reverse = Grid.CategoryAxisReverse;
                 }
             }
 

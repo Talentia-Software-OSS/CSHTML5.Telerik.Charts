@@ -64,7 +64,22 @@ namespace JSConversionHelpers {
     }
 
     public static class JSConverters
-    { 
+    {
+        public enum StartAngle
+        {
+            Default = 0,
+            Angle45 = 45,
+            Angle75 = 75,
+            Angle105 = 105,
+            Angle135 = 135,
+            Angle150 = 150,
+            Angle180 = 180,
+            Angle255 = 255,
+            Angle225 = 225,
+            Angle285 = 285,
+            Angle315 = 315
+        }
+
         public enum JSAlignment
         {
             start,

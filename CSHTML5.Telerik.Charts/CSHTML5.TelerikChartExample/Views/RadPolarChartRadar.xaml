@@ -9,7 +9,11 @@
         <StackPanel Orientation="Vertical">
             <telerik:RadPolarChart Name="ExamplePolarChart" HorizontalAlignment="Left" Margin="10,18,0,0" Background="Gray" VerticalAlignment="Top" Height="400" Width="730" BorderThickness="0" Visibility="Visible">
                 <telerik:RadPolarChart.Grid>
-                    <telerik:ChartGrid ValueAxisVisibility="Collapsed" MajorLinesVisibility="XY" MajorLineType="Arc" MajorLineStep="2">
+                    <telerik:ChartGrid ValueAxisVisibility="Collapsed" ValueAxisNarrowRange="false" 
+                                       MajorUnit="30" MinorUnit="10"
+                                       MajorLinesVisibility="XY" MajorLineType="Arc" 
+                                       MinorLinesVisibility="Y" MinorLineType="Arc"  
+                                       CategoryAxisStartAngle="Angle180" CategoryAxisReverse="True">
                     </telerik:ChartGrid>
                 </telerik:RadPolarChart.Grid>
                 <telerik:RadPolarChart.Label>
