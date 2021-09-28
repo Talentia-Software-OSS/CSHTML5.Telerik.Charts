@@ -55,4 +55,8 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\&quot;&#xD;&#xA;xcopy /y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)Binaries\OpenSilver\&quot;" />
+	</Target>
 </Project>

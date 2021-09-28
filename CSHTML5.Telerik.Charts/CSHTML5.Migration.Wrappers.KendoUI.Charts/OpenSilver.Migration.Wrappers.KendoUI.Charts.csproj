@@ -47,4 +47,8 @@
   <ItemGroup>
 	  <PackageReference Include="OpenSilver" Version="1.0.0-beta.1.22" />
   </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\&quot;&#xD;&#xA;xcopy /y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)Binaries\OpenSilver\&quot;" />
+	</Target>
 </Project>
