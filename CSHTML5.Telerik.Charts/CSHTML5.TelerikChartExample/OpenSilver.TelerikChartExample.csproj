@@ -67,6 +67,6 @@
     <ProjectReference Include="..\CSHTML5.Migration.Wrappers.KendoUI.Charts\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj" />
   </ItemGroup>
   <ItemGroup>
-	<PackageReference Include="OpenSilver.WorkInProgress" Version="1.0.0-alpha-018" />
+	<PackageReference Include="OpenSilver" Version="1.0.0-beta.1.22" />
   </ItemGroup>
 </Project>

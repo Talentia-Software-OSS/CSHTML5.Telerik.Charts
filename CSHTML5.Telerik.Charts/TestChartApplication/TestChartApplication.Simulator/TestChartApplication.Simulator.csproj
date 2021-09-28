@@ -1,23 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
 		<TargetFramework>net472</TargetFramework>
-		<EnableDefaultItems>false</EnableDefaultItems>
-		<StartAction>Program</StartAction>
-		<RootNamespace>TestChartApplication.Simulator</RootNamespace>
-		<AssemblyName>TestChartApplication.Simulator</AssemblyName>
-		<StartProgram>$(NuGetPackageRoot)\opensilver.workinprogress\1.0.0-alpha-018\tools\simulator\CSharpXamlForHtml5.Simulator.exe</StartProgram>
-		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">"..\..\..\..\..\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
-		<StartArguments Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">"..\..\..\..\..\CSHTML5.TelerikChartExample\bin\Debug\netstandard2.0\CSHTML5.TelerikChartExample.dll"</StartArguments>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Properties\" />
+		<PackageReference Include="OpenSilver.Simulator" Version="1.0.0-beta.1.22" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\CSHTML5.TelerikChartExample\OpenSilver.TelerikChartExample.csproj" />
+		<ProjectReference Include="..\..\CSHTML5.TelerikChartExample\OpenSilver.TelerikChartExample.csproj" />
 	</ItemGroup>
-
 
 </Project>
