@@ -1,0 +1,8 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Update="OpenSilver" Version="1.0.0-talentia.10.06-1" />
+    <PackageReference Update="OpenSilver.Simulator" Version="1.0.0-talentia.10.06-1" />
+    <PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-rc.1.*" />
+    <PackageReference Update="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-rc.1.*" />
+  </ItemGroup>
+</Project>

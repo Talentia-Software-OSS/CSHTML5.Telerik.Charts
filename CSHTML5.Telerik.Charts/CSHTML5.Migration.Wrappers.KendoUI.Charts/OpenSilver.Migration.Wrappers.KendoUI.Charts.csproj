@@ -45,7 +45,7 @@
     <Content Include="styles\Material\sprite.png" />
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="OpenSilver" Version="1.0.0-beta.1.22" />
+	  <PackageReference Include="OpenSilver"/>
   </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

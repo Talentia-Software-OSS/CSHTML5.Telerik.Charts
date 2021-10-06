@@ -23,6 +23,6 @@
     <None Remove="packages.config" />
   </ItemGroup>
   <ItemGroup>
-	<PackageReference Include="OpenSilver" Version="1.0.0-beta.1.22" />
+	<PackageReference Include="OpenSilver"/>
   </ItemGroup>
 </Project>

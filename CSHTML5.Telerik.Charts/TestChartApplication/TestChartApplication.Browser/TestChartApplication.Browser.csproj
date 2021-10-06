@@ -65,10 +65,9 @@
     <None Remove="EmptyOpenSilverMigrationApplication.Browser.csproj.vspscc" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" />
-	<PackageReference Include="OpenSilver" Version="1.0.0-beta.1.22" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+    <PackageReference Include="OpenSilver"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CSHTML5.TelerikChartExample\OpenSilver.TelerikChartExample.csproj" />
