@@ -1,7 +1,16 @@
 <Project>
+	<ItemGroup>
+		<PackageReference Update="OpenSilver" Version="1.0.0-talentia.11.01-1" />
+	</ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(DebugSymbols)' == 'False' AND '$(OutputType)' != 'WinExe' ">
-	  <Exec Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\$(Configuration)\&quot;" />
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(OutputType)' != 'WinExe' AND '$(AssemblyName)' != 'Telerik.Windows.Data' ">
+
+		<!-- Release build -->
+		<Exec Condition=" '$(DebugSymbols)' == 'False' "
+			Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\$(Configuration)\&quot;" />
+
+		<!--Debug build-->
+		<Exec Condition=" '$(DebugSymbols)' == 'True' "
+			Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\$(Configuration)&quot;&#xD;&#xA;xcopy /y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(SolutionDir)Binaries\OpenSilver\$(Configuration)\&quot;" />
 	</Target>
-
 </Project>

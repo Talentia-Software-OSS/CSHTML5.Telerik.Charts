@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "OpenSilver.Telerik.Charts.sln",
+    "projects": [
+      "CSHTML5.Extensions.Common\\OpenSilver.Extensions.Common.csproj",
+      "CSHTML5.Extensions.TelerikUI.Controls.Chart\\OpenSilver.Extensions.TelerikUI.Controls.Chart.csproj",
+      "CSHTML5.Extensions.TelerikUI.Data\\OpenSilver.Extensions.TelerikUI.Data.csproj",
+      "CSHTML5.Migration.Wrappers.KendoUI.Charts\\OpenSilver.Migration.Wrappers.KendoUI.Charts.csproj",
+    ]
+  }
+} 
