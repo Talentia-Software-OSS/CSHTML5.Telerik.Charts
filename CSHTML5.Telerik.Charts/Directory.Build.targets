@@ -1,0 +1,7 @@
+<Project>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(DebugSymbols)' == 'False' AND '$(OutputType)' != 'WinExe' ">
+	  <Exec Command="xcopy /y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;$(SolutionDir)Binaries\OpenSilver\$(Configuration)\&quot;" />
+	</Target>
+
+</Project>
