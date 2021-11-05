@@ -1,6 +1,6 @@
 <Project>
 	<ItemGroup>
-		<PackageReference Update="OpenSilver" Version="1.0.0-talentia.11.01-1" />
+		<PackageReference Update="OpenSilver" Version="1.0.0-talentia.11.05-1" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(OutputType)' != 'WinExe' AND '$(AssemblyName)' != 'Telerik.Windows.Data' ">
